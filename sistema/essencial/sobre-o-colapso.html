@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <link rel="icon" href="/assets/icon/Colapso.jpeg" type="image/jpeg">
+    <title>Sobre o colapso - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Sobre o Colapso */
+        .cronicas-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        .aviso-mestre {
+            background-color: rgba(139, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aviso-mestre h3 {
+            color: #ff6666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .aviso-mestre h3 i {
+            font-size: 1.5rem;
+        }
+
+        .aviso-mestre p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Estilos para as eras */
+        .era {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .era.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .era:nth-child(even) {
+            border-left: 5px solid #8b0000;
+        }
+
+        .era:nth-child(odd) {
+            border-right: 5px solid #8b0000;
+        }
+
+        .cabecalho-era {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #5a0000;
+        }
+
+        .numero-era {
+            background-color: #8b0000;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .titulo-era {
+            color: #ff3333;
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .conteudo-era {
+            color: #dddddd;
+            line-height: 1.7;
+        }
+
+        .conteudo-era p {
+            margin-bottom: 15px;
+        }
+
+        .conteudo-era ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        .conteudo-era li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .conteudo-era li::before {
+            content: '•';
+            color: #ff3333;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+
+        /* Espaços para imagens */
+        .espaco-imagem {
+            height: 250px;
+            background-color: rgba(30, 0, 0, 0.5);
+            border: 2px dashed #8b0000;
+            border-radius: 8px;
+            margin: 25px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999999;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .espaco-imagem:hover {
+            background-color: rgba(50, 0, 0, 0.7);
+            border-color: #ff0000;
+        }
+
+        .espaco-imagem i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #8b0000;
+        }
+
+        /* Mapa */
+        .secao-mapa {
+            margin: 60px 0;
+            padding: 30px;
+            background-color: rgba(15, 15, 15, 0.95);
+            border-radius: 12px;
+            border: 3px solid #5a0000;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .secao-mapa h2 {
+            color: #ff3333;
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container-mapa {
+            height: 500px;
+            background-color: rgba(20, 0, 0, 0.8);
+            border: 2px solid #8b0000;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #aaaaaa;
+            font-size: 1.2rem;
+        }
+
+        .container-mapa i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #8b0000;
+        }
+
+        /* Botão de download */
+        .botao-download {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .botao-download a {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-download a:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ff0000, #ff6666);
+        }
+
+        .botao-download i {
+            font-size: 1.8rem;
+        }
+
+        /* BOTÃO VOLTAR MODIFICADO - CANTO SUPERIOR ESQUERDO */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal para não ficar atrás do botão */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .cronicas-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .era {
+                padding: 20px;
+            }
+            
+            .cabecalho-era {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .secao-mapa {
+                padding: 20px;
+            }
+            
+            .container-mapa {
+                height: 350px;
+            }
+            
+            .botao-download a {
+                padding: 15px 25px;
+                font-size: 1.1rem;
+            }
+            
+            /* Botão voltar em mobile */
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .titulo-era {
+                font-size: 1.5rem;
+            }
+            
+            .container-mapa {
+                height: 250px;
+            }
+            
+            .espaco-imagem {
+                height: 180px;
+            }
+            
+            /* Botão voltar em telas muito pequenas */
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 20px 84px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar - AGORA NO CANTO SUPERIOR ESQUERDO -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="/sistema/home.sistema.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="cronicas-container">
+        <h2 class="titulo-pagina">🌌 Crônicas do Colapso</h2>
+    
+
+        <!-- Era Zero -->
+        <div class="era" id="era-zero">
+            <div class="cabecalho-era">
+                <div class="numero-era">0</div>
+                <h3 class="titulo-era">🕳️ Era Zero — O Colapso Absoluto</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Antes do mundo atual existir, múltiplos universos coexistiam de forma instável. Guerras divinas, paradoxos temporais e experimentos mágicos romperam o equilíbrio do multiverso.</p>
+                <p>O <strong>Deus Colapsal</strong> executa o evento conhecido como <strong>Colapso</strong>: realidades inteiras são esmagadas, fundidas e costuradas em um único plano fragmentado.</p>
+                <p>Cinco entidades emergem como observadores supremos desse novo mundo. Eles <strong>não criam tudo</strong>, mas reorganizam o que sobrou.</p>
+                
+                <div class="espaco-imagem">
+                    <i class="fas fa-mountain"></i>
+                    <span>Espaço para imagem: Universos em colisão</span>
+                </div>
+                
+                <h4>Os Cinco Deuses Desconhecidos</h4>
+                <ul>
+                    <li><strong>Deus Colapsal</strong> — O arquiteto do desastre. Age como um apostador cósmico, cria cenários e observa qual prospera.</li>
+                    <li><strong>Deus do Tempo</strong> — Fragmenta linhas temporais, criando eras instáveis, ecos do futuro e regiões onde o tempo falhou.</li>
+                    <li><strong>Deus do Espaço</strong> — Dobra distâncias, cria portais espontâneos e regiões que desafiam geometria.</li>
+                    <li><strong>Deus da Mana</strong> — Mistura sistemas mágicos incompatíveis, forçando a mana a se adaptar.</li>
+                    <li><strong>Deus do Apocalipse</strong> — Executor. Surge quando algo foge do controle.</li>
+                </ul>
+                <p>Deuses mitológicos antigos (Zeus, Rá, Thor e outros) são considerados <strong>entidades menores</strong>. Alguns resistem. Não sobrevivem.</p>
+            </div>
+        </div>
+
+        <!-- Primeira Era -->
+        <div class="era" id="era-um">
+            <div class="cabecalho-era">
+                <div class="numero-era">1</div>
+                <h3 class="titulo-era">🧬 Primeira Era — A Era dos Monstros Primordiais</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>O mundo nasce hostil.</p>
+                <p>Os deuses introduzem criaturas simples, porém adaptáveis, para testar ecossistemas:</p>
+                <ul>
+                    <li>Slimes absorventes</li>
+                    <li>Esqueletos animados por resíduos mágicos</li>
+                    <li>Goblins caóticos</li>
+                </ul>
+                <p>Essas criaturas moldam cavernas, ruínas e campos de batalha. Não existem reinos, apenas <strong>territórios disputados</strong>.</p>
+                <p>Com o tempo, padrões surgem. O jogo se torna previsível.</p>
+                
+                <div class="espaco-imagem">
+                    <i class="fas fa-dragon"></i>
+                    <span>Espaço para imagem: Monstros primordiais</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda Era -->
+        <div class="era" id="era-dois">
+            <div class="cabecalho-era">
+                <div class="numero-era">2</div>
+                <h3 class="titulo-era">🌲 Segunda Era — Guerra Élfica</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Os elfos são trazidos para testar sociedades complexas. Diferente dos monstros, possuem cultura, memória e planejamento.</p>
+                <p>Eles dominam florestas usando magia natural e proteção ambiental extrema.</p>
+                <p>Isso gera conflito direto com os goblins, que:</p>
+                <ul>
+                    <li>Não se adaptam a florestas densas</li>
+                    <li>Preferem terrenos abertos</li>
+                    <li>Desenvolvem táticas de cerco e desgaste</li>
+                </ul>
+                <p>Após décadas de guerra, os goblins conquistam vastas regiões.</p>
+                <p>O resultado <strong>quebra as expectativas divinas</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Terceira Era -->
+        <div class="era" id="era-tres">
+            <div class="cabecalho-era">
+                <div class="numero-era">3</div>
+                <h3 class="titulo-era">✨ Terceira Era — A Era da Mana Instável</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Intrigado, o <strong>Deus da Mana</strong> intervém.</p>
+                <p>A mana do mundo deixa de ser passiva e passa a reagir à <strong>crença</strong>, emoção e intenção.</p>
+                <p>Os goblins recebem acesso indireto à magia através da <strong>Maldição do Deus do Ouro</strong>:</p>
+                <ul>
+                    <li>Ganância fortalece feitiços</li>
+                    <li>Crença distorce a realidade</li>
+                    <li>O impossível se torna improvável, mas possível</li>
+                </ul>
+                <p>Eles são os primeiros a conjurar magia verdadeira, junto aos elfos.</p>
+                
+                <div class="espaco-imagem">
+                    <i class="fas fa-magic"></i>
+                    <span>Espaço para imagem: Mana instável</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quarta Era -->
+        <div class="era" id="era-quatro">
+            <div class="cabecalho-era">
+                <div class="numero-era">4</div>
+                <h3 class="titulo-era">🐉 Quarta Era — A Era dos Titãs, Dragões e Masmorras</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Buscando escala maior, os deuses introduzem ameaças colossais:</p>
+                <ul>
+                    <li>Dragões ancestrais</li>
+                    <li>Titãs errantes</li>
+                    <li>Masmorras vivas que crescem, se adaptam e recompensam poder</li>
+                </ul>
+                <p>A noção de <strong>aventura</strong> nasce aqui.</p>
+                <p>Civilizações que falham viram ruínas.</p>
+            </div>
+        </div>
+
+        <!-- Quinta Era -->
+        <div class="era" id="era-cinco">
+            <div class="cabecalho-era">
+                <div class="numero-era">5</div>
+                <h3 class="titulo-era">🌍 Quinta Era — A Era da Multiplicidade Racial</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>O mundo recebe novas raças, testando convivência, conflito e cultura:</p>
+                <ul>
+                    <li>Loxodontes</li>
+                    <li>Leonim</li>
+                    <li>Tabaxi</li>
+                    <li>Bufonidae</li>
+                    <li>Aarakocra</li>
+                    <li>Thri-kreen</li>
+                    <li>Drocoquelons</li>
+                    <li>Ratfolk</li>
+                </ul>
+                <p>Surgem vilas, rotas comerciais, cidades muradas e tratados frágeis.</p>
+                
+                <div class="espaco-imagem">
+                    <i class="fas fa-users"></i>
+                    <span>Espaço para imagem: Diversidade racial</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sexta Era -->
+        <div class="era" id="era-seis">
+            <div class="cabecalho-era">
+                <div class="numero-era">6</div>
+                <h3 class="titulo-era">🕊️ Sexta Era — A Era da Revelação de Edwiges</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Edwiges, uma Aarakocra estudiosa da mana, descobre <strong>falhas estruturais</strong> no tecido mágico.</p>
+                <p>Sem compreender o multiverso, ela força um ritual proibido e abre um portal dimensional.</p>
+                <p>O <strong>Deus do Apocalipse</strong> manifesta-se fisicamente.</p>
+                <p>Edwiges luta.</p>
+                <p>Contra toda lógica, ela destrói <strong>um de seus braços</strong>.</p>
+                <p>Ela morre.</p>
+                <p>Sua cabeça é exibida magicamente para todo o mundo durante três dias.</p>
+                <p>Edwiges torna-se mito, mártir e aviso.</p>
+            </div>
+        </div>
+
+        <!-- Sétima Era -->
+        <div class="era" id="era-sete">
+            <div class="cabecalho-era">
+                <div class="numero-era">7</div>
+                <h3 class="titulo-era">☄️ Sétima Era — O Apocalipse dos Três Dias</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Em resposta direta, o Deus do Apocalipse inicia um reset parcial.</p>
+                <p>Surgem os <strong>Dragões Pilares</strong>, manifestações elementais:</p>
+                <ul>
+                    <li>Fogo</li>
+                    <li>Gelo</li>
+                    <li>Ar</li>
+                    <li>Terra</li>
+                    <li>Sol</li>
+                    <li>Lua</li>
+                    <li>Eletricidade</li>
+                    <li>Pilar Rei</li>
+                </ul>
+                <p>Mesmo filhotes, são maiores que dragões antigos.</p>
+                <p>Regiões inteiras são destruídas.</p>
+                <p>O mundo entra no <strong>Ano Zero</strong>.</p>
+                
+                <div class="espaco-imagem">
+                    <i class="fas fa-fire"></i>
+                    <span>Espaço para imagem: Dragões Pilares</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Oitava Era -->
+        <div class="era" id="era-oito">
+            <div class="cabecalho-era">
+                <div class="numero-era">8</div>
+                <h3 class="titulo-era">🩸 Oitava Era — A Era das Raças Místicas</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Buscando novas apostas, o Deus Colapsal introduz:</p>
+                <ul>
+                    <li>Draconatos</li>
+                    <li>Inferis</li>
+                    <li>Aeonyx</li>
+                    <li>Humanos</li>
+                    <li>Orcs</li>
+                </ul>
+                <p>Os orcs são gentis, territoriais e fortes, porém amadurecem lentamente.</p>
+                <p>O Deus Colapsal aposta que eles superarão os humanos em 200 anos.</p>
+            </div>
+        </div>
+
+        <!-- Nona Era -->
+        <div class="era" id="era-nove">
+            <div class="cabecalho-era">
+                <div class="numero-era">9</div>
+                <h3 class="titulo-era">⚔️ Nona Era — A Supremacia Humana</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Os humanos crescem rápido, reproduzem em massa e não possuem limites éticos.</p>
+                <ul>
+                    <li>Escravidão</li>
+                    <li>Extermínio racial</li>
+                    <li>Guerras expansionistas</li>
+                </ul>
+                <p>Os orcs são quase extintos.</p>
+            </div>
+        </div>
+
+        <!-- Décima Era -->
+        <div class="era" id="era-dez">
+            <div class="cabecalho-era">
+                <div class="numero-era">10</div>
+                <h3 class="titulo-era">🧠 Décima Era — A Burrice Generalizada</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>O Deus Colapsal interfere diretamente.</p>
+                <p>Todo orc de extremo poder desperta a habilidade:</p>
+                <p><strong>Burrice Generalizada</strong> — A crença molda a realidade.</p>
+                <p>O equilíbrio do mundo é quebrado novamente.</p>
+                
+                <div class="espaco-imagem">
+                    <i class="fas fa-brain"></i>
+                    <span>Espaço para imagem: Manifestação do poder orc</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Décima Primeira Era -->
+        <div class="era" id="era-onze">
+            <div class="cabecalho-era">
+                <div class="numero-era">11</div>
+                <h3 class="titulo-era">🌑 Décima Primeira Era — As Civilizações Ocultas</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Raças oprimidas fogem.</p>
+                <p>Cidades subterrâneas, reinos invisíveis e pactos secretos surgem.</p>
+                <p>Os humanos dominam a superfície.</p>
+            </div>
+        </div>
+
+        <!-- Décima Segunda Era -->
+        <div class="era" id="era-doze">
+            <div class="cabecalho-era">
+                <div class="numero-era">12</div>
+                <h3 class="titulo-era">🧨 Décima Segunda Era — A Rebelião dos Monstros</h3>
+            </div>
+            <div class="conteudo-era">
+                <p>Antigos inimigos se unem.</p>
+                <p>A guerra final começa.</p>
+                <p class="destaque-final"><strong>> Aqui começa a campanha dos jogadores.</strong></p>
+                
+                <div class="espaco-imagem">
+                    <i class="fas fa-fist-raised"></i>
+                    <span>Espaço para imagem: A Grande Rebelião</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção do Mapa -->
+        <div class="secao-mapa">
+            <h2>🗺️ Mapa do Mundo Pós-Colapso</h2>
+            <div class="container-mapa">
+                <i class="fas fa-map"></i>
+                <p>Mapa do mundo após as 12 Eras do Colapso</p>
+                <p><em>Área reservada para o mapa interativo</em></p>
+            </div>
+        </div>
+
+        <!-- Botão de Download -->
+        <div class="botao-download">
+            <a href="#" id="baixar-pdf">
+                <i class="fas fa-file-download"></i>
+                Baixar Crônicas Completo (PDF)
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Efeito de revelação ao rolar
+        document.addEventListener('DOMContentLoaded', function() {
+            const eras = document.querySelectorAll('.era');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visivel');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            eras.forEach(era => {
+                observer.observe(era);
+            });
+            
+            // Simulação de download do PDF
+            document.getElementById('baixar-pdf').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Funcionalidade de download PDF será implementada aqui!\nAs Crônicas do Colapso serão salvas em formato PDF.');
+            });
+            
+            // Adicionar classe visível para a primeira era
+            document.getElementById('era-zero').classList.add('visivel');
+        });
+    </script>
+</body>
+</html>

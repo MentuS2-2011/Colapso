@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <link rel="icon" href="/assets/icon/Colapso.jpeg" type="image/jpeg">
+    <title>Perícias - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Perícias */
+        .pericias-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        /* Introdução */
+        .introducao-pericias {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+        }
+
+        .introducao-pericias h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .introducao-pericias h3 i {
+            font-size: 1.5rem;
+        }
+
+        .introducao-pericias ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        .introducao-pericias li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .introducao-pericias li::before {
+            content: '•';
+            color: #ff3333;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+
+        /* Sistema de Vantagem */
+        .sistema-vantagem {
+            background-color: rgba(30, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid #5a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border-left: 5px solid #ff0000;
+        }
+
+        .sistema-vantagem h4 {
+            color: #ff6666;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sistema-vantagem h4 i {
+            font-size: 1.2rem;
+        }
+
+        .sistema-vantagem p {
+            color: #dddddd;
+            line-height: 1.6;
+        }
+
+        /* Seções por Status */
+        .secao-status {
+            margin: 50px 0;
+        }
+
+        .cabecalho-status {
+            background: linear-gradient(90deg, #8b0000, #ff0000);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 0;
+        }
+
+        .cabecalho-status i {
+            font-size: 1.5rem;
+        }
+
+        .cabecalho-status h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Tabela de Perícias */
+        .tabela-pericias {
+            width: 100%;
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            border: 2px solid #8b0000;
+            border-top: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .linha-cabecalho {
+            background-color: rgba(40, 0, 0, 0.9);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            padding: 15px 20px;
+            border-bottom: 2px solid #5a0000;
+        }
+
+        .coluna-titulo {
+            color: #ff6666;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .linha-pericia {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            padding: 18px 20px;
+            border-bottom: 1px solid #3a0000;
+            transition: all 0.3s ease;
+        }
+
+        .linha-pericia:hover {
+            background-color: rgba(50, 0, 0, 0.4);
+            transform: translateX(5px);
+        }
+
+        .linha-pericia:last-child {
+            border-bottom: none;
+        }
+
+        .linha-pericia:nth-child(even) {
+            background-color: rgba(30, 0, 0, 0.3);
+        }
+
+        .nome-pericia {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nome-pericia .status-abreviacao {
+            background-color: #8b0000;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .descricao-pericia {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Informação sobre pontos */
+        .info-pontos {
+            background-color: rgba(139, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+            padding: 20px;
+            margin: 40px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-pontos h4 {
+            color: #ff6666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-pontos p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Botão voltar ajustado */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Ícones para cada tipo de perícia */
+        .icone-pericia {
+            color: #ff3333;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .pericias-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .introducao-pericias,
+            .sistema-vantagem,
+            .info-pontos {
+                padding: 20px;
+            }
+            
+            .cabecalho-status {
+                padding: 12px 20px;
+            }
+            
+            .cabecalho-status h3 {
+                font-size: 1.5rem;
+            }
+            
+            .linha-pericia {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .linha-cabecalho {
+                display: none;
+            }
+            
+            .nome-pericia {
+                font-size: 1.2rem;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #5a0000;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .cabecalho-status h3 {
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="/sistema/home.sistema.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="pericias-container">
+        <h2 class="titulo-pagina">🎯 Sistema de Perícias</h2>
+        
+        <div class="introducao-pericias">
+            <h3><i class="fas fa-graduation-cap"></i> O que são Perícias?</h3>
+            <p>As <strong>Perícias</strong> representam treinamentos específicos, conhecimentos especializados e aptidões que seu personagem desenvolveu ao longo de sua vida. Enquanto os Status representam o potencial bruto, as Perícias mostram como esse potencial foi aprimorado e direcionado.</p>
+            
+            <p><strong>Como funcionam:</strong></p>
+            <ul>
+                <li>Cada Perícia está vinculada a um Status específico</li>
+                <li>Seu personagem recebe pontos para investir em Perícias baseados em seus Status</li>
+                <li>Cada ponto em um Status concede <strong>5 pontos</strong> para distribuir nas Perícias associadas</li>
+                <li>As Perícias fornecem <strong>Vantagem</strong> em testes relacionados</li>
+            </ul>
+        </div>
+
+        <!-- Sistema de Vantagem -->
+        <div class="sistema-vantagem">
+            <h4><i class="fas fa-dice"></i> Sistema de Vantagem das Perícias</h4>
+            <p>Cada ponto investido em uma Perícia concede <strong>1 ponto de Vantagem</strong> em testes relacionados àquela perícia. Para cada ponto de Vantagem, você pode <strong>rerrolar 1 dado</strong> no teste, mantendo o melhor resultado.</p>
+            <p><strong>Teto máximo:</strong> O máximo de Vantagem que uma Perícia pode fornecer é <strong>10</strong>. Isso significa que mesmo que você tenha mais pontos na perícia, o benefício máximo é rerrolar até 10 dados em um teste.</p>
+            <p><strong>Exemplo:</strong> Se você tem 5 pontos em Atletismo, ao fazer um teste de Força relacionado a Atletismo, você pode rerrolar até 5 dados, mantendo os melhores resultados.</p>
+        </div>
+
+        <!-- PERÍCIAS DE DESTREZA -->
+        <div class="secao-status">
+            <div class="cabecalho-status">
+                <i class="fas fa-running"></i>
+                <h3>Perícias de Destreza</h3>
+            </div>
+            <div class="tabela-pericias">
+                <div class="linha-cabecalho">
+                    <div class="coluna-titulo">Perícia</div>
+                    <div class="coluna-titulo">Descrição e Uso</div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-user-ninja"></i></span>
+                        Acrobacia <span class="status-abreviacao">DES</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Realizar manobras acrobáticas complexas, equilibrar-se em superfícies estreitas, escapar de agarrões e cair sem se machucar. Usada em movimentos evasivos e manobras de parkour.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-balance-scale"></i></span>
+                        Equilíbrio <span class="status-abreviacao">DES</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Manter o equilíbrio em superfícies instáveis, caminhar em cordas bambas, não cair em terrenos escorregadios. Essencial para navegar em ambientes perigosos.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-user-secret"></i></span>
+                        Furtividade <span class="status-abreviacao">DES</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Mover-se silenciosamente, esconder-se de inimigos, passar despercebido. Crucial para emboscadas, infiltrações e evitar confrontos desnecessários.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-bullseye"></i></span>
+                        Pontaria <span class="status-abreviacao">DES</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Acertar alvos à distância com armas de arremesso, arcos, bestas e armas de fogo. Usada em combate à distância e em situações que exigem precisão.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-hat-wizard"></i></span>
+                        Prestidigitação <span class="status-abreviacao">DES</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Realizar movimentos manuais rápidos e precisos, como pegar bolsos, abrir fechaduras, usar ferramentas delicadas e realizar truques de mágica.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-bolt"></i></span>
+                        Reflexos <span class="status-abreviacao">DES</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Reagir rapidamente a perigos inesperados, esquivar de ataques surpresa, pegar objetos caindo. Usada em testes de iniciativa e esquiva.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERÍCIAS DE FORÇA -->
+        <div class="secao-status">
+            <div class="cabecalho-status">
+                <i class="fas fa-fist-raised"></i>
+                <h3>Perícias de Força</h3>
+            </div>
+            <div class="tabela-pericias">
+                <div class="linha-cabecalho">
+                    <div class="coluna-titulo">Perícia</div>
+                    <div class="coluna-titulo">Descrição e Uso</div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-baseball-ball"></i></span>
+                        Arremesso <span class="status-abreviacao">FOR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Lançar objetos com força e precisão, como pedras, lanças, armas improvisadas. Diferente de Pontaria, foca na força do arremesso, não na precisão fina.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-dumbbell"></i></span>
+                        Atletismo <span class="status-abreviacao">FOR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Nadar, escalar, pular, correr por longas distâncias. Usada em perseguições, travessias difíceis e qualquer atividade física intensa.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-skull-crossbones"></i></span>
+                        Brutalidade <span class="status-abreviacao">FOR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Infligir dano máximo em ataques físicos, quebrar objetos, portas e armaduras. Usada em combate corpo a corpo para causar dano extra.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERÍCIAS DE CONSTITUIÇÃO -->
+        <div class="secao-status">
+            <div class="cabecalho-status">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Perícias de Constituição</h3>
+            </div>
+            <div class="tabela-pericias">
+                <div class="linha-cabecalho">
+                    <div class="coluna-titulo">Perícia</div>
+                    <div class="coluna-titulo">Descrição e Uso</div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-heart"></i></span>
+                        Recuperação de Vida <span class="status-abreviacao">CON</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Recuperar-se mais rapidamente de ferimentos, descansar de forma eficiente, usar melhor recursos de cura. Aumenta a eficácia de poções e descansos.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-shield-alt"></i></span>
+                        Resistência Física <span class="status-abreviacao">CON</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Resistir a venenos, doenças, condições climáticas extremas e exaustão, além de ser usado para teste de resistência a morte. Usada para manter o desempenho em situações adversas. <br><p style="font-weight: bold;">A cada ponto você ganha 1 ponto de resistência.</p>
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-battery-full"></i></span>
+                        Vitalidade <span class="status-abreviacao">CON</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Ter mais energia, suportar ferimentos graves, aumentar pontos de vida máximos. Afeta diretamente a sobrevivência em combates prolongados. <br><p style="font-weight: bold;">A cada ponto você ganha 5 pontos de vida.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERÍCIAS DE INTELIGÊNCIA -->
+        <div class="secao-status">
+            <div class="cabecalho-status">
+                <i class="fas fa-brain"></i>
+                <h3>Perícias de Inteligência</h3>
+            </div>
+            <div class="tabela-pericias">
+                <div class="linha-cabecalho">
+                    <div class="coluna-titulo">Perícia</div>
+                    <div class="coluna-titulo">Descrição e Uso</div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-book-spells"></i></span>
+                        Arcanismo <span class="status-abreviacao">INT</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Identificar magias, entender itens mágicos, conhecer criaturas mágicas e realizar pesquisas arcana. Essencial para magos e estudiosos do oculto.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-cogs"></i></span>
+                        Engenharia <span class="status-abreviacao">INT</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Construir e consertar mecanismos, entender dispositivos complexos, desarmar armadilhas. Usada em dungeon crawling e criação de itens.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-landmark"></i></span>
+                        História <span class="status-abreviacao">INT</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Conhecer eventos passados, culturas antigas, linhagens nobres e fatos históricos importantes. Útil para contextualizar descobertas e entender culturas.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-search"></i></span>
+                        Investigação <span class="status-abreviacao">INT</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Encontrar pistas, analisar cenas de crime, seguir trilhas, resolver enigmas e puzzles. Crucial para missões de detetive e exploração.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-leaf"></i></span>
+                        Natureza <span class="status-abreviacao">INT</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Identificar plantas, animais, fenômenos naturais e sobreviver na natureza. Diferente de Sobrevivência, foca no conhecimento teórico.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERÍCIAS DE SABEDORIA -->
+        <div class="secao-status">
+            <div class="cabecalho-status">
+                <i class="fas fa-eye"></i>
+                <h3>Perícias de Sabedoria</h3>
+            </div>
+            <div class="tabela-pericias">
+                <div class="linha-cabecalho">
+                    <div class="coluna-titulo">Perícia</div>
+                    <div class="coluna-titulo">Descrição e Uso</div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-paw"></i></span>
+                        Adestrar Animais <span class="status-abreviacao">SAB</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Treinar, cuidar e comunicar-se com animais. Usada para montarias, animais de guarda e aliados bestiais.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-lightbulb"></i></span>
+                        Intuição <span class="status-abreviacao">SAB</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Sentir quando algo está errado, perceber motivações ocultas, tomar decisões baseadas em pressentimentos. Usada para evitar armadilhas sociais.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-map-marked-alt"></i></span>
+                        Leitura de Ambiente <span class="status-abreviacao">SAB</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Perceber mudanças no ambiente, detectar perigos naturais, orientar-se sem bússola. Essencial para navegação e exploração.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-user-md"></i></span>
+                        Medicina <span class="status-abreviacao">SAB</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Diagnosticar doenças, tratar ferimentos, usar ervas medicinais, realizar cirurgias. Usada para curar aliados sem magia.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-binoculars"></i></span>
+                        Percepção <span class="status-abreviacao">SAB</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Notar detalhes visuais e auditivos, detectar inimigos ocultos, ouvir conversas à distância. Uma das perícias mais usadas no jogo.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-campground"></i></span>
+                        Sobrevivência <span class="status-abreviacao">SAB</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Encontrar comida e água, construir abrigos, rastrear animais, prever o tempo. Diferente de Natureza, foca na prática da sobrevivência.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERÍCIAS DE CARISMA -->
+        <div class="secao-status">
+            <div class="cabecalho-status">
+                <i class="fas fa-comments"></i>
+                <h3>Perícias de Carisma</h3>
+            </div>
+            <div class="tabela-pericias">
+                <div class="linha-cabecalho">
+                    <div class="coluna-titulo">Perícia</div>
+                    <div class="coluna-titulo">Descrição e Uso</div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-theater-masks"></i></span>
+                        Atuação <span class="status-abreviacao">CAR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Cantar, dançar, tocar instrumentos, representar papéis. Usada para entreter, distrair ou ganhar a simpatia de plateias.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-mask"></i></span>
+                        Enganação <span class="status-abreviacao">CAR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Mentir convincentemente, disfarçar-se, criar histórias falsas. Essencial para infiltrações e manipulações sociais.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-angry"></i></span>
+                        Intimidação <span class="status-abreviacao">CAR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Assustar, coagir e ameaçar outros para obter o que deseja. Usada para extrair informações ou evitar combates.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-crown"></i></span>
+                        Liderança <span class="status-abreviacao">CAR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Comandar grupos, inspirar aliados, coordenar esforços em equipe. Aumenta a eficiência do grupo em combate e missões.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-comment-dots"></i></span>
+                        Persuasão <span class="status-abreviacao">CAR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Convencer outros através de argumentos lógicos e apelos racionais. Usada em negociações e para ganhar aliados.
+                    </div>
+                </div>
+                
+                <div class="linha-pericia">
+                    <div class="nome-pericia">
+                        <span class="icone-pericia"><i class="fas fa-heart"></i></span>
+                        Sedução <span class="status-abreviacao">CAR</span>
+                    </div>
+                    <div class="descricao-pericia">
+                        Usar charme pessoal, atratividade e apelos emocionais para influenciar outros. Útil para obter favores ou informações privilegiadas.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informação sobre pontos -->
+        <div class="info-pontos">
+            <h4><i class="fas fa-calculator"></i> Distribuição de Pontos em Perícias</h4>
+            <p><strong>Lembrete importante:</strong> Cada ponto que você coloca em um Status concede <strong>4 pontos</strong> para distribuir nas Perícias associadas àquele Status. Por exemplo, se você tem 3 pontos em Força, você terá 12 pontos para distribuir entre Atletismo, Arremesso e Brutalidade.</p>
+            <p><strong>Planejamento é essencial:</strong> Pense bem em como distribuir seus pontos de perícia, pois elas definem as especializações do seu personagem e como ele se sai em desafios específicos.</p>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar efeito de hover nas linhas
+        document.addEventListener('DOMContentLoaded', function() {
+            const linhasPericia = document.querySelectorAll('.linha-pericia');
+            
+            linhasPericia.forEach(linha => {
+                linha.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.icone-pericia i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.3)';
+                        icon.style.transition = 'transform 0.3s ease';
+                        icon.style.color = '#ff6666';
+                    }
+                });
+                
+                linha.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.icone-pericia i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                        icon.style.color = '#ff3333';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

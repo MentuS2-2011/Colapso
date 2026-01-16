@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <link rel="icon" href="/assets/icon/Colapso.jpeg" type="image/jpeg">
+    <title>Descanso - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Descanso */
+        .descanso-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        /* Introdução */
+        .introducao-descanso {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+        }
+
+        .introducao-descanso h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .introducao-descanso h3 i {
+            font-size: 1.5rem;
+        }
+
+        /* Categorias */
+        .categoria-descanso {
+            margin: 50px 0;
+        }
+
+        .cabecalho-categoria {
+            background: linear-gradient(90deg, #8b0000, #ff0000);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .cabecalho-categoria i {
+            font-size: 1.8rem;
+        }
+
+        .cabecalho-categoria h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Grid de tipos de descanso */
+        .grid-descanso {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card de descanso */
+        .descanso-card {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .descanso-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.4);
+            border-color: #ff0000;
+        }
+
+        .descanso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #8b0000, #ff0000, #8b0000);
+        }
+
+        .nome-descanso {
+            color: #ff3333;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nome-descanso i {
+            font-size: 1.4rem;
+        }
+
+        /* Benefícios */
+        .beneficios-descanso {
+            background-color: rgba(30, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ff0000;
+        }
+
+        .beneficios-descanso h4 {
+            color: #ff6666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .beneficios-descanso h4 i {
+            font-size: 1.2rem;
+        }
+
+        .lista-beneficios {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .item-beneficio {
+            color: #dddddd;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .item-beneficio strong {
+            color: #ff9999;
+        }
+
+        /* Descrição */
+        .descricao-descanso {
+            background-color: rgba(40, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px dashed #8b0000;
+            font-style: italic;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Notas importantes */
+        .notas-importantes {
+            background-color: rgba(139, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+            padding: 25px;
+            margin: 40px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .notas-importantes h4 {
+            color: #ff6666;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notas-importantes ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .notas-importantes li {
+            color: #cccccc;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .notas-importantes li::before {
+            content: '•';
+            color: #ff3333;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+
+        /* Botão voltar ajustado */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .grid-descanso {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .descanso-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .introducao-descanso {
+                padding: 20px;
+            }
+            
+            .cabecalho-categoria {
+                padding: 12px 20px;
+            }
+            
+            .cabecalho-categoria h3 {
+                font-size: 1.5rem;
+            }
+            
+            .descanso-card {
+                padding: 20px;
+            }
+            
+            .nome-descanso {
+                font-size: 1.4rem;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .cabecalho-categoria h3 {
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Cores específicas para tipos de descanso */
+        .descanso-card[data-tipo="horrivel"]::before {
+            background: linear-gradient(90deg, #5a0000, #990000, #5a0000);
+        }
+
+        .descanso-card[data-tipo="precario"]::before {
+            background: linear-gradient(90deg, #8b0000, #cc3300, #8b0000);
+        }
+
+        .descanso-card[data-tipo="normal"]::before {
+            background: linear-gradient(90deg, #cc3300, #ff6600, #cc3300);
+        }
+
+        .descanso-card[data-tipo="perfeito"]::before {
+            background: linear-gradient(90deg, #ff6600, #ff9900, #ff6600);
+        }
+
+        .descanso-card[data-tipo="outros"]::before {
+            background: linear-gradient(90deg, #9900cc, #cc66ff, #9900cc);
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="/sistema/home.sistema.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="descanso-container">
+        <h2 class="titulo-pagina">🛌 Sistema de Descanso</h2>
+        
+        <div class="introducao-descanso">
+            <h3><i class="fas fa-bed"></i> Importância do Descanso</h3>
+            <p>No mundo brutal de Colapso RPG, o <strong>descanso</strong> não é apenas um luxo - é uma questão de sobrevivência. Após aventuras perigosas, combates extenuantes e jornadas árduas, seu corpo e mente precisam se recuperar.</p><br>
+            <p>A qualidade do seu descanso depende diretamente das <strong>condições em que você dorme</strong>, e isso afeta significativamente quanto você recupera de seus recursos vitais. Escolha sabiamente onde e como descansar!</p><br>
+            <p>Além disso a falta do descanso garante a marca de <strong>"cansado"</strong> para o resto do dia, fará você ter -1 dado em todos os testes e se o teste você só tiver 1 dado, você jogará dois e ficará com o pior</p>
+        </div>
+
+        <!-- Descansos de Sono -->
+        <div class="categoria-descanso">
+            <div class="cabecalho-categoria">
+                <i class="fas fa-moon"></i>
+                <h3>Tipos de Descanso por Sono</h3>
+            </div>
+
+            <div class="grid-descanso">
+                <!-- Descanso Horrível -->
+                <div class="descanso-card" data-tipo="horrivel">
+                    <div class="nome-descanso">
+                        <i class="fas fa-skull-crossbones"></i>
+                        Descanso Horrível
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-heartbeat"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Vida:</strong> Recupera 1d4 PV + <strong>Recuperação de Vida</strong> (perícia)</li>
+                            <li class="item-beneficio"><strong>Mana:</strong> Recupera 1d4 PM</li>
+                            <li class="item-beneficio"><strong>Penalidade:</strong> 1d4 de desvantagem em Iniciativa</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Se encaixa em descansos horríveis se você não tem nenhum tipo de conforto ao dormir, como dormir no chão da floresta em cima de pedras, em locais úmidos ou exposto aos elementos.
+                    </div>
+                </div>
+
+                <!-- Descanso Precário -->
+                <div class="descanso-card" data-tipo="precario">
+                    <div class="nome-descanso">
+                        <i class="fas fa-campground"></i>
+                        Descanso Precário
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-heartbeat"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Vida:</strong> Recupera 1d6 PV + <strong>Recuperação de Vida</strong> (perícia)</li>
+                            <li class="item-beneficio"><strong>Mana:</strong> Recupera 1d6 PM</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Um abrigo simples feito para dormir, se você dormir no chão com mantas protegendo embaixo, redes improvisadas, sacos de dormir básicos ou abrigos temporários que oferecem proteção mínima contra os elementos.
+                    </div>
+                </div>
+
+                <!-- Descanso Normal -->
+                <div class="descanso-card" data-tipo="normal">
+                    <div class="nome-descanso">
+                        <i class="fas fa-bed"></i>
+                        Descanso Normal
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-heartbeat"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Vida:</strong> Recupera 1d10 PV + <strong>Recuperação de Vida</strong> (perícia)</li>
+                            <li class="item-beneficio"><strong>Mana:</strong> Recupera 1d8 PM</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Dormir em camas comuns de estalagens, em redes confortáveis com tecidos adequados, em pousadas simples ou em qualquer local que ofereça um local dedicado e relativamente confortável para dormir.
+                    </div>
+                </div>
+
+                <!-- Descanso Perfeito -->
+                <div class="descanso-card" data-tipo="perfeito">
+                    <div class="nome-descanso">
+                        <i class="fas fa-crown"></i>
+                        Descanso Perfeito
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-heartbeat"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Vida:</strong> Recupera 2d12 PV + <strong>Recuperação de Vida</strong> (perícia)</li>
+                            <li class="item-beneficio"><strong>Mana:</strong> Recupera 1d12 PM + <strong>Inteligência</strong> (status)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Dormir em camas de luxo feitas propriamente para pessoas de alto cargo, em suítes de castelos, em hotéis de primeira classe ou qualquer local que ofereça conforto máximo e condições ideais para repouso.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outras Formas de Descanso -->
+        <div class="categoria-descanso">
+            <div class="cabecalho-categoria">
+                <i class="fas fa-heart"></i>
+                <h3>Outras Formas de Recuperação</h3>
+            </div>
+
+            <div class="grid-descanso">
+                <!-- Parar para Relaxar e Ler -->
+                <div class="descanso-card" data-tipo="outros">
+                    <div class="nome-descanso">
+                        <i class="fas fa-book-reader"></i>
+                        Parar para Relaxar e Ler
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-magic"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Mana:</strong> Recupera 1d6 PM + <strong>Inteligência</strong> (status)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Uma pausa durante o dia para atividades intelectuais relaxantes como leitura, meditação, estudo calmo ou contemplação. Ajuda a recuperar energia mental sem necessariamente dormir.
+                    </div>
+                </div>
+
+                <!-- Descanso em Altar -->
+                <div class="descanso-card" data-tipo="outros">
+                    <div class="nome-descanso">
+                        <i class="fas fa-church"></i>
+                        Descanso em Altar
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-heartbeat"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Vida:</strong> Recupera 2d12 PV + <strong>Recuperação de Vida</strong> (perícia)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Descansar em igrejas, templos, campos religiosos ou locais sagrados. A energia divina ou espiritual do local potencializa a recuperação física, independentemente das condições de conforto.
+                    </div>
+                </div>
+
+                <!-- Tratamento Improvisado -->
+                <div class="descanso-card" data-tipo="outros">
+                    <div class="nome-descanso">
+                        <i class="fas fa-first-aid"></i>
+                        Tratamento Improvisado
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-heartbeat"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Vida:</strong> Recupera 1d10 PV + <strong>Recuperação de Vida</strong> (perícia)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Cuidados médicos básicos usando recursos limitados disponíveis - emplastros de ervas, bandagens improvisadas, remédios caseiros ou primeiros socorros em condições adversas.
+                    </div>
+                </div>
+
+                <!-- Tratamento Médico -->
+                <div class="descanso-card" data-tipo="outros">
+                    <div class="nome-descanso">
+                        <i class="fas fa-hospital"></i>
+                        Tratamento Médico
+                    </div>
+                    
+                    <div class="beneficios-descanso">
+                        <h4><i class="fas fa-heartbeat"></i> Benefícios da Recuperação</h4>
+                        <ul class="lista-beneficios">
+                            <li class="item-beneficio"><strong>Vida:</strong> Recupera 2d12 PV + <strong>Recuperação de Vida</strong> (perícia)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="descricao-descanso">
+                        Cuidados médicos profissionais em clínicas, hospitais ou por curandeiros experientes, usando equipamentos adequados, medicamentos apropriados e técnicas avançadas de tratamento.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notas Importantes -->
+        <div class="notas-importantes">
+            <h4><i class="fas fa-exclamation-circle"></i> Regras Importantes do Descanso</h4>
+            <ul>
+                <li><strong>Duração do descanso:</strong> Todos os tipos de descanso listados assumem uma noite completa de sono (aproximadamente 8 horas) ou um período equivalente de repouso.</li>
+                <li><strong>Descansos parciais:</strong> Meios-descansos ou pausas mais curtas recuperam proporcionalmente menos recursos, a critério do Mestre.</li>
+                <li><strong>Combinação de benefícios:</strong> Benefícios de diferentes tipos de descanso geralmente não se acumulam. Use apenas o tipo de descanso que melhor se aplica à situação.</li>
+                <li><strong>Recuperação de Vida (perícia):</strong> Lembre-se de adicionar seu bônus da perícia "Recuperação de Vida" aos valores de recuperação de PV sempre que mencionado.</li>
+                <li><strong>Status negativos:</strong> Condições como doenças, ferimentos graves ou maldições podem reduzir ou anular os benefícios do descanso.</li>
+                <li><strong>Ambiente:</strong> Fatores ambientais como clima extremo, perigo iminente ou ruídos excessivos podem rebaixar a qualidade do descanso.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar efeitos de hover nos cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const descansoCards = document.querySelectorAll('.descanso-card');
+            
+            descansoCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.nome-descanso i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.3) rotate(5deg)';
+                        icon.style.transition = 'transform 0.3s ease';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.nome-descanso i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1) rotate(0deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

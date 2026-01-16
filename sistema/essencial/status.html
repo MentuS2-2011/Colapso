@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <link rel="icon" href="/assets/icon/Colapso.jpeg" type="image/jpeg">
+    <title>Sobre os status - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Status */
+        .status-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        .introducao-status {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+        }
+
+        .introducao-status h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .introducao-status h3 i {
+            font-size: 1.5rem;
+        }
+
+        /* Container de status */
+        .lista-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        /* Card de status individual */
+        .status-card {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.4);
+            border-color: #ff0000;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #8b0000, #ff0000, #8b0000);
+        }
+
+        .cabecalho-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #5a0000;
+        }
+
+        .icone-status {
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .nome-status {
+            color: #ff3333;
+            font-size: 1.6rem;
+            margin: 0;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .descricao-status {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Sistema de pontos */
+        .sistema-pontos {
+            background-color: rgba(30, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #5a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .sistema-pontos h3 {
+            color: #ff3333;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ponto-item {
+            background-color: rgba(40, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff0000;
+            transition: all 0.3s ease;
+        }
+
+        .ponto-item:hover {
+            background-color: rgba(50, 0, 0, 0.8);
+            transform: translateX(5px);
+        }
+
+        .ponto-item h4 {
+            color: #ff6666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ponto-item h4 i {
+            font-size: 1.2rem;
+        }
+
+        .ponto-item p {
+            color: #dddddd;
+            line-height: 1.6;
+        }
+
+        /* Tabela de penalidades */
+        .tabela-penalidades {
+            width: 100%;
+            background-color: rgba(20, 0, 0, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 2px solid #8b0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .tabela-penalidades h3 {
+            background-color: #8b0000;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .tabela-conteudo {
+            padding: 20px;
+        }
+
+        .linha-tabela {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid #5a0000;
+        }
+
+        .linha-tabela:last-child {
+            border-bottom: none;
+        }
+
+        .linha-tabela:nth-child(odd) {
+            background-color: rgba(40, 0, 0, 0.3);
+        }
+
+        .valor-status {
+            font-weight: bold;
+            color: #ff3333;
+            font-size: 1.2rem;
+        }
+
+        .efeito-status {
+            color: #dddddd;
+        }
+
+        /* Nota importante */
+        .nota-importante {
+            background-color: rgba(139, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nota-importante h4 {
+            color: #ff6666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nota-importante p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Botão voltar ajustado */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .status-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .lista-status {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-card {
+                padding: 20px;
+            }
+            
+            .sistema-pontos {
+                padding: 20px;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .nome-status {
+                font-size: 1.4rem;
+            }
+            
+            .cabecalho-status {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="/sistema/home.sistema.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="status-container">
+        <h2 class="titulo-pagina">📊 Sistema de Status</h2>
+        
+        <div class="introducao-status">
+            <h3><i class="fas fa-info-circle"></i> O que são Status?</h3>
+            <p>Os <strong>Status</strong> são os atributos fundamentais que definem as capacidades básicas do seu personagem no mundo de Colapso RPG. Eles representam o potencial bruto do personagem em diferentes áreas e são a base para todos os testes de perícia, combate e interações sociais.</p>
+            <p>Cada status influencia diretamente como seu personagem se sai em desafios específicos, determinando seu sucesso em ações como levantar pesos, perceber detalhes, lançar feitiços ou convencer alguém.</p>
+        </div>
+
+        <!-- Lista de Status -->
+        <div class="lista-status">
+            <!-- Força -->
+            <div class="status-card">
+                <div class="cabecalho-status">
+                    <div class="icone-status">
+                        <i class="fas fa-fist-raised"></i>
+                    </div>
+                    <h3 class="nome-status">Força</h3>
+                </div>
+                <div class="descricao-status">
+                    <p>Representa o poder físico bruto, capacidade muscular e resistência corporal. A Força é essencial para personagens que dependem de combate corpo a corpo, levantamento de objetos pesados e testes de resistência física.</p>
+                    <p><strong>Exemplos de uso:</strong> Atacar com espadas, quebrar portas, levantar pedras, resistir a exaustão.</p>
+                </div>
+            </div>
+
+            <!-- Destreza -->
+            <div class="status-card">
+                <div class="cabecalho-status">
+                    <div class="icone-status">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3 class="nome-status">Destreza</h3>
+                </div>
+                <div class="descricao-status">
+                    <p>Mede agilidade, reflexos, coordenação motora e precisão. A Destreza é crucial para ataques à distância, esquiva, furtividade e qualquer ação que requeira precisão manual.</p>
+                    <p><strong>Exemplos de uso:</strong> Atirar com arco, esquivar de ataques, abrir fechaduras, realizar acrobacias.</p>
+                </div>
+            </div>
+
+            <!-- Constituição -->
+            <div class="status-card">
+                <div class="cabecalho-status">
+                    <div class="icone-status">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="nome-status">Constituição</h3>
+                </div>
+                <div class="descricao-status">
+                    <p>Representa saúde, vigor, resistência a doenças e capacidade de recuperação. A Constituição determina os Pontos de Vida (PV) e afeta a resistência a venenos, doenças e condições adversas.</p>
+                    <p><strong>Exemplos de uso:</strong> Resistir a venenos, recuperar-se de ferimentos, suportar climas extremos, manter o fôlego.</p>
+                </div>
+            </div>
+
+            <!-- Inteligência -->
+            <div class="status-card">
+                <div class="cabecalho-status">
+                    <div class="icone-status">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="nome-status">Inteligência</h3>
+                </div>
+                <div class="descricao-status">
+                    <p>Mede capacidade de raciocínio, memória, lógica e conhecimento acadêmico. A Inteligência é vital para magos, estudiosos e qualquer personagem que dependa de conhecimento ou raciocínio rápido.</p>
+                    <p><strong>Exemplos de uso:</strong> Lançar magias arcana, decifrar enigmas, lembrar informações, analisar situações.</p>
+                </div>
+            </div>
+
+            <!-- Sabedoria -->
+            <div class="status-card">
+                <div class="cabecalho-status">
+                    <div class="icone-status">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="nome-status">Sabedoria</h3>
+                </div>
+                <div class="descricao-status">
+                    <p>Representa percepção, intuição, bom senso e conexão com o mundo ao redor. A Sabedoria é importante para perceber perigos, entender motivações e usar magias divinas.</p>
+                    <p><strong>Exemplos de uso:</strong> Perceber emboscadas, discernir mentiras, usar magias divinas, cuidar de feridos.</p>
+                </div>
+            </div>
+
+            <!-- Carisma -->
+            <div class="status-card">
+                <div class="cabecalho-status">
+                    <div class="icone-status">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="nome-status">Carisma</h3>
+                </div>
+                <div class="descricao-status">
+                    <p>Mede poder de persuasão, personalidade, liderança e presença social. O Carisma é essencial para personagens que dependem de interações sociais, liderança ou magias que afetam a mente.</p>
+                    <p><strong>Exemplos de uso:</strong> Persuadir NPCs, intimidar inimigos, liderar grupos, realizar performances.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sistema de Distribuição de Pontos -->
+        <div class="sistema-pontos">
+            <h3>🎯 Sistema de Distribuição de Pontos</h3>
+            
+            <div class="ponto-item">
+                <h4><i class="fas fa-play-circle"></i> Pontos Iniciais</h4>
+                <p>Ao criar um personagem, você recebe <strong>5 pontos</strong> para distribuir entre os 6 status. Cada ponto adicionado a um status aumenta seu valor em 1.</p>
+            </div>
+            
+            <div class="ponto-item">
+                <h4><i class="fas fa-minus-circle"></i> Status Negativos</h4>
+                <p>Você pode optar por deixar um status com valor negativo para ganhar pontos extras. Cada ponto negativo concedido adiciona <strong>1 ponto</strong> ao seu total de distribuição.</p>
+                <p><strong>Exemplo:</strong> Se colocar -1 em Carisma, você ganha 1 ponto extra para usar em outros status.</p>
+            </div>
+            
+            <div class="ponto-item">
+                <h4><i class="fas fa-dice"></i> Efeito nos Testes</h4>
+                <p>Cada ponto positivo em um status adiciona <strong>1 dado adicional</strong> nos testes relacionados àquele status. Para perícias, cada ponto no status relacionado concede <strong>5 pontos adicionais</strong> para distribuir nas perícias correspondentes.</p>
+            </div>
+        </div>
+
+        <!-- Tabela de Penalidades por Status Negativo -->
+        <div class="tabela-penalidades">
+            <h3>⚠️ Penalidades por Status Negativo</h3>
+            <div class="tabela-conteudo">
+                <div class="linha-tabela">
+                    <span class="valor-status">-1</span>
+                    <span class="efeito-status">Role 2 dados e fique com o pior resultado</span>
+                </div>
+                <div class="linha-tabela">
+                    <span class="valor-status">-2</span>
+                    <span class="efeito-status">Role 3 dados e fique com o pior resultado</span>
+                </div>
+                <div class="linha-tabela">
+                    <span class="valor-status">-3</span>
+                    <span class="efeito-status">Role 4 dados e fique com o pior resultado</span>
+                </div>
+            </div>
+        </div>
+
+                <!-- Tabela de Bônus de Vida por Constituição -->
+        <div class="tabela-penalidades" style="margin-top: 20px;">
+            <h3><i class="fas fa-heart"></i> Bônus de Vida por Constituição</h3>
+            <div class="tabela-conteudo">
+                <div class="linha-tabela">
+                    <span class="valor-status">-3</span>
+                    <span class="efeito-status">-15 PV Máximo</span>
+                </div>
+                <div class="linha-tabela">
+                    <span class="valor-status">-2</span>
+                    <span class="efeito-status">-10 PV Máximo</span>
+                </div>
+                <div class="linha-tabela">
+                    <span class="valor-status">-1</span>
+                    <span class="efeito-status">-5 PV Máximo</span>
+                </div>
+                <div class="linha-tabela" style="background-color: rgba(0, 40, 0, 0.3); border-left: 4px solid #00ff00;">
+                    <span class="valor-status" style="color: #00ff00;">0</span>
+                    <span class="efeito-status">PV Base (sem modificador)</span>
+                </div>
+                <div class="linha-tabela" style="background-color: rgba(0, 40, 0, 0.3);">
+                    <span class="valor-status" style="color: #00ff00;">+1</span>
+                    <span class="efeito-status">+5 PV Máximo</span>
+                </div>
+                <div class="linha-tabela" style="background-color: rgba(0, 40, 0, 0.3);">
+                    <span class="valor-status" style="color: #00ff00;">+2</span>
+                    <span class="efeito-status">+10 PV Máximo</span>
+                </div>
+                <div class="linha-tabela" style="background-color: rgba(0, 40, 0, 0.3);">
+                    <span class="valor-status" style="color: #00ff00;">+3</span>
+                    <span class="efeito-status">+15 PV Máximo</span>
+                </div>
+                <div class="linha-tabela" style="background-color: rgba(0, 40, 0, 0.3);">
+                    <span class="valor-status" style="color: #00ff00;">+4</span>
+                    <span class="efeito-status">+20 PV Máximo</span>
+                </div>
+                <div class="linha-tabela" style="background-color: rgba(0, 40, 0, 0.3); border-bottom: none;">
+                    <span class="valor-status" style="color: #00ff00;">+5</span>
+                    <span class="efeito-status">+25 PV Máximo (Máximo permitido)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nota Importante -->
+        <div class="nota-importante">
+            <h4><i class="fas fa-exclamation-triangle"></i> Importante!</h4>
+            <p><strong>Teto de limite de Status:</strong> O valor máximo para teto é <strong>5 pontos</strong></p>
+            <p><strong>Limite de Status Negativo:</strong> O valor mínimo permitido para qualquer status é <strong>-3</strong>. Não é possível ter status com valor inferior a -3. Essa é a penalidade máxima aplicável em testes relacionados ao status.</p>
+            <p><strong>Bônus de Perícias:</strong> Lembre-se que cada ponto positivo em um status concede 4 pontos adicionais para distribuir nas perícias associadas àquele status, permitindo maior especialização nas áreas onde seu personagem se destaca.</p>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar efeito de hover nos cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusCards = document.querySelectorAll('.status-card');
+            
+            statusCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.icone-status i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.2)';
+                        icon.style.transition = 'transform 0.3s ease';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.icone-status i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

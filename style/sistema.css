@@ -1,0 +1,549 @@
+/* sistema.css - Página Sistema Geral */
+
+/* Reset e configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(120, 0, 0, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(120, 0, 0, 0.1) 0%, transparent 20%);
+}
+
+/* Estilo do título principal */
+h1 {
+    color: #ffffff;
+    text-align: center;
+    font-size: 3.5rem;
+    margin: 20px 0 40px 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    padding-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #ff0000, transparent);
+}
+
+/* Estilo dos subtítulos das seções */
+.sistema-container {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.secao {
+    background-color: rgba(15, 15, 15, 0.9);
+    border-radius: 12px;
+    border: 2px solid #2a0000;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.secao h2 {
+    color: #ff3333;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8b0000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+}
+
+/* Container da lista de tópicos */
+.lista-topicos {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+/* Estilo dos cards de tópicos */
+.topico-card {
+    perspective: 1000px;
+    height: 220px;
+}
+
+.topico-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: rgba(25, 25, 25, 0.95);
+    border: 2px solid #3a0000;
+    border-radius: 12px;
+    padding: 25px 20px;
+    height: 100%;
+    text-align: center;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.topico-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #8b0000, #ff0000, #8b0000);
+    transition: all 0.3s ease;
+}
+
+.topico-link:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(139, 0, 0, 0.4), 0 0 15px rgba(255, 0, 0, 0.3);
+    border-color: #ff0000;
+    background-color: rgba(40, 0, 0, 0.95);
+}
+
+/* Container do ícone */
+.icone-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    margin-bottom: 18px;
+    background: rgba(40, 0, 0, 0.8);
+    border-radius: 50%;
+    border: 2px solid #8b0000;
+    transition: all 0.3s ease;
+}
+
+.topico-link:hover .icone-container {
+    transform: scale(1.1) rotate(5deg);
+    background: rgba(80, 0, 0, 0.95);
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+/* Estilo dos ícones */
+.icone-container i {
+    font-size: 1.8rem;
+    color: #ff3333;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.topico-link:hover .icone-container i {
+    color: #ff6666;
+    text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+}
+
+/* Título do tópico */
+.titulo-topico {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    transition: color 0.3s;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.topico-link:hover .titulo-topico {
+    color: #ff6666;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+/* Descrição do tópico */
+.descricao-topico {
+    font-size: 0.95rem;
+    color: #cccccc;
+    line-height: 1.5;
+    margin-top: 5px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.topico-link:hover .descricao-topico {
+    color: #ffffff;
+}
+
+/* Efeito de brilho ao passar o mouse */
+.topico-link:hover::before {
+    background: linear-gradient(90deg, #ff0000, #ff6666, #ff0000);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+    height: 6px;
+}
+
+/* Linha divisória sutil */
+.topico-link::after {
+    content: '';
+    position: absolute;
+    bottom: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8b0000, transparent);
+    transition: all 0.3s ease;
+}
+
+.topico-link:hover::after {
+    background: linear-gradient(90deg, transparent, #ff0000, transparent);
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    width: 70%;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 992px) {
+    .lista-topicos {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+        margin: 15px 0 30px 0;
+    }
+    
+    .sistema-container {
+        gap: 30px;
+    }
+    
+    .secao {
+        padding: 20px;
+    }
+    
+    .secao h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .lista-topicos {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .topico-card {
+        height: 210px;
+    }
+    
+    .topico-link {
+        padding: 20px 15px;
+    }
+    
+    .icone-container {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    
+    .icone-container i {
+        font-size: 1.6rem;
+    }
+    
+    .titulo-topico {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .descricao-topico {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+    
+    h1::after {
+        width: 150px;
+    }
+    
+    .secao h2 {
+        font-size: 1.6rem;
+    }
+    
+    .lista-topicos {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        gap: 18px;
+    }
+    
+    .topico-card {
+        height: 200px;
+    }
+    
+    .topico-link {
+        padding: 18px 12px;
+    }
+    
+    .icone-container {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 12px;
+    }
+    
+    .icone-container i {
+        font-size: 1.5rem;
+    }
+    
+    .titulo-topico {
+        font-size: 1.2rem;
+    }
+    
+    .descricao-topico {
+        font-size: 0.85rem;
+    }
+    
+    .topico-link::after {
+        bottom: 80px;
+    }
+}
+
+/* Adicionando Font Awesome para os ícones */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+/* Efeito de partículas vermelhas sutis no fundo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.05) 0%, transparent 5%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 0, 0.05) 0%, transparent 5%),
+        radial-gradient(circle at 40% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 5%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Botão Voltar para Home */
+.botao-voltar {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.botao-voltar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #8b0000;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    border: 2px solid #ff3333;
+}
+
+.botao-voltar a:hover {
+    background-color: #ff0000;
+    transform: scale(1.1) rotate(-10deg);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+}
+
+.botao-voltar .texto-botao {
+    background-color: rgba(20, 20, 20, 0.9);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border: 1px solid #8b0000;
+}
+
+.botao-voltar:hover .texto-botao {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Responsividade para o botão */
+@media (max-width: 768px) {
+    .botao-voltar {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .botao-voltar a {
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
+    }
+    
+    .botao-voltar .texto-botao {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .botao-voltar {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .botao-voltar a {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Sistema de Status para Cards */
+.status-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Cores para cada status */
+.status-novo {
+    background-color: #00aa00;
+    color: #ffffff;
+    border: 1px solid #00ff00;
+}
+
+.status-em-producao {
+    background-color: #ffaa00;
+    color: #000000;
+    border: 1px solid #ffcc00;
+}
+
+.status-nao-existe {
+    background-color: #aa0000;
+    color: #ffffff;
+    border: 1px solid #ff3333;
+}
+
+/* Efeito de brilho para cada status */
+.status-novo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+    animation: brilho-novo 3s infinite;
+}
+
+.status-em-producao::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: linear-gradient(90deg, transparent, rgba(255, 200, 0, 0.3), transparent);
+    animation: brilho-producao 2s infinite;
+}
+
+.status-nao-existe::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: linear-gradient(90deg, transparent, rgba(255, 50, 50, 0.2), transparent);
+    animation: brilho-nao-existe 4s infinite;
+}
+
+/* Animações de brilho */
+@keyframes brilho-novo {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes brilho-producao {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes brilho-nao-existe {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+}
+
+/* Ajuste no card para acomodar a tag */
+.topico-card {
+    position: relative; /* Necessário para posicionamento absoluto da tag */
+}
+
+/* Ajuste no conteúdo do card para não ficar atrás da tag */
+.titulo-topico {
+    max-width: 85%;
+}
+
+/* Efeito de hover na tag */
+.status-tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+
+
+
+
+
+
