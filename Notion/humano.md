@@ -56,13 +56,9 @@
 | Guerreiro | Cavaleiro Arcano | 10 | 4 | 1 | 4 | 2 | 1 |
 | Guerreiro | Samurai | 13 | 1 | 2 | 5 | 1 | 2 |
 | Guerreiro | Gladiador | 12 | 0 | 3 | 5 | 0 | 3 |
-
 | Bárbaro | (todos) | 16 | 0 | 3 | 6 | 0 | 3 |
-
 | Paladino | (juramentos) | 13 | 4 | 2 | 5 | 2 | 2 |
-
 | Ladino | (todos) | 10 | 2 | 1 | 4 | 1 | 1 |
-
 | Monge | (todos) | 11 | 3 | 1 | 4 | 2 | 1 |
 
 | Classe | Subclasse | PV | MP | PR | PV/n | MP/n | PR |
