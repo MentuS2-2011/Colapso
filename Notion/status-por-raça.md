@@ -152,6 +152,8 @@
 
 
 
+| Tipo de Raça | Raça         | Deslocamento      |
+| ------------ | ------------ | ----------------- |
 | Animalia | 🐯 Rakshari | Alto (12 m) |
 | | 🐻 Borvak | Baixo (7,5 m) |
 | | 🐺 Wargan | Alto (12 m) |
