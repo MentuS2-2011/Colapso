@@ -232,6 +232,87 @@
             color: #dddddd;
         }
 
+        /* Estilos para tabela de raças */
+        .tabela-racas-container {
+            margin: 40px 0;
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .tabela-racas-container h3 {
+            background-color: #8b0000;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabela-racas {
+            width: 100%;
+            border-collapse: collapse;
+            color: #dddddd;
+        }
+
+        .tabela-racas th {
+            background-color: rgba(60, 0, 0, 0.8);
+            color: #ff6666;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #8b0000;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabela-racas td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #5a0000;
+            vertical-align: top;
+        }
+
+        .tabela-racas tr:nth-child(even) {
+            background-color: rgba(30, 0, 0, 0.3);
+        }
+
+        .tabela-racas tr:hover {
+            background-color: rgba(60, 0, 0, 0.5);
+        }
+
+        .tabela-racas tr:last-child td {
+            border-bottom: none;
+        }
+
+        .raca-nome {
+            font-weight: bold;
+            color: #ff9999;
+            min-width: 150px;
+        }
+
+        .raca-bonus {
+            color: #00ff88;
+            font-weight: 500;
+        }
+
+        .raca-penalidade {
+            color: #ff6666;
+            font-weight: 500;
+        }
+
+        .nota-tabela-racas {
+            background-color: rgba(30, 0, 0, 0.6);
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            font-style: italic;
+            border-top: 1px solid #5a0000;
+        }
+
         /* Nota importante */
         .nota-importante {
             background-color: rgba(139, 0, 0, 0.2);
@@ -336,6 +417,14 @@
                 padding: 20px;
             }
             
+            .tabela-racas-container {
+                overflow-x: auto;
+            }
+            
+            .tabela-racas {
+                min-width: 700px;
+            }
+            
             .botao-voltar2 {
                 top: 15px;
                 left: 15px;
@@ -372,6 +461,12 @@
                 flex-direction: column;
                 text-align: center;
                 gap: 10px;
+            }
+            
+            .tabela-racas th,
+            .tabela-racas td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
             }
             
             .botao-voltar2 {
@@ -544,7 +639,7 @@
             </div>
         </div>
 
-                <!-- Tabela de Bônus de Vida por Constituição -->
+        <!-- Tabela de Bônus de Vida por Constituição -->
         <div class="tabela-penalidades" style="margin-top: 20px;">
             <h3><i class="fas fa-heart"></i> Bônus de Vida por Constituição</h3>
             <div class="tabela-conteudo">
@@ -584,6 +679,145 @@
                     <span class="valor-status" style="color: #00ff00;">+5</span>
                     <span class="efeito-status">+25 PV Máximo (Máximo permitido)</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Atributos Raciais -->
+        <div class="tabela-racas-container">
+            <h3><i class="fas fa-users"></i> Atributos Raciais</h3>
+            <table class="tabela-racas">
+                <thead>
+                    <tr>
+                        <th>Raça</th>
+                        <th>Bônus</th>
+                        <th>Penalidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="raca-nome">Slime</td>
+                        <td class="raca-bonus">+2 Inteligência +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Destreza</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Esqueleto</td>
+                        <td class="raca-bonus">+2 Destreza, +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Constituição</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Goblin</td>
+                        <td class="raca-bonus">+1 Destreza, +1 Inteligência, +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Carisma</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Elfo</td>
+                        <td class="raca-bonus">+2 Sabedoria, +1 Inteligência</td>
+                        <td class="raca-penalidade">-1 Força</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Loxodonte</td>
+                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
+                        <td class="raca-penalidade">-1 Destreza</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Leonim</td>
+                        <td class="raca-bonus">+1 Força, +1 Destreza, +1 Carisma</td>
+                        <td class="raca-penalidade">-1 Inteligência</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Bufonidae</td>
+                        <td class="raca-bonus">+2 Destreza, +1 Carisma</td>
+                        <td class="raca-penalidade">-1 Força</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Aarakocra</td>
+                        <td class="raca-bonus">+2 Sabedoria, +1 Carisma</td>
+                        <td class="raca-penalidade">-1 Força</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Thri-kreen</td>
+                        <td class="raca-bonus">+1 Força, +1 Destreza, +1 Constituição</td>
+                        <td class="raca-penalidade">-1 Carisma</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Drocoquelons</td>
+                        <td class="raca-bonus">+3 Constituição</td>
+                        <td class="raca-penalidade">-1 Inteligência</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Ratfolk</td>
+                        <td class="raca-bonus">+1 Destreza, +1 Inteligência, +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Força</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Draconato</td>
+                        <td class="raca-bonus">+2 Força, +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Destreza</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Inferi</td>
+                        <td class="raca-bonus">+2 Força, +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Carisma</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Aeonyx</td>
+                        <td class="raca-bonus">+2 Carisma, +1 Inteligência</td>
+                        <td class="raca-penalidade">-1 Constituição</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Humano</td>
+                        <td class="raca-bonus">+1 em três atributos diferentes (à escolha)</td>
+                        <td class="raca-penalidade">-1 em um atributo (à escolha)</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Orc</td>
+                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
+                        <td class="raca-penalidade">-1 Carisma</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Anão</td>
+                        <td class="raca-bonus">+1 Constituição, +1 Sabedoria, +1 Força</td>
+                        <td class="raca-penalidade">-1 Destreza</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Minotauro</td>
+                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
+                        <td class="raca-penalidade">-1 Inteligência</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Vampiro</td>
+                        <td class="raca-bonus">+1 Destreza, +1 Inteligência, +1 Carisma</td>
+                        <td class="raca-penalidade">-1 Constituição</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Elemental</td>
+                        <td class="raca-bonus">+1 Constituição, +1 Sabedoria, +1 Inteligência</td>
+                        <td class="raca-penalidade">-1 Carisma</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Ogro</td>
+                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
+                        <td class="raca-penalidade">-1 Inteligência</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Wargan</td>
+                        <td class="raca-bonus">+1 Força, +1 Destreza, +1 Constituição</td>
+                        <td class="raca-penalidade">-1 Carisma</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Borvak</td>
+                        <td class="raca-bonus">+1 Força, +1 Constituição, +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Destreza</td>
+                    </tr>
+                    <tr>
+                        <td class="raca-nome">Rakshari</td>
+                        <td class="raca-bonus">+1 Destreza, +1 Carisma, +1 Sabedoria</td>
+                        <td class="raca-penalidade">-1 Constituição</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="nota-tabela-racas">
+                <i class="fas fa-info-circle"></i> Os bônus e penalidades raciais são aplicados <strong>após</strong> a distribuição inicial de pontos. Exemplo: Se você colocar 0 em Força e escolher uma raça com +2 Força, seu status final será 2.
             </div>
         </div>
 
