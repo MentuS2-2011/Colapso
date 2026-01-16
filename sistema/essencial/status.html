@@ -107,6 +107,104 @@
             border-bottom: 1px solid #5a0000;
         }
 
+        /* Barra de Pesquisa - Corrigida */
+        .barra-pesquisa-container {
+            padding: 20px;
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            border: 2px solid #3a0000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin: 30px 0;
+        }
+
+        .barra-pesquisa-titulo {
+            color: #ff3333;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .barra-pesquisa-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .barra-pesquisa-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff6666;
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+
+        .barra-pesquisa {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            background-color: rgba(30, 0, 0, 0.8);
+            border: 2px solid #5a0000;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .barra-pesquisa:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            background-color: rgba(40, 0, 0, 0.9);
+        }
+
+        .barra-pesquisa::placeholder {
+            color: #999;
+        }
+
+        .resultado-pesquisa {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(30, 0, 0, 0.6);
+            border-radius: 5px;
+            color: #ff6666;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #ff3333;
+        }
+
+        .resultado-pesquisa.ativo {
+            display: flex;
+        }
+
+        .sem-resultados {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(30, 0, 0, 0.6);
+            border-radius: 8px;
+            color: #ff6666;
+            margin: 20px 0;
+        }
+
+        .sem-resultados.ativo {
+            display: block;
+        }
+
+        .sem-resultados i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ff3333;
+        }
+
+        /* Classe para ocultar linhas da tabela */
+        .oculto {
+            display: none !important;
+        }
+
         .icone-status {
             width: 50px;
             height: 50px;
@@ -253,6 +351,11 @@
             letter-spacing: 1px;
         }
 
+        .tabela-racas-wrapper {
+            position: relative;
+            min-height: 200px;
+        }
+
         .tabela-racas {
             width: 100%;
             border-collapse: collapse;
@@ -394,35 +497,97 @@
             margin-top: 40px !important;
         }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
+        /* Responsividade - MELHORADO */
+        @media (max-width: 992px) {
             .status-container {
                 padding: 15px;
             }
             
+            .lista-status {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .tabela-racas {
+                font-size: 0.9rem;
+            }
+            
+            .tabela-racas th,
+            .tabela-racas td {
+                padding: 10px 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .status-container {
+                padding: 10px;
+            }
+            
             .titulo-pagina {
                 font-size: 2rem;
-                margin-top: 50px;
+                margin-top: 60px;
+                padding: 0 10px;
+            }
+            
+            .titulo-pagina::after {
+                width: 200px;
             }
             
             .lista-status {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .status-card {
-                padding: 20px;
+                padding: 20px 15px;
+            }
+            
+            .cabecalho-status {
+                flex-direction: row;
+                gap: 15px;
             }
             
             .sistema-pontos {
-                padding: 20px;
+                padding: 20px 15px;
+            }
+            
+            .barra-pesquisa-container {
+                padding: 15px;
+                margin: 20px 0;
+            }
+            
+            .barra-pesquisa {
+                padding: 12px 12px 12px 45px;
+                font-size: 1rem;
             }
             
             .tabela-racas-container {
+                margin: 30px 0;
+                border-radius: 8px;
+            }
+            
+            .tabela-racas-wrapper {
                 overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
             
             .tabela-racas {
-                min-width: 700px;
+                min-width: 600px;
+            }
+            
+            .tabela-racas th,
+            .tabela-racas td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .raca-nome {
+                min-width: 120px;
+            }
+            
+            .nota-importante {
+                padding: 15px;
+                margin: 20px 0;
             }
             
             .botao-voltar2 {
@@ -442,7 +607,7 @@
             }
             
             h1 {
-                margin-top: 50px !important;
+                margin-top: 60px !important;
                 font-size: 2.5rem;
             }
         }
@@ -450,23 +615,75 @@
         @media (max-width: 480px) {
             .titulo-pagina {
                 font-size: 1.7rem;
-                margin-top: 55px;
+                margin-top: 70px;
+                letter-spacing: 1px;
+            }
+            
+            .introducao-status {
+                padding: 20px 15px;
+                margin: 20px 0;
             }
             
             .nome-status {
                 font-size: 1.4rem;
             }
             
+            .icone-status {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .status-card {
+                padding: 15px;
+            }
+            
             .cabecalho-status {
-                flex-direction: column;
-                text-align: center;
                 gap: 10px;
+            }
+            
+            .sistema-pontos h3,
+            .tabela-racas-container h3,
+            .tabela-penalidades h3 {
+                font-size: 1.3rem;
+                padding: 12px;
+            }
+            
+            .ponto-item {
+                padding: 15px;
+            }
+            
+            .tabela-conteudo {
+                padding: 15px;
+            }
+            
+            .linha-tabela {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .barra-pesquisa-titulo {
+                font-size: 1.1rem;
+            }
+            
+            .barra-pesquisa-wrapper i {
+                left: 10px;
+                font-size: 1.1rem;
+            }
+            
+            .barra-pesquisa {
+                padding: 12px 12px 12px 40px;
+                font-size: 0.95rem;
+            }
+            
+            .tabela-racas {
+                min-width: 500px;
             }
             
             .tabela-racas th,
             .tabela-racas td {
-                padding: 10px 8px;
-                font-size: 0.9rem;
+                padding: 8px 6px;
+                font-size: 0.8rem;
             }
             
             .botao-voltar2 {
@@ -486,8 +703,93 @@
             }
             
             h1 {
-                margin-top: 55px !important;
+                margin-top: 65px !important;
                 font-size: 2.2rem;
+                padding: 0 10px;
+            }
+            
+            /* Melhor visualização em celulares muito pequenos */
+            .status-card::before {
+                height: 3px;
+            }
+            
+            .nota-tabela-racas {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Para telas muito pequenas (iPhone SE etc) */
+        @media (max-width: 360px) {
+            .titulo-pagina {
+                font-size: 1.5rem;
+                margin-top: 75px;
+            }
+            
+            .lista-status {
+                gap: 12px;
+            }
+            
+            .status-card {
+                padding: 12px;
+            }
+            
+            .icone-status {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .nome-status {
+                font-size: 1.2rem;
+            }
+            
+            .descricao-status {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            
+            .tabela-racas {
+                min-width: 450px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                margin-top: 70px !important;
+            }
+            
+            .botao-voltar2 a {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                display: none;
+            }
+        }
+
+        /* Orientação paisagem em celulares */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .botao-voltar2 {
+                top: 5px;
+                left: 5px;
+            }
+            
+            .botao-voltar2 a {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .titulo-pagina {
+                margin-top: 50px;
+                font-size: 1.8rem;
+            }
+            
+            h1 {
+                margin-top: 45px !important;
+                font-size: 2rem;
             }
         }
     </style>
@@ -610,7 +912,7 @@
             
             <div class="ponto-item">
                 <h4><i class="fas fa-minus-circle"></i> Status Negativos</h4>
-                <p>Você pode optar por deixar um status com valor negativo para ganhar pontos extras. Cada ponto negativo concedido adiciona <strong>1 ponto</strong> ao seu total de distribuição.</p>
+                <p>Você pode optar por deixar um status com valor negativo para ganha pontos extras. Cada ponto negativo concedido adiciona <strong>1 ponto</strong> ao seu total de distribuição.</p>
                 <p><strong>Exemplo:</strong> Se colocar -1 em Carisma, você ganha 1 ponto extra para usar em outros status.</p>
             </div>
             
@@ -682,140 +984,46 @@
             </div>
         </div>
 
+        <!-- Barra de Pesquisa de Raças -->
+        <div class="barra-pesquisa-container">
+            <h4 class="barra-pesquisa-titulo">
+                <i class="fas fa-search"></i>
+                Pesquisar Raça
+            </h4>
+            <div class="barra-pesquisa-wrapper">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    id="pesquisaRaca" 
+                    class="barra-pesquisa" 
+                    placeholder="Digite o nome da raça (ex: elfo, anão, humano)..."
+                    autocomplete="off"
+                >
+            </div>
+            <div id="resultadoPesquisa" class="resultado-pesquisa"></div>
+        </div>
+
         <!-- Tabela de Atributos Raciais -->
         <div class="tabela-racas-container">
             <h3><i class="fas fa-users"></i> Atributos Raciais</h3>
-            <table class="tabela-racas">
-                <thead>
-                    <tr>
-                        <th>Raça</th>
-                        <th>Bônus</th>
-                        <th>Penalidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="raca-nome">Slime</td>
-                        <td class="raca-bonus">+2 Inteligência +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Destreza</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Esqueleto</td>
-                        <td class="raca-bonus">+2 Destreza, +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Constituição</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Goblin</td>
-                        <td class="raca-bonus">+1 Destreza, +1 Inteligência, +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Carisma</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Elfo</td>
-                        <td class="raca-bonus">+2 Sabedoria, +1 Inteligência</td>
-                        <td class="raca-penalidade">-1 Força</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Loxodonte</td>
-                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
-                        <td class="raca-penalidade">-1 Destreza</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Leonim</td>
-                        <td class="raca-bonus">+1 Força, +1 Destreza, +1 Carisma</td>
-                        <td class="raca-penalidade">-1 Inteligência</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Bufonidae</td>
-                        <td class="raca-bonus">+2 Destreza, +1 Carisma</td>
-                        <td class="raca-penalidade">-1 Força</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Aarakocra</td>
-                        <td class="raca-bonus">+2 Sabedoria, +1 Carisma</td>
-                        <td class="raca-penalidade">-1 Força</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Thri-kreen</td>
-                        <td class="raca-bonus">+1 Força, +1 Destreza, +1 Constituição</td>
-                        <td class="raca-penalidade">-1 Carisma</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Drocoquelons</td>
-                        <td class="raca-bonus">+3 Constituição</td>
-                        <td class="raca-penalidade">-1 Inteligência</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Ratfolk</td>
-                        <td class="raca-bonus">+1 Destreza, +1 Inteligência, +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Força</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Draconato</td>
-                        <td class="raca-bonus">+2 Força, +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Destreza</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Inferi</td>
-                        <td class="raca-bonus">+2 Força, +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Carisma</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Aeonyx</td>
-                        <td class="raca-bonus">+2 Carisma, +1 Inteligência</td>
-                        <td class="raca-penalidade">-1 Constituição</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Humano</td>
-                        <td class="raca-bonus">+1 em três atributos diferentes (à escolha)</td>
-                        <td class="raca-penalidade">-1 em um atributo (à escolha)</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Orc</td>
-                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
-                        <td class="raca-penalidade">-1 Carisma</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Anão</td>
-                        <td class="raca-bonus">+1 Constituição, +1 Sabedoria, +1 Força</td>
-                        <td class="raca-penalidade">-1 Destreza</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Minotauro</td>
-                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
-                        <td class="raca-penalidade">-1 Inteligência</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Vampiro</td>
-                        <td class="raca-bonus">+1 Destreza, +1 Inteligência, +1 Carisma</td>
-                        <td class="raca-penalidade">-1 Constituição</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Elemental</td>
-                        <td class="raca-bonus">+1 Constituição, +1 Sabedoria, +1 Inteligência</td>
-                        <td class="raca-penalidade">-1 Carisma</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Ogro</td>
-                        <td class="raca-bonus">+2 Força, +1 Constituição</td>
-                        <td class="raca-penalidade">-1 Inteligência</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Wargan</td>
-                        <td class="raca-bonus">+1 Força, +1 Destreza, +1 Constituição</td>
-                        <td class="raca-penalidade">-1 Carisma</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Borvak</td>
-                        <td class="raca-bonus">+1 Força, +1 Constituição, +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Destreza</td>
-                    </tr>
-                    <tr>
-                        <td class="raca-nome">Rakshari</td>
-                        <td class="raca-bonus">+1 Destreza, +1 Carisma, +1 Sabedoria</td>
-                        <td class="raca-penalidade">-1 Constituição</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="tabela-racas-wrapper">
+                <table class="tabela-racas">
+                    <thead>
+                        <tr>
+                            <th>Raça</th>
+                            <th>Bônus</th>
+                            <th>Penalidade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaRacasBody">
+                        <!-- As linhas da tabela serão exibidas aqui -->
+                    </tbody>
+                </table>
+                <div id="semResultados" class="sem-resultados">
+                    <i class="fas fa-search-minus"></i>
+                    <p>Nenhuma raça encontrada com esse nome.</p>
+                </div>
+            </div>
             <div class="nota-tabela-racas">
                 <i class="fas fa-info-circle"></i> Os bônus e penalidades raciais são aplicados <strong>após</strong> a distribuição inicial de pontos. Exemplo: Se você colocar 0 em Força e escolher uma raça com +2 Força, seu status final será 2.
             </div>
@@ -831,8 +1039,106 @@
     </div>
 
     <script>
-        // Adicionar efeito de hover nos cards
+        // Dados das raças
+        const racas = [
+            { nome: "Slime", bonus: "+2 Inteligência +1 Sabedoria", penalidade: "-1 Destreza" },
+            { nome: "Esqueleto", bonus: "+2 Destreza, +1 Sabedoria", penalidade: "-1 Constituição" },
+            { nome: "Goblin", bonus: "+1 Destreza, +1 Inteligência, +1 Sabedoria", penalidade: "-1 Carisma" },
+            { nome: "Elfo", bonus: "+2 Sabedoria, +1 Inteligência", penalidade: "-1 Força" },
+            { nome: "Loxodonte", bonus: "+2 Força, +1 Constituição", penalidade: "-1 Destreza" },
+            { nome: "Leonim", bonus: "+1 Força, +1 Destreza, +1 Carisma", penalidade: "-1 Inteligência" },
+            { nome: "Bufonidae", bonus: "+2 Destreza, +1 Carisma", penalidade: "-1 Força" },
+            { nome: "Aarakocra", bonus: "+2 Sabedoria, +1 Carisma", penalidade: "-1 Força" },
+            { nome: "Thri-kreen", bonus: "+1 Força, +1 Destreza, +1 Constituição", penalidade: "-1 Carisma" },
+            { nome: "Drocoquelons", bonus: "+3 Constituição", penalidade: "-1 Inteligência" },
+            { nome: "Ratfolk", bonus: "+1 Destreza, +1 Inteligência, +1 Sabedoria", penalidade: "-1 Força" },
+            { nome: "Draconato", bonus: "+2 Força, +1 Sabedoria", penalidade: "-1 Destreza" },
+            { nome: "Inferi", bonus: "+2 Força, +1 Sabedoria", penalidade: "-1 Carisma" },
+            { nome: "Aeonyx", bonus: "+2 Carisma, +1 Inteligência", penalidade: "-1 Constituição" },
+            { nome: "Humano", bonus: "+1 em três atributos diferentes (à escolha)", penalidade: "-1 em um atributo (à escolha)" },
+            { nome: "Orc", bonus: "+2 Força, +1 Constituição", penalidade: "-1 Carisma" },
+            { nome: "Anão", bonus: "+1 Constituição, +1 Sabedoria, +1 Força", penalidade: "-1 Destreza" },
+            { nome: "Minotauro", bonus: "+2 Força, +1 Constituição", penalidade: "-1 Inteligência" },
+            { nome: "Vampiro", bonus: "+1 Destreza, +1 Inteligência, +1 Carisma", penalidade: "-1 Constituição" },
+            { nome: "Elemental", bonus: "+1 Constituição, +1 Sabedoria, +1 Inteligência", penalidade: "-1 Carisma" },
+            { nome: "Ogro", bonus: "+2 Força, +1 Constituição", penalidade: "-1 Inteligência" },
+            { nome: "Wargan", bonus: "+1 Força, +1 Destreza, +1 Constituição", penalidade: "-1 Carisma" },
+            { nome: "Borvak", bonus: "+1 Força, +1 Constituição, +1 Sabedoria", penalidade: "-1 Destreza" },
+            { nome: "Rakshari", bonus: "+1 Destreza, +1 Carisma, +1 Sabedoria", penalidade: "-1 Constituição" }
+        ];
+
+        // Função para renderizar a tabela
+        function renderizarTabela(racasParaMostrar = racas) {
+            const tabelaBody = document.getElementById('tabelaRacasBody');
+            const semResultadosDiv = document.getElementById('semResultados');
+            
+            tabelaBody.innerHTML = '';
+            
+            if (racasParaMostrar.length === 0) {
+                semResultadosDiv.classList.add('ativo');
+                return;
+            }
+            
+            semResultadosDiv.classList.remove('ativo');
+            
+            racasParaMostrar.forEach(raca => {
+                const row = document.createElement('tr');
+                row.setAttribute('data-raca', raca.nome.toLowerCase());
+                
+                row.innerHTML = `
+                    <td class="raca-nome">${raca.nome}</td>
+                    <td class="raca-bonus">${raca.bonus}</td>
+                    <td class="raca-penalidade">${raca.penalidade}</td>
+                `;
+                
+                tabelaBody.appendChild(row);
+            });
+        }
+
+        // Sistema de pesquisa de raças
         document.addEventListener('DOMContentLoaded', function() {
+            // Renderizar tabela inicial
+            renderizarTabela();
+            
+            const inputPesquisa = document.getElementById('pesquisaRaca');
+            const resultadoDiv = document.getElementById('resultadoPesquisa');
+            const todasLinhas = document.querySelectorAll('#tabelaRacasBody tr');
+            const semResultadosDiv = document.getElementById('semResultados');
+
+            // Função de pesquisa em tempo real
+            inputPesquisa.addEventListener('input', function() {
+                const termoPesquisa = this.value.toLowerCase().trim();
+                
+                // Se o campo estiver vazio, mostrar todas as raças
+                if (termoPesquisa === '') {
+                    renderizarTabela();
+                    resultadoDiv.classList.remove('ativo');
+                    return;
+                }
+                
+                // Filtrar raças
+                const racasFiltradas = racas.filter(raca => {
+                    const nomeRaca = raca.nome.toLowerCase();
+                    return nomeRaca.includes(termoPesquisa);
+                });
+                
+                // Renderizar tabela com resultados filtrados
+                renderizarTabela(racasFiltradas);
+                
+                // Atualizar mensagem de resultado
+                if (racasFiltradas.length === 0) {
+                    resultadoDiv.classList.add('ativo');
+                    resultadoDiv.innerHTML = `<i class="fas fa-times-circle"></i> Nenhuma raça encontrada para "${termoPesquisa}"`;
+                } else if (racasFiltradas.length === 1) {
+                    resultadoDiv.classList.add('ativo');
+                    resultadoDiv.innerHTML = `<i class="fas fa-check-circle"></i> 1 raça encontrada`;
+                } else {
+                    resultadoDiv.classList.add('ativo');
+                    resultadoDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${racasFiltradas.length} raças encontradas`;
+                }
+            });
+
+            // Adicionar efeito de hover nos cards de status
             const statusCards = document.querySelectorAll('.status-card');
             
             statusCards.forEach(card => {
@@ -851,7 +1157,33 @@
                     }
                 });
             });
+
+            // Limpar pesquisa ao pressionar Escape
+            inputPesquisa.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    this.dispatchEvent(new Event('input'));
+                    this.blur();
+                }
+            });
+
+            // Focar na barra de pesquisa ao pressionar Ctrl+F
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                    e.preventDefault();
+                    inputPesquisa.focus();
+                }
+            });
         });
+
+        // Adicionar estilo para oculção
+        const style = document.createElement('style');
+        style.textContent = `
+            .oculto {
+                display: none !important;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
