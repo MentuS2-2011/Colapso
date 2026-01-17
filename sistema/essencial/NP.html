@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <title>Níveis de Proteção (NP) - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página NP */
+        .np-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        /* Introdução */
+        .introducao-np {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+        }
+
+        .introducao-np h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .introducao-np h3 i {
+            font-size: 1.5rem;
+        }
+
+        .introducao-np p {
+            margin-bottom: 15px;
+        }
+
+        .introducao-np ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        .introducao-np li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .introducao-np li::before {
+            content: '•';
+            color: #ff3333;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+
+        /* Fórmula */
+        .formula-np {
+            background-color: rgba(30, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #ff0000;
+        }
+
+        .formula-np h4 {
+            color: #ff6666;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .formula-equacao {
+            color: #dddddd;
+            font-family: monospace;
+            font-size: 1.2rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            border: 1px solid #8b0000;
+        }
+
+        /* Tabelas */
+        .tabelas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .tabela-wrapper {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .tabela-titulo {
+            background: linear-gradient(90deg, #8b0000, #ff0000);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabela-conteudo {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: rgba(40, 0, 0, 0.9);
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            color: #ff6666;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #5a0000;
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #3a0000;
+            color: #dddddd;
+            font-size: 0.9rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(30, 0, 0, 0.3);
+        }
+
+        tr:hover {
+            background-color: rgba(50, 0, 0, 0.5);
+        }
+
+        .raca-icone, .classe-icone {
+            font-size: 1.2rem;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .tipo-raca {
+            background-color: rgba(60, 0, 0, 0.5);
+            font-weight: bold;
+            color: #ff9999;
+        }
+
+        .valor-np {
+            font-weight: bold;
+            color: #00cc00;
+        }
+
+        /* Calculadora */
+        .calculadora-container {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .calculadora-titulo {
+            color: #ff3333;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Formulário da calculadora */
+        .form-calculadora {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-grupo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-grupo label {
+            color: #ff6666;
+            margin-bottom: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-grupo label i {
+            font-size: 1.1rem;
+        }
+
+        .form-grupo select {
+            background-color: rgba(40, 0, 0, 0.6);
+            border: 2px solid #5a0000;
+            border-radius: 6px;
+            padding: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-grupo select:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Resultados */
+        .resultado-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .resultado-np {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            border-radius: 10px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            display: inline-block;
+            min-width: 300px;
+        }
+
+        .resultado-np h4 {
+            margin: 0 0 15px 0;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .resultado-valor {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .resultado-detalhe {
+            font-size: 1rem;
+            opacity: 0.9;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* Botões */
+        .botoes-calculadora {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn-calcular {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-calcular:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+            background: linear-gradient(45deg, #ff0000, #ff6666);
+        }
+
+        .btn-reset {
+            background: linear-gradient(45deg, #333333, #666666);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(45deg, #666666, #999999);
+        }
+
+        /* Botão voltar ajustado */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Informações extras */
+        .info-extra {
+            background-color: rgba(139, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .info-extra h4 {
+            color: #ff6666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .tabelas-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-calculadora {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .np-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .introducao-np {
+                padding: 20px;
+            }
+            
+            .tabela-wrapper {
+                margin-bottom: 20px;
+            }
+            
+            .calculadora-container {
+                padding: 20px;
+            }
+            
+            .calculadora-titulo {
+                font-size: 1.5rem;
+            }
+            
+            .resultado-np {
+                min-width: 250px;
+                padding: 25px;
+            }
+            
+            .resultado-valor {
+                font-size: 3rem;
+            }
+            
+            .botoes-calculadora {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-calcular,
+            .btn-reset {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .tabela-conteudo {
+                max-height: 300px;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.8rem;
+            }
+            
+            .raca-icone, .classe-icone {
+                font-size: 1rem;
+                margin-right: 5px;
+            }
+            
+            .resultado-valor {
+                font-size: 2.5rem;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="/sistema/home.sistema.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="np-container">
+        <h2 class="titulo-pagina">🛡️ Níveis de Proteção (NP)</h2>
+        
+        <div class="introducao-np">
+            <h3><i class="fas fa-shield-alt"></i> O que são Níveis de Proteção?</h3>
+            <p>Os <strong>Níveis de Proteção (NP)</strong> representam a dificuldade de um ataque atingir com sucesso um personagem ou inimigo. Este valor define a <strong>Dificuldade do Teste (DT)</strong> mínima que deve ser alcançada no dado de ataque para que o golpe acerte o alvo.</p>
+            
+            <p><strong>Como funciona:</strong></p>
+            <ul>
+                <li>Sempre que um personagem realiza um ataque, o resultado do dado é comparado com o NP do alvo.</li>
+                <li>Se o valor do ataque for <strong>igual ou maior</strong> que o NP, o ataque acerta.</li>
+                <li>Se for <strong>menor</strong>, o ataque falha, seja por esquiva, resistência física, magia defensiva ou outro fator narrativo.</li>
+            </ul>
+            
+            <p><strong>O que o NP representa:</strong></p>
+            <p>O NP reflete uma combinação de fatores como resistência natural da raça, preparo físico ou arcano da classe, instintos defensivos, e quando aplicável, armaduras, escudos ou técnicas defensivas.</p>
+        </div>
+
+        <!-- Fórmula -->
+        <div class="formula-np">
+            <h4><i class="fas fa-calculator"></i> Cálculo do Nível de Proteção</h4>
+            <p>O Nível de Proteção inicial é calculado da seguinte forma:</p>
+            <div class="formula-equacao">
+                NP = Valor da Raça (NPB) + Valor da Classe (NP)
+            </div>
+            <p style="margin-top: 15px;">Este valor define a base defensiva do personagem no início do jogo, podendo ser aumentado posteriormente por habilidades, equipamentos, magias ou efeitos especiais.</p>
+        </div>
+
+        <!-- Tabelas -->
+        <div class="tabelas-container">
+            <!-- Tabela de Raças -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">🧬 Valores de NP por Raça (NPR)</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de Raça</th>
+                                <th>Raça</th>
+                                <th>NPR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Monstruosas -->
+                            <tr><td class="tipo-raca" colspan="3">👹 Monstruosas</td></tr>
+                            <tr><td></td><td><span class="raca-icone">👹</span> Ogro</td><td class="valor-np">4</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🧌</span> Orc</td><td class="valor-np">5</td></tr>
+                            <tr><td></td><td><span class="raca-icone">👺</span> Goblin</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">☠️</span> Esqueleto</td><td class="valor-np">7</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🟢</span> Slime</td><td class="valor-np">6</td></tr>
+                            
+                            <!-- Animalia -->
+                            <tr><td class="tipo-raca" colspan="3">🐾 Animalia</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐯</span> Rakshari</td><td class="valor-np">8</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐻</span> Borvak</td><td class="valor-np">5</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐺</span> Wargan</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐂</span> Minotauro</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐭</span> Ratfolk</td><td class="valor-np">7</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐢</span> Drocoquelons</td><td class="valor-np">5</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🦗</span> Thri-kreen</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐦‍⬛</span> Aarakocra</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐸</span> Bufonidae</td><td class="valor-np">7</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐘</span> Loxodonte</td><td class="valor-np">4</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🦁</span> Leonim</td><td class="valor-np">6</td></tr>
+                            
+                            <!-- Míticas -->
+                            <tr><td class="tipo-raca" colspan="3">✨ Míticas</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🧍</span> Humano</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🔥</span> Elemental</td><td class="valor-np">5</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🩸</span> Vampiro</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🐉</span> Draconato</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">🌿</span> Elfo</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">⏳</span> Aeonyx</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">😈</span> Inferi</td><td class="valor-np">6</td></tr>
+                            <tr><td></td><td><span class="raca-icone">⛏️</span> Anão</td><td class="valor-np">6</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela de Classes -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">⚔️ Valores de NP por Classe</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Classe</th>
+                                <th>NP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="classe-icone">🧙‍♂️</span> Mago</td><td class="valor-np">4</td></tr>
+                            <tr><td><span class="classe-icone">🔮</span> Feiticeiro</td><td class="valor-np">5</td></tr>
+                            <tr><td><span class="classe-icone">🎵</span> Bardo</td><td class="valor-np">5</td></tr>
+                            <tr><td><span class="classe-icone">👁️</span> Bruxo</td><td class="valor-np">5</td></tr>
+                            <tr><td><span class="classe-icone">🌿</span> Druida</td><td class="valor-np">5</td></tr>
+                            <tr><td><span class="classe-icone">🪶</span> Xamã</td><td class="valor-np">6</td></tr>
+                            <tr><td><span class="classe-icone">⛪</span> Clérigo</td><td class="valor-np">6</td></tr>
+                            <tr><td><span class="classe-icone">🧿</span> Runomante</td><td class="valor-np">5</td></tr>
+                            <tr><td><span class="classe-icone">⚙️</span> Artificer</td><td class="valor-np">6</td></tr>
+                            <tr><td><span class="classe-icone">🧪</span> Alquimista</td><td class="valor-np">5</td></tr>
+                            <tr><td><span class="classe-icone">🏹</span> Ranger</td><td class="valor-np">7</td></tr>
+                            <tr><td><span class="classe-icone">⚔️</span> Guerreiro</td><td class="valor-np">8</td></tr>
+                            <tr><td><span class="classe-icone">🛡️</span> Paladino</td><td class="valor-np">8</td></tr>
+                            <tr><td><span class="classe-icone">😠</span> Bárbaro</td><td class="valor-np">8</td></tr>
+                            <tr><td><span class="classe-icone">🗡️</span> Ladino</td><td class="valor-np">7</td></tr>
+                            <tr><td><span class="classe-icone">🥋</span> Monge</td><td class="valor-np">7</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculadora de NP -->
+        <div class="calculadora-container">
+            <h3 class="calculadora-titulo">🧮 Calculadora de Nível de Proteção</h3>
+            
+            <form id="calculadora-form" class="form-calculadora">
+                <!-- Raça -->
+                <div class="form-grupo">
+                    <label for="raca"><i class="fas fa-users"></i> Raça</label>
+                    <select id="raca" name="raca" required>
+                        <option value="" disabled selected>Selecione uma raça</option>
+                        <option value="ogro">👹 Ogro (NPB: 4)</option>
+                        <option value="orc">🧌 Orc (NPB: 5)</option>
+                        <option value="goblin">👺 Goblin (NPB: 6)</option>
+                        <option value="esqueleto">☠️ Esqueleto (NPB: 7)</option>
+                        <option value="slime">🟢 Slime (NPB: 6)</option>
+                        <option value="rakshari">🐯 Rakshari (NPB: 8)</option>
+                        <option value="borvak">🐻 Borvak (NPB: 5)</option>
+                        <option value="wargan">🐺 Wargan (NPB: 6)</option>
+                        <option value="minotauro">🐂 Minotauro (NPB: 6)</option>
+                        <option value="ratfolk">🐭 Ratfolk (NPB: 7)</option>
+                        <option value="drocoquelons">🐢 Drocoquelons (NPB: 5)</option>
+                        <option value="thrikreen">🦗 Thri-kreen (NPB: 6)</option>
+                        <option value="aarakocra">🐦‍⬛ Aarakocra (NPB: 6)</option>
+                        <option value="bufonidae">🐸 Bufonidae (NPB: 7)</option>
+                        <option value="loxodonte">🐘 Loxodonte (NPB: 4)</option>
+                        <option value="leonim">🦁 Leonim (NPB: 6)</option>
+                        <option value="humano">🧍 Humano (NPB: 6)</option>
+                        <option value="elemental">🔥 Elemental (NPB: 5)</option>
+                        <option value="vampiro">🩸 Vampiro (NPB: 6)</option>
+                        <option value="draconato">🐉 Draconato (NPB: 6)</option>
+                        <option value="elfo">🌿 Elfo (NPB: 6)</option>
+                        <option value="aeonyx">⏳ Aeonyx (NPB: 6)</option>
+                        <option value="inferi">😈 Inferi (NPB: 6)</option>
+                        <option value="anao">⛏️ Anão (NPB: 6)</option>
+                    </select>
+                </div>
+                
+                <!-- Classe -->
+                <div class="form-grupo">
+                    <label for="classe"><i class="fas fa-user-ninja"></i> Classe</label>
+                    <select id="classe" name="classe" required>
+                        <option value="" disabled selected>Selecione uma classe</option>
+                        <option value="mago">🧙‍♂️ Mago (NP: 4)</option>
+                        <option value="feiticeiro">🔮 Feiticeiro (NP: 5)</option>
+                        <option value="bardo">🎵 Bardo (NP: 5)</option>
+                        <option value="bruxo">👁️ Bruxo (NP: 5)</option>
+                        <option value="druida">🌿 Druida (NP: 5)</option>
+                        <option value="xama">🪶 Xamã (NP: 6)</option>
+                        <option value="clerigo">⛪ Clérigo (NP: 6)</option>
+                        <option value="runomante">🧿 Runomante (NP: 5)</option>
+                        <option value="artificer">⚙️ Artificer (NP: 6)</option>
+                        <option value="alquimista">🧪 Alquimista (NP: 5)</option>
+                        <option value="ranger">🏹 Ranger (NP: 7)</option>
+                        <option value="guerreiro">⚔️ Guerreiro (NP: 8)</option>
+                        <option value="paladino">🛡️ Paladino (NP: 8)</option>
+                        <option value="barbaro">😠 Bárbaro (NP: 8)</option>
+                        <option value="ladino">🗡️ Ladino (NP: 7)</option>
+                        <option value="monje">🥋 Monge (NP: 7)</option>
+                    </select>
+                </div>
+            </form>
+            
+            <div class="botoes-calculadora">
+                <button type="button" id="btn-calcular" class="btn-calcular">
+                    <i class="fas fa-calculator"></i> Calcular NP
+                </button>
+                <button type="button" id="btn-reset" class="btn-reset">
+                    <i class="fas fa-redo"></i> Limpar Cálculo
+                </button>
+            </div>
+            
+            <!-- Resultados -->
+            <div class="resultado-container" id="resultados" style="display: none;">
+                <div class="resultado-np">
+                    <h4>Nível de Proteção Final</h4>
+                    <div class="resultado-valor" id="resultado-np">0</div>
+                    <div class="resultado-detalhe" id="detalhe-np"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informações extras -->
+        <div class="info-extra">
+            <h4><i class="fas fa-info-circle"></i> Informações Importantes sobre NP</h4>
+            <p><strong>NP Básico vs NP Total:</strong> O cálculo apresentado acima representa o NP básico do personagem. Durante o jogo, este valor pode ser modificado por:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Equipamentos (armaduras, escudos)</li>
+                <li>Magias de proteção ou buffs</li>
+                <li>Habilidades de classe ou raciais</li>
+                <li>Condições especiais (terreno, cobertura, etc.)</li>
+                <li>Itens mágicos ou artefatos</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Dificuldade do Teste (DT):</strong> Lembre-se que o NP serve como a DT mínima para ataques contra seu personagem. Ataques que rolam abaixo deste valor automaticamente falham, independentemente de outros fatores.</p>
+        </div>
+    </div>
+
+    <script>
+        // Dados das raças (NPB)
+        const racas = {
+            ogro: { npb: 4, nome: "👹 Ogro" },
+            orc: { npb: 5, nome: "🧌 Orc" },
+            goblin: { npb: 6, nome: "👺 Goblin" },
+            esqueleto: { npb: 7, nome: "☠️ Esqueleto" },
+            slime: { npb: 6, nome: "🟢 Slime" },
+            rakshari: { npb: 8, nome: "🐯 Rakshari" },
+            borvak: { npb: 5, nome: "🐻 Borvak" },
+            wargan: { npb: 6, nome: "🐺 Wargan" },
+            minotauro: { npb: 6, nome: "🐂 Minotauro" },
+            ratfolk: { npb: 7, nome: "🐭 Ratfolk" },
+            drocoquelons: { npb: 5, nome: "🐢 Drocoquelons" },
+            thrikreen: { npb: 6, nome: "🦗 Thri-kreen" },
+            aarakocra: { npb: 6, nome: "🐦‍⬛ Aarakocra" },
+            bufonidae: { npb: 7, nome: "🐸 Bufonidae" },
+            loxodonte: { npb: 4, nome: "🐘 Loxodonte" },
+            leonim: { npb: 6, nome: "🦁 Leonim" },
+            humano: { npb: 6, nome: "🧍 Humano" },
+            elemental: { npb: 5, nome: "🔥 Elemental" },
+            vampiro: { npb: 6, nome: "🩸 Vampiro" },
+            draconato: { npb: 6, nome: "🐉 Draconato" },
+            elfo: { npb: 6, nome: "🌿 Elfo" },
+            aeonyx: { npb: 6, nome: "⏳ Aeonyx" },
+            inferi: { npb: 6, nome: "😈 Inferi" },
+            anao: { npb: 6, nome: "⛏️ Anão" }
+            };
+
+                // Dados das classes (NP)
+    const classes = {
+        mago: { np: 4, nome: "🧙‍♂️ Mago" },
+        feiticeiro: { np: 5, nome: "🔮 Feiticeiro" },
+        bardo: { np: 5, nome: "🎵 Bardo" },
+        bruxo: { np: 5, nome: "👁️ Bruxo" },
+        druida: { np: 5, nome: "🌿 Druida" },
+        xama: { np: 6, nome: "🪶 Xamã" },
+        clerigo: { np: 6, nome: "⛪ Clérigo" },
+        runomante: { np: 5, nome: "🧿 Runomante" },
+        artificer: { np: 6, nome: "⚙️ Artificer" },
+        alquimista: { np: 5, nome: "🧪 Alquimista" },
+        ranger: { np: 7, nome: "🏹 Ranger" },
+        guerreiro: { np: 8, nome: "⚔️ Guerreiro" },
+        paladino: { np: 8, nome: "🛡️ Paladino" },
+        barbaro: { np: 8, nome: "😠 Bárbaro" },
+        ladino: { np: 7, nome: "🗡️ Ladino" },
+        monje: { np: 7, nome: "🥋 Monge" }
+    };
+
+    // Elementos da calculadora
+    const formCalculadora = document.getElementById('calculadora-form');
+    const btnCalcular = document.getElementById('btn-calcular');
+    const btnReset = document.getElementById('btn-reset');
+    const resultadosDiv = document.getElementById('resultados');
+    const resultadoNP = document.getElementById('resultado-np');
+    const detalheNP = document.getElementById('detalhe-np');
+
+    // Função para calcular NP
+    function calcularNP() {
+        const racaSelect = document.getElementById('raca');
+        const classeSelect = document.getElementById('classe');
+        
+        if (!racaSelect.value || !classeSelect.value) {
+            alert('Por favor, selecione uma raça e uma classe para calcular o NP.');
+            return;
+        }
+        
+        const racaSelecionada = racas[racaSelect.value];
+        const classeSelecionada = classes[classeSelect.value];
+        
+        const npTotal = racaSelecionada.npb + classeSelecionada.np;
+        
+        // Atualizar resultados
+        resultadoNP.textContent = npTotal;
+        detalheNP.textContent = `${racaSelecionada.nome} (NPB: ${racaSelecionada.npb}) + ${classeSelecionada.nome} (NP: ${classeSelecionada.np})`;
+        
+        // Mostrar resultados
+        resultadosDiv.style.display = 'block';
+        
+        // Rolagem suave para resultados
+        resultadosDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Função para resetar calculadora
+    function resetarCalculadora() {
+        formCalculadora.reset();
+        resultadosDiv.style.display = 'none';
+        
+        // Rolagem suave para o topo da calculadora
+        document.querySelector('.calculadora-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Função para preencher dinamicamente as opções de raça
+    function preencherOpcoesRaca() {
+        const racaSelect = document.getElementById('raca');
+        Object.keys(racas).forEach(key => {
+            const raca = racas[key];
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = `${raca.nome} (NPB: ${raca.npb})`;
+            racaSelect.appendChild(option);
+        });
+    }
+
+    // Função para preencher dinamicamente as opções de classe
+    function preencherOpcoesClasse() {
+        const classeSelect = document.getElementById('classe');
+        Object.keys(classes).forEach(key => {
+            const classe = classes[key];
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = `${classe.nome} (NP: ${classe.np})`;
+            classeSelect.appendChild(option);
+        });
+    }
+
+    // Adicionar eventos
+    btnCalcular.addEventListener('click', calcularNP);
+    btnReset.addEventListener('click', resetarCalculadora);
+
+    // Evento para calcular com Enter
+    formCalculadora.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            calcularNP();
+        }
+    });
+
+    // Preencher opções ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        preencherOpcoesRaca();
+        preencherOpcoesClasse();
+    });
+
+    // Efeito de hover para os botões
+    const botoes = document.querySelectorAll('.btn-calcular, .btn-reset');
+    botoes.forEach(botao => {
+        botao.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+        });
+        
+        botao.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+</script>
+</body></html>

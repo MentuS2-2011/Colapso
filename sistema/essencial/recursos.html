@@ -110,11 +110,11 @@
             margin-bottom: 0;
         }
 
-        /* Tabelas de Raças e Classes */
+        /* Tabelas unificadas */
         .tabelas-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 30px;
             margin: 40px 0;
         }
 
@@ -138,7 +138,7 @@
         }
 
         .tabela-conteudo {
-            max-height: 400px;
+            max-height: 600px;
             overflow-y: auto;
         }
 
@@ -155,19 +155,20 @@
 
         th {
             color: #ff6666;
-            padding: 12px 10px;
+            padding: 12px 8px;
             text-align: left;
             font-weight: bold;
             border-bottom: 2px solid #5a0000;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             white-space: nowrap;
         }
 
         td {
-            padding: 10px;
+            padding: 10px 8px;
             border-bottom: 1px solid #3a0000;
             color: #dddddd;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            text-align: center;
         }
 
         tr:nth-child(even) {
@@ -180,7 +181,7 @@
 
         .raca-icone, .classe-icone {
             font-size: 1.2rem;
-            margin-right: 8px;
+            margin-right: 5px;
             vertical-align: middle;
         }
 
@@ -196,6 +197,15 @@
 
         .valor-zero {
             color: #999999;
+        }
+
+        /* Categoria nas tabelas */
+        .categoria-raca {
+            background-color: rgba(60, 0, 0, 0.5);
+            font-weight: bold;
+            color: #ff9999;
+            text-align: left;
+            padding: 8px 10px;
         }
 
         /* Calculadora */
@@ -472,17 +482,13 @@
         }
 
         /* Responsividade */
-        @media (max-width: 992px) {
+        @media (max-width: 1200px) {
             .tabelas-container {
                 grid-template-columns: 1fr;
             }
             
-            .form-calculadora {
-                grid-template-columns: 1fr;
-            }
-            
-            .resultados-container {
-                grid-template-columns: repeat(3, 1fr);
+            .tabela-wrapper {
+                max-width: 100%;
             }
         }
 
@@ -508,8 +514,14 @@
                 font-size: 1.5rem;
             }
             
-            .tabela-wrapper {
-                margin-bottom: 20px;
+            .tabela-conteudo {
+                max-height: 500px;
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.8rem;
             }
             
             .calculadora-container {
@@ -569,17 +581,17 @@
             }
             
             .tabela-conteudo {
-                max-height: 300px;
+                max-height: 400px;
             }
             
             th, td {
-                padding: 8px 6px;
-                font-size: 0.8rem;
+                padding: 6px 4px;
+                font-size: 0.75rem;
             }
             
             .raca-icone, .classe-icone {
                 font-size: 1rem;
-                margin-right: 5px;
+                margin-right: 3px;
             }
             
             .resultado-valor {
@@ -667,11 +679,11 @@
             </div>
         </div>
 
-        <!-- Tabelas de Raças e Classes -->
+        <!-- Tabelas Unificadas -->
         <div class="tabelas-container">
-            <!-- Tabela 1: Raças Monstruosas -->
+            <!-- Tabela 1: Todas as Raças -->
             <div class="tabela-wrapper">
-                <div class="tabela-titulo">👹 Raças Monstruosas</div>
+                <div class="tabela-titulo">🧬 Todas as Raças</div>
                 <div class="tabela-conteudo">
                     <table>
                         <thead>
@@ -680,160 +692,52 @@
                                 <th>PV Inicial</th>
                                 <th>MP Inicial</th>
                                 <th>PR Inicial</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><span class="raca-icone">👹</span> Ogro</td><td class="valor-positivo">24</td><td>2</td><td class="valor-positivo">3</td></tr>
-                            <tr><td><span class="raca-icone">🧌</span> Orc</td><td class="valor-positivo">17</td><td>4</td><td>2</td></tr>
-                            <tr><td><span class="raca-icone">👺</span> Goblin</td><td>11</td><td class="valor-positivo">7</td><td class="valor-zero">0</td></tr>
-                            <tr><td><span class="raca-icone">☠️</span> Esqueleto</td><td>14</td><td>6</td><td>2</td></tr>
-                            <tr><td><span class="raca-icone">🟢</span> Slime</td><td>12</td><td class="valor-positivo">10</td><td>1</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tabela 2: Evolução Monstruosa -->
-            <div class="tabela-wrapper">
-                <div class="tabela-titulo">📈 Evolução por Nível (Monstros)</div>
-                <div class="tabela-conteudo">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Raça</th>
                                 <th>PV/Nível</th>
                                 <th>MP/Nível</th>
-                                <th>PR</th>
+                                <th>PR Intervalo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td><span class="raca-icone">👹</span> Ogro</td><td class="valor-positivo">+6</td><td class="valor-zero">+0</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🧌</span> Orc</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">☠️</span> Esqueleto</td><td>+3</td><td>+2</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">👺</span> Goblin</td><td>+2</td><td>+3</td><td class="valor-zero">—</td></tr>
-                            <tr><td><span class="raca-icone">🟢</span> Slime</td><td>+3</td><td>+3</td><td>+1 cada 4 níveis</td></tr>
+                            <!-- Monstruosas -->
+                            <tr><td colspan="7" class="categoria-raca">👹 Monstruosas</td></tr>
+                            <tr><td><span class="raca-icone">👹</span> Ogro</td><td class="valor-positivo">24</td><td>2</td><td class="valor-positivo">3</td><td class="valor-positivo">+6</td><td>+0</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">🧌</span> Orc</td><td class="valor-positivo">17</td><td>4</td><td>2</td><td class="valor-positivo">+4</td><td>+1</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">👺</span> Goblin</td><td>11</td><td class="valor-positivo">7</td><td class="valor-zero">0</td><td>+2</td><td>+3</td><td>0</td></tr>
+                            <tr><td><span class="raca-icone">☠️</span> Esqueleto</td><td>14</td><td>6</td><td>2</td><td>+3</td><td>+2</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">🟢</span> Slime</td><td>12</td><td class="valor-positivo">10</td><td>1</td><td>+3</td><td>+3</td><td>4</td></tr>
+                            
+                            <!-- Animalia -->
+                            <tr><td colspan="7" class="categoria-raca">🐾 Animalia</td></tr>
+                            <tr><td><span class="raca-icone">🐯</span> Rakshari</td><td>14</td><td>6</td><td>1</td><td>+3</td><td>+2</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">🐻</span> Borvak</td><td class="valor-positivo">20</td><td>3</td><td>2</td><td class="valor-positivo">+5</td><td>+1</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">🐺</span> Wargan</td><td>13</td><td>5</td><td>1</td><td>+3</td><td>+2</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">🐂</span> Minotauro</td><td class="valor-positivo">18</td><td>4</td><td>2</td><td class="valor-positivo">+4</td><td>+1</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">🐭</span> Ratfolk</td><td>10</td><td class="valor-positivo">8</td><td class="valor-zero">0</td><td>+2</td><td>+3</td><td>5</td></tr>
+                            <tr><td><span class="raca-icone">🐢</span> Drocoquelons</td><td>16</td><td>5</td><td class="valor-positivo">4</td><td>+3</td><td>+1</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">🦗</span> Thri-kreen</td><td>12</td><td>6</td><td>1</td><td>+3</td><td>+2</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">🐦‍⬛</span> Aarakocra</td><td>9</td><td class="valor-positivo">10</td><td class="valor-zero">0</td><td>+2</td><td>+3</td><td>5</td></tr>
+                            <tr><td><span class="raca-icone">🐸</span> Bufonidae</td><td>14</td><td class="valor-positivo">7</td><td>1</td><td>+3</td><td>+2</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">🐘</span> Loxodonte</td><td class="valor-positivo">22</td><td>2</td><td class="valor-positivo">3</td><td class="valor-positivo">+5</td><td>+1</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">🦁</span> Leonim</td><td>16</td><td>5</td><td>2</td><td class="valor-positivo">+4</td><td>+1</td><td>3</td></tr>
+                            
+                            <!-- Míticas -->
+                            <tr><td colspan="7" class="categoria-raca">✨ Míticas</td></tr>
+                            <tr><td><span class="raca-icone">🧍</span> Humano</td><td>15</td><td>5</td><td>1</td><td>+3</td><td>+2</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">🔥</span> Elemental</td><td>8</td><td class="valor-positivo">15</td><td class="valor-zero">0</td><td>+2</td><td class="valor-positivo">+4</td><td>0</td></tr>
+                            <tr><td><span class="raca-icone">🩸</span> Vampiro</td><td>10</td><td class="valor-positivo">8</td><td>2</td><td>+2</td><td>+2</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">🐉</span> Draconato</td><td>14</td><td>6</td><td>2</td><td>+3</td><td>+2</td><td>3</td></tr>
+                            <tr><td><span class="raca-icone">🌿</span> Elfo</td><td>8</td><td class="valor-positivo">12</td><td class="valor-zero">0</td><td>+2</td><td class="valor-positivo">+4</td><td>5</td></tr>
+                            <tr><td><span class="raca-icone">⏳</span> Aeonyx</td><td>10</td><td class="valor-positivo">10</td><td>1</td><td>+2</td><td>+3</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">😈</span> Inferi</td><td>10</td><td class="valor-positivo">10</td><td>1</td><td>+2</td><td>+3</td><td>4</td></tr>
+                            <tr><td><span class="raca-icone">⛏️</span> Anão</td><td class="valor-positivo">18</td><td>5</td><td>2</td><td class="valor-positivo">+4</td><td>+1</td><td>3</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Tabela 3: Raças Bestiais -->
+            <!-- Tabela 2: Todas as Classes -->
             <div class="tabela-wrapper">
-                <div class="tabela-titulo">🐾 Raças Bestiais</div>
-                <div class="tabela-conteudo">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Raça</th>
-                                <th>PV Inicial</th>
-                                <th>MP Inicial</th>
-                                <th>PR Inicial</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><span class="raca-icone">🐯</span> Rakshari</td><td>14</td><td>6</td><td>1</td></tr>
-                            <tr><td><span class="raca-icone">🐻</span> Borvak</td><td class="valor-positivo">20</td><td>3</td><td>2</td></tr>
-                            <tr><td><span class="raca-icone">🐺</span> Wargan</td><td>13</td><td>5</td><td>1</td></tr>
-                            <tr><td><span class="raca-icone">🐂</span> Minotauro</td><td class="valor-positivo">18</td><td>4</td><td>2</td></tr>
-                            <tr><td><span class="raca-icone">🐭</span> Ratfolk</td><td>10</td><td class="valor-positivo">8</td><td class="valor-zero">0</td></tr>
-                            <tr><td><span class="raca-icone">🐢</span> Drocoquelons</td><td>16</td><td>5</td><td class="valor-positivo">4</td></tr>
-                            <tr><td><span class="raca-icone">🦗</span> Thri-kreen</td><td>12</td><td>6</td><td>1</td></tr>
-                            <tr><td><span class="raca-icone">🐦‍⬛</span> Aarakocra</td><td>9</td><td class="valor-positivo">10</td><td class="valor-zero">0</td></tr>
-                            <tr><td><span class="raca-icone">🐸</span> Bufonidae</td><td>14</td><td class="valor-positivo">7</td><td>1</td></tr>
-                            <tr><td><span class="raca-icone">🐘</span> Loxodonte</td><td class="valor-positivo">22</td><td>2</td><td class="valor-positivo">3</td></tr>
-                            <tr><td><span class="raca-icone">🦁</span> Leonim</td><td>16</td><td>5</td><td>2</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tabela 4: Evolução Bestial -->
-            <div class="tabela-wrapper">
-                <div class="tabela-titulo">📈 Evolução por Nível (Bestiais)</div>
-                <div class="tabela-conteudo">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Raça</th>
-                                <th>PV/Nível</th>
-                                <th>MP/Nível</th>
-                                <th>PR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><span class="raca-icone">🐻</span> Borvak</td><td class="valor-positivo">+5</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐂</span> Minotauro</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐢</span> Drocoquelons</td><td>+3</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐘</span> Loxodonte</td><td class="valor-positivo">+5</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🦁</span> Leonim</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐯</span> Rakshari</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐺</span> Wargan</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐭</span> Ratfolk</td><td>+2</td><td>+3</td><td>+1 cada 5 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🦗</span> Thri-kreen</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐦‍⬛</span> Aarakocra</td><td>+2</td><td>+3</td><td>+1 cada 5 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐸</span> Bufonidae</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tabela 5: Raças Humanoides -->
-            <div class="tabela-wrapper">
-                <div class="tabela-titulo">🧍 Raças Humanoides</div>
-                <div class="tabela-conteudo">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Raça</th>
-                                <th>PV Inicial</th>
-                                <th>MP Inicial</th>
-                                <th>PR Inicial</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><span class="raca-icone">🧍</span> Humano</td><td>15</td><td>5</td><td>1</td></tr>
-                            <tr><td><span class="raca-icone">🔥</span> Elemental</td><td>8</td><td class="valor-positivo">15</td><td class="valor-zero">0</td></tr>
-                            <tr><td><span class="raca-icone">🩸</span> Vampiro</td><td>10</td><td class="valor-positivo">8</td><td>2</td></tr>
-                            <tr><td><span class="raca-icone">🐉</span> Draconato</td><td>14</td><td>6</td><td>2</td></tr>
-                            <tr><td><span class="raca-icone">🌿</span> Elfo</td><td>8</td><td class="valor-positivo">12</td><td class="valor-zero">0</td></tr>
-                            <tr><td><span class="raca-icone">⏳</span> Aeonyx</td><td>10</td><td class="valor-positivo">10</td><td>1</td></tr>
-                            <tr><td><span class="raca-icone">😈</span> Inferi</td><td>10</td><td class="valor-positivo">10</td><td>1</td></tr>
-                            <tr><td><span class="raca-icone">⛏️</span> Anão</td><td class="valor-positivo">18</td><td>5</td><td>2</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tabela 6: Evolução Humanoide -->
-            <div class="tabela-wrapper">
-                <div class="tabela-titulo">📈 Evolução por Nível (Humanoides)</div>
-                <div class="tabela-conteudo">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Raça</th>
-                                <th>PV/Nível</th>
-                                <th>MP/Nível</th>
-                                <th>PR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><span class="raca-icone">⛏️</span> Anão</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🐉</span> Draconato</td><td>+3</td><td>+2</td><td>+1 cada 3 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🧍</span> Humano</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🔥</span> Elemental</td><td>+2</td><td class="valor-positivo">+4</td><td class="valor-zero">—</td></tr>
-                            <tr><td><span class="raca-icone">🩸</span> Vampiro</td><td>+2</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
-                            <tr><td><span class="raca-icone">🌿</span> Elfo</td><td>+2</td><td class="valor-positivo">+4</td><td>+1 cada 5 níveis</td></tr>
-                            <tr><td><span class="raca-icone">⏳</span> Aeonyx</td><td>+2</td><td>+3</td><td>+1 cada 4 níveis</td></tr>
-                            <tr><td><span class="raca-icone">😈</span> Inferi</td><td>+2</td><td>+3</td><td>+1 cada 4 níveis</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tabela 7: Classes -->
-            <div class="tabela-wrapper">
-                <div class="tabela-titulo">⚔️ Classes</div>
+                <div class="tabela-titulo">⚔️ Todas as Classes</div>
                 <div class="tabela-conteudo">
                     <table>
                         <thead>
@@ -1192,22 +1096,6 @@
             if (classeSelect.options.length > 1 && !classeSelect.value) {
                 classeSelect.selectedIndex = 1;
             }
-            
-            // Exemplo de cálculo quando a página carrega
-            setTimeout(() => {
-                // Preencher com um exemplo
-                document.getElementById('raca').value = 'elemental';
-                document.getElementById('classe').value = 'mago';
-                document.getElementById('nivel').value = 2;
-                document.getElementById('constituicao').value = 2;
-                document.getElementById('inteligencia').value = 4;
-                document.getElementById('vitalidade').value = 1;
-                document.getElementById('arcanismo').value = 3;
-                document.getElementById('resistencia').value = 0;
-                
-                // Calcular automaticamente o exemplo
-                // btnCalcular.click(); // Descomente esta linha se quiser que o exemplo seja calculado automaticamente
-            }, 500);
         });
     </script>
 </body>
