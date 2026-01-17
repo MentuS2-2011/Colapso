@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <title>Recursos (PV/PM/PR) - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Recursos */
+        .recursos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        /* Introdução */
+        .introducao-recursos {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+        }
+
+        .introducao-recursos h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .introducao-recursos h3 i {
+            font-size: 1.5rem;
+        }
+
+        /* Seção de Recursos */
+        .secao-recurso {
+            margin: 40px 0;
+        }
+
+        .cabecalho-recurso {
+            background: linear-gradient(90deg, #8b0000, #ff0000);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cabecalho-recurso i {
+            font-size: 1.8rem;
+        }
+
+        .cabecalho-recurso h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .descricao-recurso {
+            background-color: rgba(30, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #ff0000;
+            color: #dddddd;
+            line-height: 1.6;
+        }
+
+        .descricao-recurso strong {
+            color: #ff9999;
+        }
+
+        .descricao-recurso p {
+            margin-bottom: 15px;
+        }
+
+        .descricao-recurso p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Tabelas de Raças e Classes */
+        .tabelas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .tabela-wrapper {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .tabela-titulo {
+            background: linear-gradient(90deg, #8b0000, #ff0000);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabela-conteudo {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: rgba(40, 0, 0, 0.9);
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            color: #ff6666;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #5a0000;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #3a0000;
+            color: #dddddd;
+            font-size: 0.9rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(30, 0, 0, 0.3);
+        }
+
+        tr:hover {
+            background-color: rgba(50, 0, 0, 0.5);
+        }
+
+        .raca-icone, .classe-icone {
+            font-size: 1.2rem;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .valor-positivo {
+            color: #00cc00;
+            font-weight: bold;
+        }
+
+        .valor-negativo {
+            color: #ff3333;
+            font-weight: bold;
+        }
+
+        .valor-zero {
+            color: #999999;
+        }
+
+        /* Calculadora */
+        .calculadora-container {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .calculadora-titulo {
+            color: #ff3333;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .formula-container {
+            background-color: rgba(30, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ff0000;
+        }
+
+        .formula-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(40, 0, 0, 0.4);
+            border-radius: 6px;
+        }
+
+        .formula-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .formula-item h4 {
+            color: #ff9999;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .formula-equacao {
+            color: #dddddd;
+            font-family: monospace;
+            font-size: 1.1rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* Formulário da calculadora */
+        .form-calculadora {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-grupo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-grupo label {
+            color: #ff6666;
+            margin-bottom: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-grupo label i {
+            font-size: 1.1rem;
+        }
+
+        .form-grupo select,
+        .form-grupo input {
+            background-color: rgba(40, 0, 0, 0.6);
+            border: 2px solid #5a0000;
+            border-radius: 6px;
+            padding: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-grupo select:focus,
+        .form-grupo input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .form-grupo input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .form-grupo input[type="number"]::-webkit-outer-spin-button,
+        .form-grupo input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Resultados */
+        .resultados-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .resultado-item {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+        }
+
+        .resultado-item h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .resultado-valor {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .resultado-detalhe {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            opacity: 0.9;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        /* Botões */
+        .botoes-calculadora {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn-calcular {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-calcular:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+            background: linear-gradient(45deg, #ff0000, #ff6666);
+        }
+
+        .btn-reset {
+            background: linear-gradient(45deg, #333333, #666666);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(45deg, #666666, #999999);
+        }
+
+        /* Botão voltar ajustado */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Nota da multiplicação */
+        .nota-multiplicacao {
+            background-color: rgba(139, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            color: #cccccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .tabelas-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-calculadora {
+                grid-template-columns: 1fr;
+            }
+            
+            .resultados-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .recursos-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .introducao-recursos {
+                padding: 20px;
+            }
+            
+            .cabecalho-recurso {
+                padding: 12px 20px;
+            }
+            
+            .cabecalho-recurso h3 {
+                font-size: 1.5rem;
+            }
+            
+            .tabela-wrapper {
+                margin-bottom: 20px;
+            }
+            
+            .calculadora-container {
+                padding: 20px;
+            }
+            
+            .calculadora-titulo {
+                font-size: 1.5rem;
+            }
+            
+            .resultados-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .botoes-calculadora {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-calcular,
+            .btn-reset {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .cabecalho-recurso h3 {
+                font-size: 1.3rem;
+            }
+            
+            .tabela-conteudo {
+                max-height: 300px;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 0.8rem;
+            }
+            
+            .raca-icone, .classe-icone {
+                font-size: 1rem;
+                margin-right: 5px;
+            }
+            
+            .resultado-valor {
+                font-size: 2rem;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="/sistema/home.sistema.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="recursos-container">
+        <h2 class="titulo-pagina">❤️‍🔥 Recursos Vitais (PV/PM/PR)</h2>
+        
+        <div class="introducao-recursos">
+            <h3><i class="fas fa-heart"></i> Os Três Pilares da Sobrevivência</h3>
+            <p>No mundo pós-colapso, seu personagem depende de três recursos fundamentais para sobreviver aos perigos e desafios: <strong>Pontos de Vida (PV)</strong>, <strong>Pontos de Mana (PM)</strong> e <strong>Pontos de Resistência (PR)</strong>. Cada um desses recursos tem uma função única e essencial, e seu gerenciamento pode significar a diferença entre a vitória e a derrota.</p>
+        </div>
+
+        <!-- PV - Pontos de Vida -->
+        <div class="secao-recurso">
+            <div class="cabecalho-recurso">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Pontos de Vida (PV)</h3>
+            </div>
+            <div class="descricao-recurso">
+                <p><strong>PV representa a vitalidade e resiliência física do seu personagem.</strong> É a medida direta de quanto dano ele pode suportar antes de cair inconsciente ou morrer. Quando seus PV chegam a zero, você está à beira da morte.</p>
+                <p><strong>Fatores que afetam os PV:</strong> Raça, classe, equipamentos, Status (especialmente Constituição) e perícias (como Vitalidade) podem aumentar ou reduzir seus pontos de vida totais. Cada ponto de Constituição adiciona <strong>5 PV</strong> ao total. Algumas classes especiais permitem usar PV como sacrifício para lançar magias quando o PM está esgotado.</p>
+                <p><strong>Recuperação:</strong> PV podem ser recuperados através de descanso, magias de cura, poções, habilidades especiais ou tratamentos médicos. A velocidade de recuperação depende da qualidade do descanso e das perícias do personagem.</p>
+            </div>
+        </div>
+
+        <!-- PM - Pontos de Mana -->
+        <div class="secao-recurso">
+            <div class="cabecalho-recurso">
+                <i class="fas fa-magic"></i>
+                <h3>Pontos de Mana (PM)</h3>
+            </div>
+            <div class="descricao-recurso">
+                <p><strong>PM representa a energia mágica, espiritual ou sobrenatural do seu personagem.</strong> É o combustível necessário para lançar magias, usar habilidades ativas e invocar poderes especiais.</p>
+                <p><strong>Fontes de Mana:</strong> A mana pode vir de diversas fontes: <strong>Deuses Maiores</strong> (divindades cósmicas), <strong>Deuses Menores</strong> (entidades locais), <strong>Natureza</strong> (espíritos elementais), <strong>Arte</strong> (inspiração criativa), <strong>Conhecimento</strong> (estudo arcano) ou <strong>Sacrifício</strong> (oferendas de sangue, alma ou recursos).</p>
+                <p><strong>Usos da Mana:</strong> Ativar habilidades de classe, lançar magias de grimórios, invocar bençãos através de cânticos, criar itens mágicos e alimentar artefatos sobrenaturais. Sem PM, seu personagem fica limitado a ações físicas básicas.</p>
+            </div>
+        </div>
+
+        <!-- PR - Pontos de Resistência -->
+        <div class="secao-recurso">
+            <div class="cabecalho-recurso">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Pontos de Resistência (PR)</h3>
+            </div>
+            <div class="descricao-recurso">
+                <p><strong>PR representa a capacidade do corpo de resistir a danos de forma passiva.</strong> Funciona como uma armadura natural que automaticamente reduz ou anula parte do dano recebido antes que ele afete seus Pontos de Vida.</p>
+                <p><strong>Mecânica de funcionamento:</strong> Cada ponto de PR reduz em 1 ponto o dano recebido de qualquer fonte. PR se regenera completamente após um descanso adequado, mas pode ser temporariamente reduzido por certos tipos de ataque ou condições.</p>
+                <p><strong>Relação com Nível de Proteção:</strong> O uso não natural ou excessivo dos PR (como através de magias ou poções) influencia <strong>negativamente</strong> o Nível de Proteção do personagem, tornando-o mais vulnerável a certos tipos de ataque até que se recupere adequadamente.</p>
+            </div>
+        </div>
+
+        <!-- Tabelas de Raças e Classes -->
+        <div class="tabelas-container">
+            <!-- Tabela 1: Raças Monstruosas -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">👹 Raças Monstruosas</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Raça</th>
+                                <th>PV Inicial</th>
+                                <th>MP Inicial</th>
+                                <th>PR Inicial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="raca-icone">👹</span> Ogro</td><td class="valor-positivo">24</td><td>2</td><td class="valor-positivo">3</td></tr>
+                            <tr><td><span class="raca-icone">🧌</span> Orc</td><td class="valor-positivo">17</td><td>4</td><td>2</td></tr>
+                            <tr><td><span class="raca-icone">👺</span> Goblin</td><td>11</td><td class="valor-positivo">7</td><td class="valor-zero">0</td></tr>
+                            <tr><td><span class="raca-icone">☠️</span> Esqueleto</td><td>14</td><td>6</td><td>2</td></tr>
+                            <tr><td><span class="raca-icone">🟢</span> Slime</td><td>12</td><td class="valor-positivo">10</td><td>1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela 2: Evolução Monstruosa -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">📈 Evolução por Nível (Monstros)</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Raça</th>
+                                <th>PV/Nível</th>
+                                <th>MP/Nível</th>
+                                <th>PR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="raca-icone">👹</span> Ogro</td><td class="valor-positivo">+6</td><td class="valor-zero">+0</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🧌</span> Orc</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">☠️</span> Esqueleto</td><td>+3</td><td>+2</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">👺</span> Goblin</td><td>+2</td><td>+3</td><td class="valor-zero">—</td></tr>
+                            <tr><td><span class="raca-icone">🟢</span> Slime</td><td>+3</td><td>+3</td><td>+1 cada 4 níveis</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela 3: Raças Bestiais -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">🐾 Raças Bestiais</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Raça</th>
+                                <th>PV Inicial</th>
+                                <th>MP Inicial</th>
+                                <th>PR Inicial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="raca-icone">🐯</span> Rakshari</td><td>14</td><td>6</td><td>1</td></tr>
+                            <tr><td><span class="raca-icone">🐻</span> Borvak</td><td class="valor-positivo">20</td><td>3</td><td>2</td></tr>
+                            <tr><td><span class="raca-icone">🐺</span> Wargan</td><td>13</td><td>5</td><td>1</td></tr>
+                            <tr><td><span class="raca-icone">🐂</span> Minotauro</td><td class="valor-positivo">18</td><td>4</td><td>2</td></tr>
+                            <tr><td><span class="raca-icone">🐭</span> Ratfolk</td><td>10</td><td class="valor-positivo">8</td><td class="valor-zero">0</td></tr>
+                            <tr><td><span class="raca-icone">🐢</span> Drocoquelons</td><td>16</td><td>5</td><td class="valor-positivo">4</td></tr>
+                            <tr><td><span class="raca-icone">🦗</span> Thri-kreen</td><td>12</td><td>6</td><td>1</td></tr>
+                            <tr><td><span class="raca-icone">🐦‍⬛</span> Aarakocra</td><td>9</td><td class="valor-positivo">10</td><td class="valor-zero">0</td></tr>
+                            <tr><td><span class="raca-icone">🐸</span> Bufonidae</td><td>14</td><td class="valor-positivo">7</td><td>1</td></tr>
+                            <tr><td><span class="raca-icone">🐘</span> Loxodonte</td><td class="valor-positivo">22</td><td>2</td><td class="valor-positivo">3</td></tr>
+                            <tr><td><span class="raca-icone">🦁</span> Leonim</td><td>16</td><td>5</td><td>2</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela 4: Evolução Bestial -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">📈 Evolução por Nível (Bestiais)</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Raça</th>
+                                <th>PV/Nível</th>
+                                <th>MP/Nível</th>
+                                <th>PR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="raca-icone">🐻</span> Borvak</td><td class="valor-positivo">+5</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐂</span> Minotauro</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐢</span> Drocoquelons</td><td>+3</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐘</span> Loxodonte</td><td class="valor-positivo">+5</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🦁</span> Leonim</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐯</span> Rakshari</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐺</span> Wargan</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐭</span> Ratfolk</td><td>+2</td><td>+3</td><td>+1 cada 5 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🦗</span> Thri-kreen</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐦‍⬛</span> Aarakocra</td><td>+2</td><td>+3</td><td>+1 cada 5 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐸</span> Bufonidae</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela 5: Raças Humanoides -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">🧍 Raças Humanoides</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Raça</th>
+                                <th>PV Inicial</th>
+                                <th>MP Inicial</th>
+                                <th>PR Inicial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="raca-icone">🧍</span> Humano</td><td>15</td><td>5</td><td>1</td></tr>
+                            <tr><td><span class="raca-icone">🔥</span> Elemental</td><td>8</td><td class="valor-positivo">15</td><td class="valor-zero">0</td></tr>
+                            <tr><td><span class="raca-icone">🩸</span> Vampiro</td><td>10</td><td class="valor-positivo">8</td><td>2</td></tr>
+                            <tr><td><span class="raca-icone">🐉</span> Draconato</td><td>14</td><td>6</td><td>2</td></tr>
+                            <tr><td><span class="raca-icone">🌿</span> Elfo</td><td>8</td><td class="valor-positivo">12</td><td class="valor-zero">0</td></tr>
+                            <tr><td><span class="raca-icone">⏳</span> Aeonyx</td><td>10</td><td class="valor-positivo">10</td><td>1</td></tr>
+                            <tr><td><span class="raca-icone">😈</span> Inferi</td><td>10</td><td class="valor-positivo">10</td><td>1</td></tr>
+                            <tr><td><span class="raca-icone">⛏️</span> Anão</td><td class="valor-positivo">18</td><td>5</td><td>2</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela 6: Evolução Humanoide -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">📈 Evolução por Nível (Humanoides)</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Raça</th>
+                                <th>PV/Nível</th>
+                                <th>MP/Nível</th>
+                                <th>PR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="raca-icone">⛏️</span> Anão</td><td class="valor-positivo">+4</td><td>+1</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🐉</span> Draconato</td><td>+3</td><td>+2</td><td>+1 cada 3 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🧍</span> Humano</td><td>+3</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🔥</span> Elemental</td><td>+2</td><td class="valor-positivo">+4</td><td class="valor-zero">—</td></tr>
+                            <tr><td><span class="raca-icone">🩸</span> Vampiro</td><td>+2</td><td>+2</td><td>+1 cada 4 níveis</td></tr>
+                            <tr><td><span class="raca-icone">🌿</span> Elfo</td><td>+2</td><td class="valor-positivo">+4</td><td>+1 cada 5 níveis</td></tr>
+                            <tr><td><span class="raca-icone">⏳</span> Aeonyx</td><td>+2</td><td>+3</td><td>+1 cada 4 níveis</td></tr>
+                            <tr><td><span class="raca-icone">😈</span> Inferi</td><td>+2</td><td>+3</td><td>+1 cada 4 níveis</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela 7: Classes -->
+            <div class="tabela-wrapper">
+                <div class="tabela-titulo">⚔️ Classes</div>
+                <div class="tabela-conteudo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Classe</th>
+                                <th>PV Inicial</th>
+                                <th>MP Inicial</th>
+                                <th>PR Inicial</th>
+                                <th>PV/Nível</th>
+                                <th>MP/Nível</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="classe-icone">🧙‍♂️</span> Mago</td><td>6</td><td class="valor-positivo">10</td><td class="valor-negativo">-2</td><td>2</td><td class="valor-positivo">5</td></tr>
+                            <tr><td><span class="classe-icone">🔮</span> Feiticeiro</td><td>8</td><td class="valor-positivo">8</td><td class="valor-zero">0</td><td>3</td><td class="valor-positivo">4</td></tr>
+                            <tr><td><span class="classe-icone">🎵</span> Bardo</td><td>9</td><td>6</td><td class="valor-zero">0</td><td>3</td><td>3</td></tr>
+                            <tr><td><span class="classe-icone">👁️</span> Bruxo</td><td>9</td><td class="valor-positivo">7</td><td class="valor-zero">0</td><td>3</td><td>3</td></tr>
+                            <tr><td><span class="classe-icone">🌿</span> Druida</td><td>10</td><td>6</td><td>1</td><td class="valor-positivo">4</td><td>3</td></tr>
+                            <tr><td><span class="classe-icone">🌀</span> Xamã</td><td>9</td><td class="valor-positivo">7</td><td class="valor-zero">0</td><td>3</td><td>3</td></tr>
+                            <tr><td><span class="classe-icone">⛪</span> Clérigo</td><td>11</td><td>6</td><td class="valor-negativo">-1</td><td class="valor-positivo">4</td><td>3</td></tr>
+                            <tr><td><span class="classe-icone">🔣</span> Runomante</td><td>9</td><td class="valor-positivo">7</td><td class="valor-zero">0</td><td>3</td><td class="valor-positivo">4</td></tr>
+                            <tr><td><span class="classe-icone">⚙️</span> Artificer</td><td>10</td><td>5</td><td>1</td><td class="valor-positivo">4</td><td>2</td></tr>
+                            <tr><td><span class="classe-icone">🧪</span> Alquimista</td><td>9</td><td>4</td><td>1</td><td>3</td><td>2</td></tr>
+                            <tr><td><span class="classe-icone">🏹</span> Ranger</td><td>11</td><td>3</td><td>1</td><td class="valor-positivo">4</td><td>1</td></tr>
+                            <tr><td><span class="classe-icone">⚔️</span> Guerreiro</td><td class="valor-positivo">14</td><td>2</td><td>2</td><td class="valor-positivo">6</td><td class="valor-zero">0</td></tr>
+                            <tr><td><span class="classe-icone">🛡️</span> Paladino</td><td class="valor-positivo">13</td><td>4</td><td>2</td><td class="valor-positivo">5</td><td>2</td></tr>
+                            <tr><td><span class="classe-icone">😠</span> Bárbaro</td><td class="valor-positivo">16</td><td>2</td><td class="valor-positivo">3</td><td class="valor-positivo">6</td><td class="valor-zero">0</td></tr>
+                            <tr><td><span class="classe-icone">🗡️</span> Ladino</td><td>10</td><td>2</td><td>1</td><td class="valor-positivo">4</td><td>1</td></tr>
+                            <tr><td><span class="classe-icone">🥋</span> Monge</td><td>11</td><td>3</td><td>1</td><td class="valor-positivo">4</td><td>2</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculadora de Recursos -->
+        <div class="calculadora-container">
+            <h3 class="calculadora-titulo">🧮 Calculadora de Recursos</h3>
+            
+            <div class="formula-container">
+                <div class="formula-item">
+                    <h4><i class="fas fa-heartbeat"></i> Fórmula de Pontos de Vida</h4>
+                    <div class="formula-equacao">
+                        PV = [(Valor da Raça + Valor da Classe + (Constituição × 5) + Vitalidade) + (Ganho da Raça por Nível + Ganho da Classe por Nível) × (Nível - 1)] × 2
+                    </div>
+                </div>
+                
+                <div class="formula-item">
+                    <h4><i class="fas fa-magic"></i> Fórmula de Pontos de Mana</h4>
+                    <div class="formula-equacao">
+                        PM = (Valor da Raça + Valor da Classe + Inteligência + Arcanismo) + (Ganho da Raça por Nível + Ganho da Classe por Nível) × (Nível - 1)
+                    </div>
+                </div>
+                
+                <div class="formula-item">
+                    <h4><i class="fas fa-shield-alt"></i> Fórmula de Pontos de Resistência</h4>
+                    <div class="formula-equacao">
+                        PR = (Valor da Raça + Valor da Classe + Constituição + Resistência) + (Ganho da Raça por Nível + Ganho da Classe por Nível) × (Nível - 1)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nota-multiplicacao">
+                <strong>Notas importantes:</strong><br>
+                1. Cada ponto de <strong>Constituição</strong> adiciona <strong>5 PV</strong> ao cálculo.<br>
+                2. O ganho por nível é calculado multiplicando o ganho por nível (PV/Nível, MP/Nível) por (Nível - 1).<br>
+                3. Os <strong>Pontos de Vida (PV)</strong> são multiplicados por 2 no cálculo final.
+            </div>
+            
+            <form id="calculadora-form" class="form-calculadora">
+                <!-- Nível -->
+                <div class="form-grupo">
+                    <label for="nivel"><i class="fas fa-chart-line"></i> Nível do Personagem</label>
+                    <input type="number" id="nivel" name="nivel" min="1" max="20" value="1" required>
+                </div>
+                
+                <!-- Raça -->
+                <div class="form-grupo">
+                    <label for="raca"><i class="fas fa-users"></i> Raça</label>
+                    <select id="raca" name="raca" required>
+                        <option value="" disabled selected>Selecione uma raça</option>
+                        <option value="ogro">👹 Ogro (PV:24, MP:2, PR:3)</option>
+                        <option value="orc">🧌 Orc (PV:17, MP:4, PR:2)</option>
+                        <option value="goblin">👺 Goblin (PV:11, MP:7, PR:0)</option>
+                        <option value="esqueleto">☠️ Esqueleto (PV:14, MP:6, PR:2)</option>
+                        <option value="slime">🟢 Slime (PV:12, MP:10, PR:1)</option>
+                        <option value="rakshari">🐯 Rakshari (PV:14, MP:6, PR:1)</option>
+                        <option value="borvak">🐻 Borvak (PV:20, MP:3, PR:2)</option>
+                        <option value="wargan">🐺 Wargan (PV:13, MP:5, PR:1)</option>
+                        <option value="minotauro">🐂 Minotauro (PV:18, MP:4, PR:2)</option>
+                        <option value="ratfolk">🐭 Ratfolk (PV:10, MP:8, PR:0)</option>
+                        <option value="drocoquelons">🐢 Drocoquelons (PV:16, MP:5, PR:4)</option>
+                        <option value="thrikreen">🦗 Thri-kreen (PV:12, MP:6, PR:1)</option>
+                        <option value="aarakocra">🐦‍⬛ Aarakocra (PV:9, MP:10, PR:0)</option>
+                        <option value="bufonidae">🐸 Bufonidae (PV:14, MP:7, PR:1)</option>
+                        <option value="loxodonte">🐘 Loxodonte (PV:22, MP:2, PR:3)</option>
+                        <option value="leonim">🦁 Leonim (PV:16, MP:5, PR:2)</option>
+                        <option value="humano">🧍 Humano (PV:15, MP:5, PR:1)</option>
+                        <option value="elemental">🔥 Elemental (PV:8, MP:15, PR:0)</option>
+                        <option value="vampiro">🩸 Vampiro (PV:10, MP:8, PR:2)</option>
+                        <option value="draconato">🐉 Draconato (PV:14, MP:6, PR:2)</option>
+                        <option value="elfo">🌿 Elfo (PV:8, MP:12, PR:0)</option>
+                        <option value="aeonyx">⏳ Aeonyx (PV:10, MP:10, PR:1)</option>
+                        <option value="inferi">😈 Inferi (PV:10, MP:10, PR:1)</option>
+                        <option value="anao">⛏️ Anão (PV:18, MP:5, PR:2)</option>
+                    </select>
+                </div>
+                
+                <!-- Classe -->
+                <div class="form-grupo">
+                    <label for="classe"><i class="fas fa-user-ninja"></i> Classe</label>
+                    <select id="classe" name="classe" required>
+                        <option value="" disabled selected>Selecione uma classe</option>
+                        <option value="mago">🧙‍♂️ Mago (PV:6, MP:10, PR:-2)</option>
+                        <option value="feiticeiro">🔮 Feiticeiro (PV:8, MP:8, PR:0)</option>
+                        <option value="bardo">🎵 Bardo (PV:9, MP:6, PR:0)</option>
+                        <option value="bruxo">👁️ Bruxo (PV:9, MP:7, PR:0)</option>
+                        <option value="druida">🌿 Druida (PV:10, MP:6, PR:1)</option>
+                        <option value="xama">🌀 Xamã (PV:9, MP:7, PR:0)</option>
+                        <option value="clerigo">⛪ Clérigo (PV:11, MP:6, PR:-1)</option>
+                        <option value="runomante">🔣 Runomante (PV:9, MP:7, PR:0)</option>
+                        <option value="artificer">⚙️ Artificer (PV:10, MP:5, PR:1)</option>
+                        <option value="alquimista">🧪 Alquimista (PV:9, MP:4, PR:1)</option>
+                        <option value="ranger">🏹 Ranger (PV:11, MP:3, PR:1)</option>
+                        <option value="guerreiro">⚔️ Guerreiro (PV:14, MP:2, PR:2)</option>
+                        <option value="paladino">🛡️ Paladino (PV:13, MP:4, PR:2)</option>
+                        <option value="barbaro">😠 Bárbaro (PV:16, MP:2, PR:3)</option>
+                        <option value="ladino">🗡️ Ladino (PV:10, MP:2, PR:1)</option>
+                        <option value="monje">🥋 Monge (PV:11, MP:3, PR:1)</option>
+                    </select>
+                </div>
+                
+                <!-- Status -->
+                <div class="form-grupo">
+                    <label for="constituicao"><i class="fas fa-dumbbell"></i> Constituição (Status)</label>
+                    <input type="number" id="constituicao" name="constituicao" min="-3" max="10" value="0" required>
+                    <small style="color: #999; margin-top: 5px;">Cada ponto = 5 PV</small>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="inteligencia"><i class="fas fa-brain"></i> Inteligência (Status)</label>
+                    <input type="number" id="inteligencia" name="inteligencia" min="-3" max="10" value="0" required>
+                </div>
+                
+                <!-- Perícias -->
+                <div class="form-grupo">
+                    <label for="vitalidade"><i class="fas fa-heart"></i> Vitalidade (Perícia)</label>
+                    <input type="number" id="vitalidade" name="vitalidade" min="0" max="10" value="0" required>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="arcanismo"><i class="fas fa-book-spells"></i> Arcanismo (Perícia)</label>
+                    <input type="number" id="arcanismo" name="arcanismo" min="0" max="10" value="0" required>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="resistencia"><i class="fas fa-shield-alt"></i> Resistência (Perícia)</label>
+                    <input type="number" id="resistencia" name="resistencia" min="0" max="10" value="0" required>
+                </div>
+            </form>
+            
+            <div class="botoes-calculadora">
+                <button type="button" id="btn-calcular" class="btn-calcular">
+                    <i class="fas fa-calculator"></i> Calcular Recursos
+                </button>
+                <button type="button" id="btn-reset" class="btn-reset">
+                    <i class="fas fa-redo"></i> Limpar Cálculo
+                </button>
+            </div>
+            
+            <!-- Resultados -->
+            <div class="resultados-container" id="resultados" style="display: none;">
+                <div class="resultado-item">
+                    <h4>Pontos de Vida</h4>
+                    <div class="resultado-valor" id="resultado-pv">0</div>
+                    <div class="resultado-detalhe" id="detalhe-pv"></div>
+                </div>
+                
+                <div class="resultado-item">
+                    <h4>Pontos de Mana</h4>
+                    <div class="resultado-valor" id="resultado-pm">0</div>
+                    <div class="resultado-detalhe" id="detalhe-pm"></div>
+                </div>
+                
+                <div class="resultado-item">
+                    <h4>Pontos de Resistência</h4>
+                    <div class="resultado-valor" id="resultado-pr">0</div>
+                    <div class="resultado-detalhe" id="detalhe-pr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das raças (inicial e por nível)
+        const racas = {
+            ogro: { pv: 24, mp: 2, pr: 3, pvPorNivel: 6, mpPorNivel: 0, prPorNivel: 0, prIntervalo: 3 },
+            orc: { pv: 17, mp: 4, pr: 2, pvPorNivel: 4, mpPorNivel: 1, prPorNivel: 0, prIntervalo: 3 },
+            goblin: { pv: 11, mp: 7, pr: 0, pvPorNivel: 2, mpPorNivel: 3, prPorNivel: 0, prIntervalo: 0 },
+            esqueleto: { pv: 14, mp: 6, pr: 2, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 3 },
+            slime: { pv: 12, mp: 10, pr: 1, pvPorNivel: 3, mpPorNivel: 3, prPorNivel: 0, prIntervalo: 4 },
+            rakshari: { pv: 14, mp: 6, pr: 1, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 4 },
+            borvak: { pv: 20, mp: 3, pr: 2, pvPorNivel: 5, mpPorNivel: 1, prPorNivel: 0, prIntervalo: 3 },
+            wargan: { pv: 13, mp: 5, pr: 1, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 4 },
+            minotauro: { pv: 18, mp: 4, pr: 2, pvPorNivel: 4, mpPorNivel: 1, prPorNivel: 0, prIntervalo: 3 },
+            ratfolk: { pv: 10, mp: 8, pr: 0, pvPorNivel: 2, mpPorNivel: 3, prPorNivel: 0, prIntervalo: 5 },
+            drocoquelons: { pv: 16, mp: 5, pr: 4, pvPorNivel: 3, mpPorNivel: 1, prPorNivel: 0, prIntervalo: 3 },
+            thrikreen: { pv: 12, mp: 6, pr: 1, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 4 },
+            aarakocra: { pv: 9, mp: 10, pr: 0, pvPorNivel: 2, mpPorNivel: 3, prPorNivel: 0, prIntervalo: 5 },
+            bufonidae: { pv: 14, mp: 7, pr: 1, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 4 },
+            loxodonte: { pv: 22, mp: 2, pr: 3, pvPorNivel: 5, mpPorNivel: 1, prPorNivel: 0, prIntervalo: 3 },
+            leonim: { pv: 16, mp: 5, pr: 2, pvPorNivel: 4, mpPorNivel: 1, prPorNivel: 0, prIntervalo: 3 },
+            humano: { pv: 15, mp: 5, pr: 1, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 4 },
+            elemental: { pv: 8, mp: 15, pr: 0, pvPorNivel: 2, mpPorNivel: 4, prPorNivel: 0, prIntervalo: 0 },
+            vampiro: { pv: 10, mp: 8, pr: 2, pvPorNivel: 2, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 4 },
+            draconato: { pv: 14, mp: 6, pr: 2, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0, prIntervalo: 3 },
+            elfo: { pv: 8, mp: 12, pr: 0, pvPorNivel: 2, mpPorNivel: 4, prPorNivel: 0, prIntervalo: 5 },
+            aeonyx: { pv: 10, mp: 10, pr: 1, pvPorNivel: 2, mpPorNivel: 3, prPorNivel: 0, prIntervalo: 4 },
+            inferi: { pv: 10, mp: 10, pr: 1, pvPorNivel: 2, mpPorNivel: 3, prPorNivel: 0, prIntervalo: 4 },
+            anao: { pv: 18, mp: 5, pr: 2, pvPorNivel: 4, mpPorNivel: 1, prPorNivel: 0, prIntervalo: 3 }
+        };
+
+        // Dados das classes (inicial e por nível)
+        const classes = {
+            mago: { pv: 6, mp: 10, pr: -2, pvPorNivel: 2, mpPorNivel: 5, prPorNivel: 0 },
+            feiticeiro: { pv: 8, mp: 8, pr: 0, pvPorNivel: 3, mpPorNivel: 4, prPorNivel: 0 },
+            bardo: { pv: 9, mp: 6, pr: 0, pvPorNivel: 3, mpPorNivel: 3, prPorNivel: 0 },
+            bruxo: { pv: 9, mp: 7, pr: 0, pvPorNivel: 3, mpPorNivel: 3, prPorNivel: 0 },
+            druida: { pv: 10, mp: 6, pr: 1, pvPorNivel: 4, mpPorNivel: 3, prPorNivel: 0 },
+            xama: { pv: 9, mp: 7, pr: 0, pvPorNivel: 3, mpPorNivel: 3, prPorNivel: 0 },
+            clerigo: { pv: 11, mp: 6, pr: -1, pvPorNivel: 4, mpPorNivel: 3, prPorNivel: 0 },
+            runomante: { pv: 9, mp: 7, pr: 0, pvPorNivel: 3, mpPorNivel: 4, prPorNivel: 0 },
+            artificer: { pv: 10, mp: 5, pr: 1, pvPorNivel: 4, mpPorNivel: 2, prPorNivel: 0 },
+            alquimista: { pv: 9, mp: 4, pr: 1, pvPorNivel: 3, mpPorNivel: 2, prPorNivel: 0 },
+            ranger: { pv: 11, mp: 3, pr: 1, pvPorNivel: 4, mpPorNivel: 1, prPorNivel: 0 },
+            guerreiro: { pv: 14, mp: 2, pr: 2, pvPorNivel: 6, mpPorNivel: 0, prPorNivel: 0 },
+            paladino: { pv: 13, mp: 4, pr: 2, pvPorNivel: 5, mpPorNivel: 2, prPorNivel: 0 },
+            barbaro: { pv: 16, mp: 2, pr: 3, pvPorNivel: 6, mpPorNivel: 0, prPorNivel: 0 },
+            ladino: { pv: 10, mp: 2, pr: 1, pvPorNivel: 4, mpPorNivel: 1, prPorNivel: 0 },
+            monje: { pv: 11, mp: 3, pr: 1, pvPorNivel: 4, mpPorNivel: 2, prPorNivel: 0 }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('calculadora-form');
+            const btnCalcular = document.getElementById('btn-calcular');
+            const btnReset = document.getElementById('btn-reset');
+            const resultados = document.getElementById('resultados');
+            
+            // Calcular recursos
+            btnCalcular.addEventListener('click', function() {
+                const nivel = parseInt(document.getElementById('nivel').value) || 1;
+                const racaSelecionada = document.getElementById('raca').value;
+                const classeSelecionada = document.getElementById('classe').value;
+                const constituicao = parseInt(document.getElementById('constituicao').value) || 0;
+                const inteligencia = parseInt(document.getElementById('inteligencia').value) || 0;
+                const vitalidade = parseInt(document.getElementById('vitalidade').value) || 0;
+                const arcanismo = parseInt(document.getElementById('arcanismo').value) || 0;
+                const resistencia = parseInt(document.getElementById('resistencia').value) || 0;
+                
+                if (!racaSelecionada || !classeSelecionada) {
+                    alert('Por favor, selecione uma raça e uma classe!');
+                    return;
+                }
+                
+                const dadosRaca = racas[racaSelecionada];
+                const dadosClasse = classes[classeSelecionada];
+                
+                // Calcular ganho por nível (nível - 1, pois nível 1 já tem os valores iniciais)
+                const ganhoPorNivel = nivel - 1;
+                
+                // Calcular ganho de PR por nível (baseado no intervalo)
+                let ganhoPrRaca = 0;
+                if (dadosRaca.prIntervalo > 0) {
+                    ganhoPrRaca = Math.floor(ganhoPorNivel / dadosRaca.prIntervalo);
+                }
+                
+                let ganhoPrClasse = 0;
+                if (dadosClasse.prPorNivel > 0) {
+                    ganhoPrClasse = dadosClasse.prPorNivel * ganhoPorNivel;
+                }
+                
+                // Cálculos base (nível 1)
+                const basePv = dadosRaca.pv + dadosClasse.pv + (constituicao * 5) + vitalidade;
+                const basePm = dadosRaca.mp + dadosClasse.mp + inteligencia + arcanismo;
+                const basePr = dadosRaca.pr + dadosClasse.pr + constituicao + resistencia;
+                
+                // Ganho por nível
+                const ganhoPvNivel = (dadosRaca.pvPorNivel + dadosClasse.pvPorNivel) * ganhoPorNivel;
+                const ganhoPmNivel = (dadosRaca.mpPorNivel + dadosClasse.mpPorNivel) * ganhoPorNivel;
+                const ganhoPrNivel = ganhoPrRaca + ganhoPrClasse;
+                
+                // Cálculos totais (nível 1 + ganho por nível)
+                const totalPv = basePv + ganhoPvNivel;
+                const totalPm = basePm + ganhoPmNivel;
+                const totalPr = basePr + ganhoPrNivel;
+                
+                // Aplicar multiplicação dos PV por 2
+                const pvFinal = totalPv * 2;
+                const pmFinal = totalPm;
+                const prFinal = totalPr;
+                
+                // Exibir resultados
+                document.getElementById('resultado-pv').textContent = pvFinal;
+                document.getElementById('resultado-pm').textContent = pmFinal;
+                document.getElementById('resultado-pr').textContent = prFinal;
+                
+                // Exibir detalhes do cálculo
+                document.getElementById('detalhe-pv').innerHTML = 
+                    `Base: ${basePv} + Ganho por Nível: ${ganhoPvNivel} = ${totalPv} × 2`;
+                
+                document.getElementById('detalhe-pm').innerHTML = 
+                    `Base: ${basePm} + Ganho por Nível: ${ganhoPmNivel} = ${totalPm}`;
+                
+                document.getElementById('detalhe-pr').innerHTML = 
+                    `Base: ${basePr} + Ganho por Nível: ${ganhoPrNivel} = ${totalPr}`;
+                
+                resultados.style.display = 'grid';
+                
+                // Rolar para resultados
+                resultados.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Resetar calculadora
+            btnReset.addEventListener('click', function() {
+                form.reset();
+                resultados.style.display = 'none';
+                document.getElementById('nivel').value = 1;
+                document.getElementById('constituicao').value = 0;
+                document.getElementById('inteligencia').value = 0;
+                document.getElementById('vitalidade').value = 0;
+                document.getElementById('arcanismo').value = 0;
+                document.getElementById('resistencia').value = 0;
+            });
+            
+            // Validar inputs numéricos
+            const inputsNumericos = document.querySelectorAll('input[type="number"]');
+            inputsNumericos.forEach(input => {
+                input.addEventListener('input', function() {
+                    const min = parseInt(this.min);
+                    const max = parseInt(this.max);
+                    let value = parseInt(this.value) || min;
+                    
+                    if (value < min) this.value = min;
+                    if (value > max) this.value = max;
+                });
+            });
+            
+            // Auto-selecionar a primeira opção nos selects (para melhor UX)
+            const racaSelect = document.getElementById('raca');
+            const classeSelect = document.getElementById('classe');
+            
+            if (racaSelect.options.length > 1 && !racaSelect.value) {
+                racaSelect.selectedIndex = 1;
+            }
+            
+            if (classeSelect.options.length > 1 && !classeSelect.value) {
+                classeSelect.selectedIndex = 1;
+            }
+            
+            // Exemplo de cálculo quando a página carrega
+            setTimeout(() => {
+                // Preencher com um exemplo
+                document.getElementById('raca').value = 'elemental';
+                document.getElementById('classe').value = 'mago';
+                document.getElementById('nivel').value = 2;
+                document.getElementById('constituicao').value = 2;
+                document.getElementById('inteligencia').value = 4;
+                document.getElementById('vitalidade').value = 1;
+                document.getElementById('arcanismo').value = 3;
+                document.getElementById('resistencia').value = 0;
+                
+                // Calcular automaticamente o exemplo
+                // btnCalcular.click(); // Descomente esta linha se quiser que o exemplo seja calculado automaticamente
+            }, 500);
+        });
+    </script>
+</body>
+</html>
