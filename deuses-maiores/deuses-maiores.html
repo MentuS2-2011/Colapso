@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <title>Deuses Maiores - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Deuses */
+        .deuses-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        /* Introdução */
+        .introducao-deuses {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .introducao-deuses h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        /* Grid de Deuses Fragmentados */
+        .deuses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        /* Categorias */
+        .categoria-container {
+            margin: 50px 0 30px 0;
+        }
+
+        .categoria-titulo {
+            color: #ff3333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3a0000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .categoria-titulo i {
+            font-size: 1.8rem;
+        }
+
+        /* Cards dos Deuses Fragmentados */
+        .deus-card {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .deus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
+            border-color: #ff3333;
+        }
+
+        .deus-cabecalho {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #3a0000;
+            flex-shrink: 0;
+        }
+
+        .deus-icone {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .deus-nome {
+            color: #ff3333;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .deus-titulo {
+            color: #ff9999;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .deus-descricao {
+            padding: 20px;
+            color: #dddddd;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .deus-descricao p {
+            margin-bottom: 0;
+        }
+
+        /* Botão Ver Mais */
+        .deus-rodape {
+            padding: 15px 20px;
+            background-color: rgba(40, 0, 0, 0.7);
+            border-top: 2px solid #3a0000;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .btn-ver-mais {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-ver-mais:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6);
+            background: linear-gradient(45deg, #ff0000, #ff6666);
+        }
+
+        /* Botão voltar */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .deuses-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .deuses-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .introducao-deuses {
+                padding: 20px;
+            }
+            
+            .categoria-titulo {
+                font-size: 1.6rem;
+            }
+            
+            .deus-card {
+                margin-bottom: 0;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .deuses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categoria-titulo {
+                font-size: 1.4rem;
+            }
+            
+            .deus-icone {
+                font-size: 2rem;
+            }
+            
+            .deus-nome {
+                font-size: 1.2rem;
+            }
+            
+            .deus-descricao {
+                padding: 15px;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="../index.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="deuses-container">
+        <h2 class="titulo-pagina">⚡ Panteão dos Deuses Maiores</h2>
+        
+        <div class="introducao-deuses">
+            <h3>Os Fragmentos Divinos</h3>
+            <p>Cada Deus Maior se fragmentou em aspectos especializados para governar a realidade com precisão. Conheça cada fragmento e escolha seu patrono divino.</p>
+        </div>
+
+        <!-- Fragmentos Colapsais -->
+        <div class="categoria-container">
+            <h3 class="categoria-titulo">
+                <i class="fas fa-fire"></i>
+                🔥 Fragmentos Colapsais
+            </h3>
+            <div class="deuses-grid">
+                
+                <!-- Vharok -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🎲</span>
+                        <div class="deus-nome">Vharok</div>
+                        <div class="deus-titulo">Deus do Caos</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Governa eventos imprevisíveis que ainda obedecem regras ocultas. Nada é aleatório de verdade sob seu olhar.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/vharok.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Maelira -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🏚️</span>
+                        <div class="deus-nome">Maelira</div>
+                        <div class="deus-titulo">Deusa da Ruína</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Nada colapsa de uma vez. Ela garante que toda queda seja lenta, dolorosa e inevitável.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/maelira.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Keth-Zul -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🎯</span>
+                        <div class="deus-nome">Keth-Zul</div>
+                        <div class="deus-titulo">Deus da Aposta</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Decide o destino de mundos por probabilidades. Civilizações inteiras são fichas em sua mesa.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/keth-zul.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ulthrenn -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🔄</span>
+                        <div class="deus-nome">Ulthrenn</div>
+                        <div class="deus-titulo">Deus da Adaptação</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Observa sistemas falhando e força a evolução. O que não se adapta… desaparece.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/ulthrenn.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dromek -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">💀</span>
+                        <div class="deus-nome">Dromek</div>
+                        <div class="deus-titulo">Deus do Colapso</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Representa o fim absoluto de sistemas que já cumpriram seu papel.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/dromek.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Entidades Temporais -->
+        <div class="categoria-container">
+            <h3 class="categoria-titulo">
+                <i class="fas fa-clock"></i>
+                ⏳ Entidades Temporais
+            </h3>
+            <div class="deuses-grid">
+
+                <!-- Aetron -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">📜</span>
+                        <div class="deus-nome">Aetron</div>
+                        <div class="deus-titulo">Deus do Passado</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Guarda eventos que não podem ser alterados, não importa o poder envolvido.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/aetron.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Lyris -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">⚡</span>
+                        <div class="deus-nome">Lyris</div>
+                        <div class="deus-titulo">Deusa do Presente</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Faz o "agora" oscilar. Regiões sob seu domínio mudam a cada segundo.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/lyris.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Veyron -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🌌</span>
+                        <div class="deus-nome">Veyron</div>
+                        <div class="deus-titulo">Deus dos Futuros</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Cada escolha cria um eco. Ele mantém vivos futuros que nunca acontecerão.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/veyron.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Noxis -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🌀</span>
+                        <div class="deus-nome">Noxis</div>
+                        <div class="deus-titulo">Deus das Falhas Temporais</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Governa paradoxos, loops infinitos e eras que nunca deveriam existir.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/noxis.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Deuses Espaciais -->
+        <div class="categoria-container">
+            <h3 class="categoria-titulo">
+                <i class="fas fa-globe-americas"></i>
+                🌌 Deuses Espaciais
+            </h3>
+            <div class="deuses-grid">
+
+                <!-- Kaelion -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🏔️</span>
+                        <div class="deus-nome">Kaelion</div>
+                        <div class="deus-titulo">Deus da Distância</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Decide o que é perto e o que é inalcançável, criando montanhas e mares separando o mundo de grandes objetivos.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/kaelion.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mirath -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🚪</span>
+                        <div class="deus-nome">Mirath</div>
+                        <div class="deus-titulo">Deusa dos Portais</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Cria passagens espontâneas, instáveis e perigosas entre planos.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/mirath.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Orthyx -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🔺</span>
+                        <div class="deus-nome">Orthýx</div>
+                        <div class="deus-titulo">Deus da Geometria Impossível</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Governa lugares que não seguem lógica tridimensional.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/orthyx.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Selvara -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🌐</span>
+                        <div class="deus-nome">Selvara</div>
+                        <div class="deus-titulo">Deusa dos Limites</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Define fronteiras entre mundos, planos e realidades.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/selvara.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nullion -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🌌</span>
+                        <div class="deus-nome">Nullion</div>
+                        <div class="deus-titulo">Deus do Vazio</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Reina no "nada" entre dimensões, onde coisas esquecidas sobrevivem.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/nullion.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Deuses Arcanos -->
+        <div class="categoria-container">
+            <h3 class="categoria-titulo">
+                <i class="fas fa-magic"></i>
+                ✨ Deuses Arcanos
+            </h3>
+            <div class="deuses-grid">
+
+                <!-- Aequora -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">⚖️</span>
+                        <div class="deus-nome">Aequora</div>
+                        <div class="deus-titulo">Deusa da Justiça</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Poder destinado a pessoas cujo o objetivo é ser justo, caso descumpra com essa deusa, a balança ira pender para o seu lado.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/aequora.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pyros -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🔥</span>
+                        <div class="deus-nome">Pyros</div>
+                        <div class="deus-titulo">Deus da Mana Bruta</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Poder puro, instável e destrutivo.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/pyros.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Elyndra -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🎵</span>
+                        <div class="deus-nome">Elyndra</div>
+                        <div class="deus-titulo">Deusa da Harmonia Arcana</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Mantém sistemas mágicos coexistindo sem colapsar.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/elyndra.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Thaumek -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🧬</span>
+                        <div class="deus-nome">Thaumek</div>
+                        <div class="deus-titulo">Deus da Mutação Mágica</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Faz magias evoluírem, falharem ou se tornarem aberrações.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/thaumek.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Vaal -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🏜️</span>
+                        <div class="deus-nome">Vaal</div>
+                        <div class="deus-titulo">Deus da Escassez</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Controla regiões onde a magia seca… ou explode.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/vaal.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Juízes do Fim -->
+        <div class="categoria-container">
+            <h3 class="categoria-titulo">
+                <i class="fas fa-gavel"></i>
+                ☠️ Juízes do Fim
+            </h3>
+            <div class="deuses-grid">
+
+                <!-- Mor'Kal -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🦕</span>
+                        <div class="deus-nome">Mor'Kal</div>
+                        <div class="deus-titulo">Deus da Extinção</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Apaga espécies inteiras quando se tornam uma ameaça cósmica.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/mor-kal.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Rhyssa -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🏛️</span>
+                        <div class="deus-nome">Rhyssa</div>
+                        <div class="deus-titulo">Deusa da Queda das Civilizações</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Faz impérios ruírem por dentro, não por guerra.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/rhyssa.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Helior -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🌅</span>
+                        <div class="deus-nome">Helior</div>
+                        <div class="deus-titulo">Deus da Purificação</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Reinicia mundos corrompidos demais para continuar.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/helior.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Anuvar -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🌱</span>
+                        <div class="deus-nome">Anuvar</div>
+                        <div class="deus-titulo">Deus do Recomeço Sombrio</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Do fim absoluto, ele planta a semente de algo novo… mas nunca puro.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/anuvar.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Malveth -->
+                <div class="deus-card">
+                    <div class="deus-cabecalho">
+                        <span class="deus-icone">🦠</span>
+                        <div class="deus-nome">Malveth</div>
+                        <div class="deus-titulo">Deus da Praga, Peste e Fome</div>
+                    </div>
+                    <div class="deus-descricao">
+                        <p>Aqueles que descumprem a vontade da Aequora são destinados ao mal corrompido, se aliando ao cavaleiro do apocalipse.</p>
+                    </div>
+                    <div class="deus-rodape">
+                        <a href="/sistema/deuses/malveth.html" class="btn-ver-mais">
+                            <i class="fas fa-eye"></i> Ver Mais
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Nota sobre as páginas individuais -->
+        <div class="introducao-deuses" style="margin-top: 40px; font-size: 0.9rem;">
+            <p><strong>Nota:</strong> Cada página individual dos deuses conterá informações detalhadas sobre:</p>
+            <ul style="text-align: left; display: inline-block; margin: 10px 0;">
+                <li>Domínios e áreas de influência</li>
+                <li>Símbolos e representações</li>
+                <li>Seguidores e cultos</li>
+                <li>Habilidades e bênçãos concedidas</li>
+                <li>Rituais e práticas devocionais</li>
+                <li>Histórias e mitos relacionados</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        // Efeitos interativos para os cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.deus-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Efeito para os botões "Ver Mais"
+            const buttons = document.querySelectorAll('.btn-ver-mais');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

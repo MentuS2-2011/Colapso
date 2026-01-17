@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <title>Classes - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Classes */
+        .classes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        /* Introdução */
+        .introducao-classes {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .introducao-classes h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        /* Filtro de tipos */
+        .filtro-container {
+            background-color: rgba(30, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            text-align: center;
+        }
+
+        .filtro-titulo {
+            color: #ff6666;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .filtro-botoes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-filtro {
+            background-color: rgba(60, 0, 0, 0.6);
+            color: #ff9999;
+            border: 2px solid #5a0000;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-filtro:hover, .btn-filtro.ativo {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            border-color: #ff3333;
+            transform: translateY(-3px);
+        }
+
+        /* Grid de Classes */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        /* Cards das Classes */
+        .classe-card {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .classe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
+            border-color: #ff3333;
+        }
+
+        .classe-cabecalho {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 2px solid #3a0000;
+            flex-shrink: 0;
+        }
+
+        .classe-icone {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+            color: #ff3333;
+        }
+
+        .classe-nome {
+            color: #ff3333;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .classe-tipo {
+            color: #ff9999;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .classe-descricao {
+            padding: 20px;
+            color: #dddddd;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .classe-descricao p {
+            margin-bottom: 0;
+        }
+
+        /* Botão Ver Detalhes */
+        .classe-rodape {
+            padding: 20px;
+            background-color: rgba(40, 0, 0, 0.7);
+            border-top: 2px solid #3a0000;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .btn-detalhes {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-detalhes:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6);
+            background: linear-gradient(45deg, #ff0000, #ff6666);
+        }
+
+        /* Botão voltar */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .classes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .classes-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .introducao-classes {
+                padding: 20px;
+            }
+            
+            .filtro-botoes {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-filtro {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .classe-card {
+                margin-bottom: 0;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .classes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .classe-icone {
+                font-size: 2rem;
+            }
+            
+            .classe-nome {
+                font-size: 1.2rem;
+            }
+            
+            .classe-descricao {
+                padding: 15px;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Home</div>
+        <a href="../index.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="classes-container">
+        <h2 class="titulo-pagina">⚔️ Classes do Colapso RPG</h2>
+        
+        <div class="introducao-classes">
+            <h3>Escolha seu Caminho no Mundo Pós-Colapso</h3>
+            <p>Cada classe representa um caminho único de sobrevivência e poder no mundo devastado. Escolha sabiamente, pois sua classe definirá suas habilidades, desafios e destino neste universo.</p>
+        </div>
+
+        <!-- Filtro de Tipos -->
+        <div class="filtro-container">
+            <h3 class="filtro-titulo">
+                <i class="fas fa-filter"></i>
+                Filtrar por Tipo
+            </h3>
+            <div class="filtro-botoes">
+                <button class="btn-filtro ativo" data-tipo="todos">
+                    <i class="fas fa-globe"></i>
+                    Todas as Classes
+                </button>
+                <button class="btn-filtro" data-tipo="arcana">
+                    <i class="fas fa-hat-wizard"></i>
+                    Arcanas
+                </button>
+                <button class="btn-filtro" data-tipo="combate">
+                    <i class="fas fa-fist-raised"></i>
+                    Combatentes
+                </button>
+            </div>
+        </div>
+
+        <!-- Grid de Classes -->
+        <div class="classes-grid">
+            
+            <!-- Alquimista -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-flask classe-icone"></i>
+                    <div class="classe-nome">Alquimista</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Mestres da transformação, os alquimistas combinam ingredientes raros para criar poções, elixires e substâncias mágicas.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/alquimista.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Artificer -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-cogs classe-icone"></i>
+                    <div class="classe-nome">Artificer</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Criadores e inventores, os artificers combinam magia e tecnologia para criar itens infusos e construtos mágicos.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/artificer.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bárbaro -->
+            <div class="classe-card" data-tipo="combate">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-fist-raised classe-icone"></i>
+                    <div class="classe-nome">Bárbaro</div>
+                    <div class="classe-tipo">Classe Combatente</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Canalizadores de fúria ancestral, os bárbaros entram em frenesi de combate, ignorando a dor e causando devastação.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/barbaro.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bardo -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-music classe-icone"></i>
+                    <div class="classe-nome">Bardo</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Mestres da palavra e da melodia, os bardos usam a magia através da arte, inspiração e charme para influenciar o mundo.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/bardo.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bruxo -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-eye classe-icone"></i>
+                    <div class="classe-nome">Bruxo</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Fazem pactos com entidades poderosas em troca de conhecimento e poder sobrenatural, seguindo um caminho perigoso.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/bruxo.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Clérigo -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-church classe-icone"></i>
+                    <div class="classe-nome">Clérigo</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Devotos de divindades maiores, os clérigos recebem poder através de sua fé e devoção, atuando como canais divinos.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/clerigo.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Druida -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-leaf classe-icone"></i>
+                    <div class="classe-nome">Druida</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Guardiões da natureza, os druidas canalizam o poder dos ciclos naturais e espíritos elementais para proteger o equilíbrio.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/druida.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feiticeiro -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-bolt classe-icone"></i>
+                    <div class="classe-nome">Feiticeiro</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Portadores de sangue mágico, os feiticeiros canalizam poder bruto através de sua linhagem inata e força de vontade.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/feiticeiro.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Guerreiro -->
+            <div class="classe-card" data-tipo="combate">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-shield-alt classe-icone"></i>
+                    <div class="classe-nome">Guerreiro</div>
+                    <div class="classe-tipo">Classe Combatente</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Mestres das artes marciais, os guerreiros dominam todas as formas de combate através de treinamento rigoroso e disciplina.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/guerreiro.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Ladino -->
+            <div class="classe-card" data-tipo="combate">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-user-secret classe-icone"></i>
+                    <div class="classe-nome">Ladino</div>
+                    <div class="classe-tipo">Classe Combatente</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Especialistas em furtividade e precisão, os ladinos atacam pelos pontos fracos e dominam habilidades práticas.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/ladino.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mago -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-hat-wizard classe-icone"></i>
+                    <div class="classe-nome">Mago</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Mestres do conhecimento arcano, os magos estudam os fundamentos da magia através de grimórios e pesquisas intensas.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/mago.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Monge -->
+            <div class="classe-card" data-tipo="combate">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-hand-rock classe-icone"></i>
+                    <div class="classe-nome">Monge</div>
+                    <div class="classe-tipo">Classe Combatente</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Discípulos da disciplina física e espiritual, os monges canalizam energia interior para combater com corpo e mente unidos.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/monge.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Paladino -->
+            <div class="classe-card" data-tipo="combate">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-medal classe-icone"></i>
+                    <div class="classe-nome">Paladino</div>
+                    <div class="classe-tipo">Classe Combatente</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Campeões da fé, os paladinos juram votos sagrados que lhes concedem poder divino para combater as forças do mal.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/paladino.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Ranger -->
+            <div class="classe-card" data-tipo="combate">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-crosshairs classe-icone"></i>
+                    <div class="classe-nome">Ranger</div>
+                    <div class="classe-tipo">Classe Combatente</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Exploradores e sobreviventes, os rangers dominam a arte da caça, rastreamento e sobrevivência nas terras selvagens.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/ranger.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Runomante -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-drafting-compass classe-icone"></i>
+                    <div class="classe-nome">Runomante</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Mestres das runas ancestrais, os runomantes gravam símbolos de poder que canalizam magia através de formas geométricas.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/runomante.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Xamã -->
+            <div class="classe-card" data-tipo="arcana">
+                <div class="classe-cabecalho">
+                    <i class="fas fa-feather-alt classe-icone"></i>
+                    <div class="classe-nome">Xamã</div>
+                    <div class="classe-tipo">Classe Arcana</div>
+                </div>
+                <div class="classe-descricao">
+                    <p>Intermediários entre o mundo físico e espiritual, os xamãs canalizam poderes ancestrais e espíritos guia em seus rituais.</p>
+                </div>
+                <div class="classe-rodape">
+                    <a href="/sistema/classes/xama.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Informações Complementares -->
+        <div class="introducao-classes" style="margin-top: 40px; text-align: left;">
+            <h3><i class="fas fa-info-circle"></i> Sobre as Classes</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background-color: rgba(40, 0, 0, 0.3); padding: 15px; border-radius: 8px; border-left: 3px solid #ff3333;">
+                    <h4 style="color: #ff6666; margin-bottom: 10px;"><i class="fas fa-hat-wizard"></i> Classes Arcanas</h4>
+                    <p style="font-size: 0.9rem;">Utilizam magia através de estudo, linhagem, pactos ou conexões divinas. Especialistas em poder mágico e controle.</p>
+                </div>
+                <div style="background-color: rgba(40, 0, 0, 0.3); padding: 15px; border-radius: 8px; border-left: 3px solid #00ccff;">
+                    <h4 style="color: #66e0ff; margin-bottom: 10px;"><i class="fas fa-fist-raised"></i> Classes Combatentes</h4>
+                    <p style="font-size: 0.9rem;">Mestres do combate físico, especializados em diferentes estilos de luta, furtividade ou resistência.</p>
+                </div>
+                <div style="background-color: rgba(40, 0, 0, 0.3); padding: 15px; border-radius: 8px; border-left: 3px solid #ffcc00;">
+                    <h4 style="color: #ffe066; margin-bottom: 10px;"><i class="fas fa-scroll"></i> Páginas Detalhadas</h4>
+                    <p style="font-size: 0.9rem;">Cada classe possui uma página completa com habilidades, progressão, subclasses e informações específicas.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Sistema de filtro
+        document.addEventListener('DOMContentLoaded', function() {
+            const filtroBotoes = document.querySelectorAll('.btn-filtro');
+            const classeCards = document.querySelectorAll('.classe-card');
+            
+            filtroBotoes.forEach(botao => {
+                botao.addEventListener('click', function() {
+                    // Remove classe ativo de todos os botões
+                    filtroBotoes.forEach(b => b.classList.remove('ativo'));
+                    
+                    // Adiciona classe ativo ao botão clicado
+                    this.classList.add('ativo');
+                    
+                    const tipoSelecionado = this.getAttribute('data-tipo');
+                    
+                    // Mostra/esconde cards baseado no filtro
+                    classeCards.forEach(card => {
+                        if (tipoSelecionado === 'todos' || card.getAttribute('data-tipo') === tipoSelecionado) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Efeitos interativos para os cards
+            classeCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Efeito para os botões "Ver Detalhes"
+            const buttons = document.querySelectorAll('.btn-detalhes');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Botão voltar hover effect
+            const voltarBtn = document.querySelector('.botao-voltar2 a');
+            const voltarTexto = document.querySelector('.botao-voltar2 .texto-botao');
+            
+            voltarBtn.addEventListener('mouseenter', function() {
+                voltarTexto.style.opacity = '1';
+                voltarTexto.style.transform = 'translateX(0)';
+            });
+            
+            voltarBtn.addEventListener('mouseleave', function() {
+                voltarTexto.style.opacity = '0';
+                voltarTexto.style.transform = 'translateX(-20px)';
+            });
+        });
+    </script>
+</body>
+</html>

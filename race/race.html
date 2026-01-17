@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <title>Raças - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página Raças */
+        .racas-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .titulo-pagina {
+            text-align: center;
+            color: #ff3333;
+            font-size: 2.5rem;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-pagina::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+        }
+
+        /* Introdução */
+        .introducao-racas {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            color: #dddddd;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .introducao-racas h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        /* Filtro de tipos */
+        .filtro-container {
+            background-color: rgba(30, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 2px solid #3a0000;
+            text-align: center;
+        }
+
+        .filtro-titulo {
+            color: #ff6666;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .filtro-botoes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-filtro {
+            background-color: rgba(60, 0, 0, 0.6);
+            color: #ff9999;
+            border: 2px solid #5a0000;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-filtro:hover, .btn-filtro.ativo {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            border-color: #ff3333;
+            transform: translateY(-3px);
+        }
+
+        /* Grid de Raças */
+        .racas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        /* Cards das Raças */
+        .raca-card {
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .raca-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
+            border-color: #ff3333;
+        }
+
+        .raca-cabecalho {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 2px solid #3a0000;
+            flex-shrink: 0;
+        }
+
+        .raca-icone {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+            color: #ff3333;
+        }
+
+        .raca-nome {
+            color: #ff3333;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .raca-tipo {
+            color: #ff9999;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .raca-descricao {
+            padding: 20px;
+            color: #dddddd;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .raca-descricao p {
+            margin-bottom: 0;
+        }
+
+        /* Botão Ver Detalhes */
+        .raca-rodape {
+            padding: 20px;
+            background-color: rgba(40, 0, 0, 0.7);
+            border-top: 2px solid #3a0000;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .btn-detalhes {
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.4);
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-detalhes:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6);
+            background: linear-gradient(45deg, #ff0000, #ff6666);
+        }
+
+        /* Botão voltar */
+        .botao-voltar2 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar2 a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar2 a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar2 .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar2:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Ajuste do título principal */
+        h1 {
+            margin-top: 40px !important;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .racas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .racas-container {
+                padding: 15px;
+            }
+            
+            .titulo-pagina {
+                font-size: 2rem;
+                margin-top: 50px;
+            }
+            
+            .introducao-racas {
+                padding: 20px;
+            }
+            
+            .filtro-botoes {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-filtro {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .raca-card {
+                margin-bottom: 0;
+            }
+            
+            .botao-voltar2 {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar2 a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            h1 {
+                margin-top: 50px !important;
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-pagina {
+                font-size: 1.7rem;
+                margin-top: 55px;
+            }
+            
+            .racas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .raca-icone {
+                font-size: 2rem;
+            }
+            
+            .raca-nome {
+                font-size: 1.2rem;
+            }
+            
+            .raca-descricao {
+                padding: 15px;
+            }
+            
+            .botao-voltar2 {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar2 a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar2 .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            h1 {
+                margin-top: 55px !important;
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar2">
+        <div class="texto-botao">Voltar para Sistema</div>
+        <a href="/sistema/home.sistema.html" title="Voltar para a página de sistema">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="racas-container">
+        <h2 class="titulo-pagina">🧬 Raças do Colapso RPG</h2>
+        
+        <div class="introducao-racas">
+            <h3>Escolha sua Origem no Mundo Pós-Colapso</h3>
+            <p>No universo devastado de Colapso, cada raça representa uma adaptação única à nova realidade. Escolha sua origem e descubra como sua herança racial moldará sua jornada neste mundo em ruínas.</p>
+        </div>
+
+        <!-- Filtro de Tipos -->
+        <div class="filtro-container">
+            <h3 class="filtro-titulo">
+                <i class="fas fa-filter"></i>
+                Filtrar por Tipo
+            </h3>
+            <div class="filtro-botoes">
+                <button class="btn-filtro ativo" data-tipo="todos">
+                    <i class="fas fa-globe"></i>
+                    Todas as Raças
+                </button>
+                <button class="btn-filtro" data-tipo="monstruosa">
+                    <i class="fas fa-ghost"></i>
+                    Monstruosas
+                </button>
+                <button class="btn-filtro" data-tipo="animalia">
+                    <i class="fas fa-paw"></i>
+                    Animalia
+                </button>
+                <button class="btn-filtro" data-tipo="mitica">
+                    <i class="fas fa-star"></i>
+                    Míticas
+                </button>
+            </div>
+        </div>
+
+        <!-- Grid de Raças -->
+        <div class="racas-grid">
+            
+            <!-- Aeonyx -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-hourglass-half raca-icone"></i>
+                    <div class="raca-nome">Aeonyx</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Seres temporais que existem simultaneamente em múltiplos pontos no tempo, percebendo o passado, presente e futuro como um todo contínuo.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/aeonyx.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Anão -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-hammer raca-icone"></i>
+                    <div class="raca-nome">Anão</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Robustos habitantes das montanhas, mestres da forja e da mineração, conhecidos por sua resistência e tradições ancestrais.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/anao.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Aarakocra -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-dove raca-icone"></i>
+                    <div class="raca-nome">Aarakocra</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Povo-ave de montanhas isoladas, possuem asas que lhes permitem voar e uma cultura baseada em clãs e hierarquias de voo.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/aarakocra.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Borvak -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-bear raca-icone"></i>
+                    <div class="raca-nome">Borvak</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Humanoides ursinos das florestas setentrionais, conhecidos por sua força física impressionante e natureza protetora.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/borvak.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bufonidae -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-frog raca-icone"></i>
+                    <div class="raca-nome">Bufonidae</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Anfíbios humanoides dos pântanos, adaptados a ambientes aquáticos e conhecidos por sua agilidade e visão noturna.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/bufonidae.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Draconato -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-dragon raca-icone"></i>
+                    <div class="raca-nome">Draconato</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Descendentes de dragões antigos, possuem escamas, resistência elemental e orgulho de sua linhagem draconiana.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/draconato.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Drocoquelons -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-shield-alt raca-icone"></i>
+                    <div class="raca-nome">Drocoquelons</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Humanoides quelonianos com carapaças naturais, extremamente resistentes e de natureza pacífica e contemplativa.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/drocoquelons.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Elemental -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-fire raca-icone"></i>
+                    <div class="raca-nome">Elemental</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Seres compostos de elementos puros, manifestações vivas de fogo, água, terra ou ar com poderes sobre seu elemento nativo.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/elemental.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Elfo -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-tree raca-icone"></i>
+                    <div class="raca-nome">Elfo</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Seres graciosos e longevos com profunda conexão com a natureza e a magia, habitantes das florestas ancestrais.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/elfo.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Esqueleto -->
+            <div class="raca-card" data-tipo="monstruosa">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-skull raca-icone"></i>
+                    <div class="raca-nome">Esqueleto</div>
+                    <div class="raca-tipo">Raça Monstruosa</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Mortos-vivos reanimados por magia necrótica, imunes a muitas formas de dano físico mas vulneráveis a energias positivas.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/esqueleto.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Goblin -->
+            <div class="raca-card" data-tipo="monstruosa">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-user-ninja raca-icone"></i>
+                    <div class="raca-nome">Goblin</div>
+                    <div class="raca-tipo">Raça Monstruosa</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Pequenos humanoides astutos e traiçoeiros, especialistas em armadilhas, emboscadas e sobrevivência em ambientes hostis.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/goblin.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Humano -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-user raca-icone"></i>
+                    <div class="raca-nome">Humano</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>A raça mais adaptável e versátil, os humanos prosperam através de sua diversidade, ambição e capacidade de inovação.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/humano.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Inferi -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-fire raca-icone"></i>
+                    <div class="raca-nome">Inferi</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Nativos dos planos infernais, resistentes ao fogo e dotados de habilidades relacionadas a pactos e magia infernal.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/inferi.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Leonim -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-crown raca-icone"></i>
+                    <div class="raca-nome">Leonim</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Humanoides leoninos das savanas, conhecidos por sua força majestosa, orgulho tribal e habilidades de liderança natural.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/leonim.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Loxodonte -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-elephant raca-icone"></i>
+                    <div class="raca-nome">Loxodonte</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Gigantes humanoides com características elefantinas, conhecidos por sua memória prodigiosa e força física colossal.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/loxodonte.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Minotauro -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-bull raca-icone"></i>
+                    <div class="raca-nome">Minotauro</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Humanoides bovinos com chifres poderosos, conhecidos por sua força bruta e senso de direção infalível em labirintos.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/minotauro.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Ogro -->
+            <div class="raca-card" data-tipo="monstruosa">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-giant raca-icone"></i>
+                    <div class="raca-nome">Ogro</div>
+                    <div class="raca-tipo">Raça Monstruosa</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Gigantes brutais e poderosos das montanhas, conhecidos por sua força física descomunal e apetite voraz.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/ogro.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Orc -->
+            <div class="raca-card" data-tipo="monstruosa">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-fist-raised raca-icone"></i>
+                    <div class="raca-nome">Orc</div>
+                    <div class="raca-tipo">Raça Monstruosa</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Guerreiros tribais de pele esverdeada, especializados em combate corpo a corpo e organização em clãs beligerantes.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/orc.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Rakshari -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-cat raca-icone"></i>
+                    <div class="raca-nome">Rakshari</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Humanoides felinos das selvas, conhecidos por sua agilidade, sentidos aguçados e natureza territorial.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/rakshari.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Ratfolk -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-rat raca-icone"></i>
+                    <div class="raca-nome">Ratfolk</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Pequenos humanoides roedores adaptados a viver em túneis e esgotos, conhecidos por sua engenhosidade e trabalho em equipe.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/ratfolk.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slime -->
+            <div class="raca-card" data-tipo="monstruosa">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-tint raca-icone"></i>
+                    <div class="raca-nome">Slime</div>
+                    <div class="raca-tipo">Raça Monstruosa</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Seres amorfos e gelatinosos que podem mudar de forma, resistentes a danos físicos e capazes de dissolver matéria orgânica.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/slime.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Thri-kreen -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-bug raca-icone"></i>
+                    <div class="raca-nome">Thri-kreen</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Humanoides insetoides do deserto com múltiplos membros, excelentes caçadores com comunicação telepática entre si.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/thri-kreen.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Vampiro -->
+            <div class="raca-card" data-tipo="mitica">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-moon raca-icone"></i>
+                    <div class="raca-nome">Vampiro</div>
+                    <div class="raca-tipo">Raça Mítica</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Imortais noturnos que se alimentam de sangue, possuindo habilidades sobrenaturais mas vulneráveis à luz do sol e objetos sagrados.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/vampiro.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Wargan -->
+            <div class="raca-card" data-tipo="animalia">
+                <div class="raca-cabecalho">
+                    <i class="fas fa-wolf raca-icone"></i>
+                    <div class="raca-nome">Wargan</div>
+                    <div class="raca-tipo">Raça Animalia</div>
+                </div>
+                <div class="raca-descricao">
+                    <p>Humanoides lupinos das terras geladas, com sentidos aguçados, trabalho em matilha e resistência ao frio extremo.</p>
+                </div>
+                <div class="raca-rodape">
+                    <a href="/sistema/racas/wargan.html" class="btn-detalhes">
+                        <i class="fas fa-scroll"></i> Ver Detalhes
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Informações Complementares -->
+        <div class="introducao-racas" style="margin-top: 40px; text-align: left;">
+            <h3><i class="fas fa-info-circle"></i> Sobre as Raças</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background-color: rgba(40, 0, 0, 0.3); padding: 15px; border-radius: 8px; border-left: 3px solid #ff3333;">
+                    <h4 style="color: #ff6666; margin-bottom: 10px;"><i class="fas fa-ghost"></i> Monstruosas</h4>
+                    <p style="font-size: 0.9rem;">Raças nascidas do caos e da magia corrompida, adaptadas para sobreviver nos ambientes mais hostis do mundo pós-colapso.</p>
+                </div>
+                <div style="background-color: rgba(40, 0, 0, 0.3); padding: 15px; border-radius: 8px; border-left: 3px solid #00ccff;">
+                    <h4 style="color: #66e0ff; margin-bottom: 10px;"><i class="fas fa-paw"></i> Animalia</h4>
+                    <p style="font-size: 0.9rem;">Humanoides com características animais, combinando instintos naturais com inteligência humana para prosperar na nova realidade.</p>
+                </div>
+                <div style="background-color: rgba(40, 0, 0, 0.3); padding: 15px; border-radius: 8px; border-left: 3px solid #ffcc00;">
+                    <h4 style="color: #ffe066; margin-bottom: 10px;"><i class="fas fa-star"></i> Míticas</h4>
+                    <p style="font-size: 0.9rem;">Raças ancestrais com conexões mágicas profundas, guardiãs de conhecimentos antigos e portadoras de dons sobrenaturais.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Sistema de filtro
+        document.addEventListener('DOMContentLoaded', function() {
+            const filtroBotoes = document.querySelectorAll('.btn-filtro');
+            const racaCards = document.querySelectorAll('.raca-card');
+            
+            filtroBotoes.forEach(botao => {
+                botao.addEventListener('click', function() {
+                    // Remove classe ativo de todos os botões
+                    filtroBotoes.forEach(b => b.classList.remove('ativo'));
+                    
+                    // Adiciona classe ativo ao botão clicado
+                    this.classList.add('ativo');
+                    
+                    const tipoSelecionado = this.getAttribute('data-tipo');
+                    
+                    // Mostra/esconde cards baseado no filtro
+                    racaCards.forEach(card => {
+                        if (tipoSelecionado === 'todos' || card.getAttribute('data-tipo') === tipoSelecionado) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Efeitos interativos para os cards
+            racaCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Efeito para os botões "Ver Detalhes"
+            const buttons = document.querySelectorAll('.btn-detalhes');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Botão voltar hover effect
+            const voltarBtn = document.querySelector('.botao-voltar2 a');
+            const voltarTexto = document.querySelector('.botao-voltar2 .texto-botao');
+            
+            voltarBtn.addEventListener('mouseenter', function() {
+                voltarTexto.style.opacity = '1';
+                voltarTexto.style.transform = 'translateX(0)';
+            });
+            
+            voltarBtn.addEventListener('mouseleave', function() {
+                voltarTexto.style.opacity = '0';
+                voltarTexto.style.transform = 'translateX(-20px)';
+            });
+        });
+    </script>
+</body>
+</html>
