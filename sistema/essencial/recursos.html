@@ -781,7 +781,7 @@
                 <div class="formula-item">
                     <h4><i class="fas fa-heartbeat"></i> Fórmula de Pontos de Vida</h4>
                     <div class="formula-equacao">
-                        PV = [(Valor da Raça + Valor da Classe + (Constituição × 5) + Vitalidade) + (Ganho da Raça por Nível + Ganho da Classe por Nível) × (Nível - 1)] × 2
+                        PV = [(Valor da Raça + Valor da Classe + (Constituição × 5) + Vitalidade) + (Ganho da Raça por Nível + Ganho da Classe por Nível) × (Nível - 1)]
                     </div>
                 </div>
                 
@@ -795,7 +795,7 @@
                 <div class="formula-item">
                     <h4><i class="fas fa-shield-alt"></i> Fórmula de Pontos de Resistência</h4>
                     <div class="formula-equacao">
-                        PR = (Valor da Raça + Valor da Classe + Constituição + Resistência) + (Ganho da Raça por Nível + Ganho da Classe por Nível) × (Nível - 1)
+                        PR = (Valor da Raça + Valor da Classe + Resistência) + (Ganho da Raça por Nível + Ganho da Classe por Nível) × (Nível - 1) - 1
                     </div>
                 </div>
             </div>
@@ -804,7 +804,6 @@
                 <strong>Notas importantes:</strong><br>
                 1. Cada ponto de <strong>Constituição</strong> adiciona <strong>5 PV</strong> ao cálculo.<br>
                 2. O ganho por nível é calculado multiplicando o ganho por nível (PV/Nível, MP/Nível) por (Nível - 1).<br>
-                3. Os <strong>Pontos de Vida (PV)</strong> são multiplicados por 2 no cálculo final.
             </div>
             
             <form id="calculadora-form" class="form-calculadora">
@@ -1022,7 +1021,7 @@
                 // Cálculos base (nível 1)
                 const basePv = dadosRaca.pv + dadosClasse.pv + (constituicao * 5) + vitalidade;
                 const basePm = dadosRaca.mp + dadosClasse.mp + inteligencia + arcanismo;
-                const basePr = dadosRaca.pr + dadosClasse.pr + constituicao + resistencia;
+                const basePr = dadosRaca.pr + dadosClasse.pr + resistencia - 1;
                 
                 // Ganho por nível
                 const ganhoPvNivel = (dadosRaca.pvPorNivel + dadosClasse.pvPorNivel) * ganhoPorNivel;
@@ -1035,7 +1034,7 @@
                 const totalPr = basePr + ganhoPrNivel;
                 
                 // Aplicar multiplicação dos PV por 2
-                const pvFinal = totalPv * 2;
+                const pvFinal = totalPv;
                 const pmFinal = totalPm;
                 const prFinal = totalPr;
                 
@@ -1046,7 +1045,7 @@
                 
                 // Exibir detalhes do cálculo
                 document.getElementById('detalhe-pv').innerHTML = 
-                    `Base: ${basePv} + Ganho por Nível: ${ganhoPvNivel} = ${totalPv} × 2`;
+                    `Base: ${basePv} + Ganho por Nível: ${ganhoPvNivel} = ${totalPv}`;
                 
                 document.getElementById('detalhe-pm').innerHTML = 
                     `Base: ${basePm} + Ganho por Nível: ${ganhoPmNivel} = ${totalPm}`;

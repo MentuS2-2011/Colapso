@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/style/sistema.css">
+    <link rel="icon" href="/assets/icon/Colapso.jpeg" type="image/jpeg">
+    <title>Humano - Colapso RPG</title>
+    <style>
+        /* Estilos específicos para a página de raça */
+        .raca-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Cabeçalho com imagem */
+        .cabecalho-raca {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0 40px 0;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .info-titulo {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .titulo-raca {
+            color: #ff3333;
+            font-size: 3rem;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .titulo-raca::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff0000, transparent);
+        }
+
+        .descricao-raca {
+            color: #cccccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            text-align: justify;
+        }
+
+        .imagem-raca-container {
+            flex: 0 0 300px;
+            position: relative;
+        }
+
+        .imagem-raca {
+            width: 100%;
+            height: 350px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 3px solid #8b0000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.4s ease;
+        }
+
+        .imagem-raca:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3);
+            border-color: #ff3333;
+        }
+
+        .credito-imagem {
+            position: absolute;
+            bottom: -25px;
+            right: 10px;
+            background-color: rgba(20, 20, 20, 0.9);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Botão voltar */
+        .botao-voltar-raca {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .botao-voltar-raca a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #8b0000;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid #ff3333;
+        }
+
+        .botao-voltar-raca a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .botao-voltar-raca .texto-botao {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 1px solid #8b0000;
+            pointer-events: none;
+        }
+
+        .botao-voltar-raca:hover .texto-botao {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Seção de informações básicas */
+        .info-basica {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .info-card {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.3);
+            border-color: #ff3333;
+        }
+
+        .info-card-titulo {
+            color: #ff3333;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #5a0000;
+            padding-bottom: 8px;
+        }
+
+        .info-card-conteudo {
+            color: #dddddd;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .valor-destaque {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Seção de atributos */
+        .atributos-section {
+            background-color: rgba(30, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #5a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .atributos-section h3 {
+            color: #ff3333;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .atributos-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .atributo-item {
+            background-color: rgba(40, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #ff3333;
+        }
+
+        .atributo-item h4 {
+            color: #ff6666;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .atributo-item p {
+            color: #dddddd;
+            line-height: 1.6;
+        }
+
+        .atributo-positivo {
+            color: #00ff88 !important;
+            font-weight: 500;
+        }
+
+        .atributo-negativo {
+            color: #ff6666 !important;
+            font-weight: 500;
+        }
+
+        /* Seção de limites */
+        .limites-section {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .limites-section h3 {
+            color: #ff3333;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tabela-limites {
+            width: 100%;
+            border-collapse: collapse;
+            color: #dddddd;
+            margin-top: 20px;
+        }
+
+        .tabela-limites th {
+            background-color: rgba(60, 0, 0, 0.8);
+            color: #ff6666;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid #8b0000;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabela-limites td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #5a0000;
+            text-align: center;
+        }
+
+        .tabela-limites tr:nth-child(even) {
+            background-color: rgba(30, 0, 0, 0.3);
+        }
+
+        .tabela-limites tr:hover {
+            background-color: rgba(60, 0, 0, 0.5);
+        }
+
+        .nivel-destaque {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Seção de habilidades */
+        .habilidades-section {
+            margin: 40px 0;
+        }
+
+        .habilidades-section h3 {
+            color: #ff3333;
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 40px 0 25px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tipo-habilidade {
+            color: #ff6666;
+            font-size: 1.8rem;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8b0000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nivel-habilidade {
+            color: #00ff88;
+            font-size: 1.4rem;
+            margin: 25px 0 15px 20px;
+            padding-left: 20px;
+            border-left: 3px solid #ff3333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .container-habilidades {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 20px 0 40px 0;
+        }
+
+        .habilidade-card {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #3a0000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .habilidade-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 0, 0, 0.4);
+            border-color: #ff0000;
+        }
+
+        .habilidade-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #8b0000, #ff0000, #8b0000);
+        }
+
+        .cabecalho-habilidade {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #5a0000;
+        }
+
+        .nome-habilidade {
+            color: #ff3333;
+            font-size: 1.4rem;
+            margin: 0;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .numero-habilidade {
+            background-color: #8b0000;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .descricao-habilidade {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .efeitos-habilidade {
+            margin-top: 15px;
+        }
+
+        .efeito-item {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .efeito-positivo {
+            background-color: rgba(0, 60, 0, 0.3);
+            border-left: 3px solid #00ff88;
+        }
+
+        .efeito-negativo {
+            background-color: rgba(60, 0, 0, 0.3);
+            border-left: 3px solid #ff3333;
+        }
+
+        .efeito-custo {
+            background-color: rgba(0, 0, 60, 0.3);
+            border-left: 3px solid #0088ff;
+        }
+
+        .icone-efeito {
+            font-size: 1rem;
+            min-width: 20px;
+        }
+
+        .texto-efeito {
+            color: #dddddd;
+            line-height: 1.5;
+        }
+
+        .texto-positivo {
+            color: #00ff88;
+        }
+
+        .texto-negativo {
+            color: #ff6666;
+        }
+
+        .texto-custo {
+            color: #0088ff;
+        }
+
+        /* Seção de deuses */
+        .deuses-section {
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #3a0000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .deuses-section h3 {
+            color: #ff3333;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .lista-deuses {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .deus-item {
+            background-color: rgba(40, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 15px 25px;
+            border: 1px solid #8b0000;
+            color: #ff9999;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .deus-item:hover {
+            background-color: rgba(60, 0, 0, 0.8);
+            transform: scale(1.05);
+            border-color: #ff3333;
+            color: #ff6666;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .cabecalho-raca {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .titulo-raca::after {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 300px;
+            }
+            
+            .imagem-raca-container {
+                order: -1;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .imagem-raca {
+                height: 300px;
+            }
+            
+            .info-titulo {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .raca-container {
+                padding: 15px;
+            }
+            
+            .titulo-raca {
+                font-size: 2.2rem;
+                margin-top: 60px;
+            }
+            
+            .imagem-raca {
+                height: 250px;
+            }
+            
+            .info-basica {
+                grid-template-columns: 1fr;
+            }
+            
+            .container-habilidades {
+                grid-template-columns: 1fr;
+            }
+            
+            .atributos-lista {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabela-limites {
+                font-size: 0.9rem;
+            }
+            
+            .tabela-limites th,
+            .tabela-limites td {
+                padding: 10px 8px;
+            }
+            
+            .botao-voltar-raca {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .botao-voltar-raca a {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .botao-voltar-raca .texto-botao {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            .habilidade-card {
+                padding: 20px;
+            }
+            
+            .nome-habilidade {
+                font-size: 1.2rem;
+            }
+            
+            .nivel-habilidade {
+                font-size: 1.2rem;
+            }
+            
+            .tipo-habilidade {
+                font-size: 1.5rem;
+            }
+            
+            .lista-deuses {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .descricao-raca {
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-raca {
+                font-size: 1.8rem;
+                margin-top: 70px;
+            }
+            
+            .imagem-raca {
+                height: 200px;
+            }
+            
+            .info-card {
+                padding: 20px;
+            }
+            
+            .atributos-section,
+            .limites-section,
+            .deuses-section {
+                padding: 20px;
+            }
+            
+            .tabela-limites {
+                font-size: 0.8rem;
+            }
+            
+            .tabela-limites th,
+            .tabela-limites td {
+                padding: 8px 5px;
+            }
+            
+            .botao-voltar-raca {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .botao-voltar-raca a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .botao-voltar-raca .texto-botao {
+                font-size: 0.75rem;
+                padding: 5px 10px;
+            }
+            
+            .habilidade-card {
+                padding: 15px;
+            }
+            
+            .cabecalho-habilidade {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .numero-habilidade {
+                align-self: flex-start;
+            }
+            
+            .descricao-habilidade {
+                font-size: 0.9rem;
+            }
+            
+            .imagem-raca-container {
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .imagem-raca {
+                height: 301px;
+            }
+            
+            .titulo-raca {
+                font-size: 1.6rem;
+            }
+            
+            .container-habilidades {
+                grid-template-columns: 1fr;
+            }
+            
+            .imagem-raca-container {
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Colapso RPG</h1>
+
+    <!-- Botão Voltar -->
+    <div class="botao-voltar-raca">
+        <div class="texto-botao">Voltar para raça</div>
+        <a href="../race.html" title="Voltar para página de status">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="raca-container">
+        <!-- Cabeçalho com Imagem -->
+        <div class="cabecalho-raca">
+            <div class="info-titulo">
+                <h2 class="titulo-raca">🧔 Humano</h2>
+                <p class="descricao-raca">
+                    Os humanos são a raça mais versátil e adaptável de Colapso RPG. Com sua determinação inabalável e capacidade de sobreviver em qualquer ambiente, 
+                    eles conquistaram seu lugar no mundo através de pura perseverança. Apesar de um passado sombrio, os humanos continuam a evoluir e superar desafios.
+                </p>
+            </div>
+            
+            <div class="imagem-raca-container">
+                <img src="/assets/image/humano" alt="Humano - Colapso RPG" class="imagem-raca">
+                <div class="credito-imagem">Imagem: Humano</div>
+            </div>
+        </div>
+        
+        <!-- Informações Básicas -->
+        <div class="info-basica">
+            <div class="info-card">
+                <h3 class="info-card-titulo"><i class="fas fa-heartbeat"></i> Pontos de Vida</h3>
+                <p class="info-card-conteudo">
+                    <span class="valor-destaque">15</span> PV (Pontos de Vida)<br>
+                    <span class="valor-destaque">+3</span> PVN (por Nível)
+                </p>
+            </div>
+            
+            <div class="info-card">
+                <h3 class="info-card-titulo"><i class="fas fa-gem"></i> Pontos de Mana</h3>
+                <p class="info-card-conteudo">
+                    <span class="valor-destaque">5</span> PM (Pontos de Mana)<br>
+                    <span class="valor-destaque">+2</span> PMN (por Nível)
+                </p>
+            </div>
+            
+            <div class="info-card">
+                <h3 class="info-card-titulo"><i class="fas fa-shield-alt"></i> Resistência</h3>
+                <p class="info-card-conteudo">
+                    <span class="valor-destaque">1</span> PR (Pontos de Resistência)<br>
+                    <span class="valor-destaque">6</span> NPR (Nível de Proteção Racial)
+                </p>
+            </div>
+            
+            <div class="info-card">
+                <h3 class="info-card-titulo"><i class="fas fa-running"></i> Mobilidade</h3>
+                <p class="info-card-conteudo">
+                    <span class="valor-destaque">10m</span> Deslocamento
+                </p>
+            </div>
+        </div>
+        
+        <!-- Atributos -->
+        <div class="atributos-section">
+            <h3><i class="fas fa-chart-bar"></i> Atributos Raciais</h3>
+            <div class="atributos-lista">
+                <div class="atributo-item">
+                    <h4>Bônus de Atributo</h4>
+                    <p><span class="atributo-positivo">+1 em três atributos diferentes (à escolha)</span></p>
+                    <p>Escolha três dos seis status (Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma) para receber +1 ponto cada.</p>
+                </div>
+                
+                <div class="atributo-item">
+                    <h4>Penalidade de Atributo</h4>
+                    <p><span class="atributo-negativo">-1 em um atributo (à escolha)</span></p>
+                    <p>Escolha um dos seis status para receber -1 ponto. Pode ser usado para ganhar pontos extras na criação de personagem.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Deuses -->
+        <div class="deuses-section">
+            <h3><i class="fas fa-church"></i> Deuses do Humano</h3>
+            <p style="text-align: center; color: #cccccc; margin-bottom: 20px;">Os humanos podem seguir um destes deuses:</p>
+            <div class="lista-deuses">
+                <div class="deus-item">Vharok</div>
+                <div class="deus-item">Keth-Zul</div>
+                <div class="deus-item">Ulthrenn</div>
+                <div class="deus-item">Vaal</div>
+            </div>
+        </div>
+        
+        <!-- Limites de Habilidade -->
+        <div class="limites-section">
+            <h3><i class="fas fa-expand-arrows-alt"></i> Limites de Espaços de Habilidade</h3>
+            <table class="tabela-limites">
+                <thead>
+                    <tr>
+                        <th>Nível</th>
+                        <th>Habilidades Ativas</th>
+                        <th>Habilidades Passivas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="nivel-destaque">Nível 1</td>
+                        <td>+1 espaço</td>
+                        <td>+1 espaço</td>
+                    </tr>
+                    <tr>
+                        <td class="nivel-destaque">Nível 2</td>
+                        <td>+1 espaço</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td class="nivel-destaque">Nível 3</td>
+                        <td>-</td>
+                        <td>+1 espaço</td>
+                    </tr>
+                    <tr>
+                        <td class="nivel-destaque">Nível 10</td>
+                        <td>+1 espaço</td>
+                        <td>+1 espaço</td>
+                    </tr>
+                    <tr>
+                        <td class="nivel-destaque">Nível 11</td>
+                        <td>+1 espaço</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td class="nivel-destaque">Nível 12</td>
+                        <td>-</td>
+                        <td>+1 espaço</td>
+                    </tr>
+                                        <tr>
+                        <td class="nivel-destaque">Nível 20</td>
+                        <td>+1 espaço</td>
+                        <td>+1 espaço</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Habilidades -->
+        <div class="habilidades-section">
+            <h3><i class="fas fa-star"></i> Habilidades da Raça Humano</h3>
+            
+            <!-- Habilidades Passivas -->
+            <h4 class="tipo-habilidade"><i class="fas fa-shield-alt"></i> Habilidades Passivas</h4>
+            
+            <!-- Nível 1 -->
+            <h5 class="nivel-habilidade"><i class="fas fa-level-up-alt"></i> Nível 1</h5>
+            <div class="container-habilidades">
+                
+                <!-- Habilidade 1 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">Essência Humana</h4>
+                        <div class="numero-habilidade">1</div>
+                    </div>
+                    <p class="descricao-habilidade">O humano em seu físico não demonstra ameaça mas o seu passado assustam raças que sofreram pela mão deles, mesmo os mesmos humanos não lembrando.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">+3 em intimidação</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">-3 em história</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Habilidade 2 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">Corpo Adaptável</h4>
+                        <div class="numero-habilidade">2</div>
+                    </div>
+                    <p class="descricao-habilidade">O corpo humano se ajusta rapidamente a ambientes hostis e esforços repetitivos.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">Ignora a primeira penalidade causado por Fadiga física.</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">O próximo ataque vai ter desvantagem de Fadiga com bônus de +1 (após esse bônus ser aplicado, o efeito da fadiga volta ao normal sem o +1)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Habilidade 3 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">Sono Pesado</h4>
+                        <div class="numero-habilidade">3</div>
+                    </div>
+                    <p class="descricao-habilidade">Dormir é bom demais para você.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">+1d4 de recuperação de vida por descanso</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">-1d4 de vida máxima (O valor é rolado uma única vez ao escolher a habilidade.)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Habilidade 4 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">Herdeiros de um Passado Sombrio</h4>
+                        <div class="numero-habilidade">4</div>
+                    </div>
+                    <p class="descricao-habilidade">Desde sempre criando, roubando e escravizando, então você se pergunta por que não gostam de você, irônico.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">+50% de kyros iniciais</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">-3 em persuasão</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5 class="nivel-habilidade"><i class="fas fa-level-up-alt"></i> Nível 5</h5>
+            <div class="container-habilidades">
+                
+                <!-- Habilidade 1 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">Essência Humana</h4>
+                        <div class="numero-habilidade">1</div>
+                    </div>
+                    <p class="descricao-habilidade">O humano em seu físico não demonstra ameaça mas o seu passado assustam raças que sofreram pela mão deles, mesmo os mesmos humanos não lembrando.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">+3 em intimidação</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">-3 em história</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Habilidades Ativas -->
+            <h4 class="tipo-habilidade"><i class="fas fa-bolt"></i> Habilidades Ativas</h4>
+            
+            <!-- Nível 1 -->
+            <h5 class="nivel-habilidade"><i class="fas fa-level-up-alt"></i> Nível 1</h5>
+            <div class="container-habilidades">
+                
+                <!-- Habilidade 1 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">Determinação Teimosa</h4>
+                        <div class="numero-habilidade">1</div>
+                    </div>
+                    <p class="descricao-habilidade">A teimosia humana se transforma em força quando tudo parece perdido.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">Vantagem pessoal (só funciona com o usuário) de +5 em teste de ataque ou salvamento de um parceiro</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">Até o fim do próximo turno sofre em -2 PR</span>
+                        </div>
+                        <div class="efeito-item efeito-custo">
+                            <i class="fas fa-bolt icone-efeito"></i>
+                            <span class="texto-efeito texto-custo">Custo: 2 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Habilidade 2 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">O Ancestral</h4>
+                        <div class="numero-habilidade">2</div>
+                    </div>
+                    <p class="descricao-habilidade">Recebe uma bênção dos antigos ancestrais.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">+1 dado do mesmo tipo de dano com classes: Bárbaro, Xamã, Feiticeiro, Guerreiro OU Druida</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">Esta habilidade perde efeito quando usa multiclasse</span>
+                        </div>
+                        <div class="efeito-item efeito-custo">
+                            <i class="fas fa-bolt icone-efeito"></i>
+                            <span class="texto-efeito texto-custo">Custo: 2 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Habilidade 3 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">Instinto de Sobrevivente</h4>
+                        <div class="numero-habilidade">3</div>
+                    </div>
+                    <p class="descricao-habilidade">Anos de guerras e desgraças ensinaram os humanos a reagir antes mesmo de pensar.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">Quando sofrer dano, pode ativar para reduzir o dano em 1d8 + PR. Se o dano for reduzido a 0, você pode dar 1 ataque desarmado imediato contra o agressor.</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">O seu PR vai ser somado no próximo dano</span>
+                        </div>
+                        <div class="efeito-item efeito-custo">
+                            <i class="fas fa-bolt icone-efeito"></i>
+                            <span class="texto-efeito texto-custo">Custo: 3 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="nivel-habilidade"><i class="fas fa-level-up-alt"></i> Nível 5</h5>
+                <!-- Habilidade 2 -->
+                <div class="habilidade-card">
+                    <div class="cabecalho-habilidade">
+                        <h4 class="nome-habilidade">O Ancestral</h4>
+                        <div class="numero-habilidade">2</div>
+                    </div>
+                    <p class="descricao-habilidade">Recebe uma bênção dos antigos ancestrais.</p>
+                    <div class="efeitos-habilidade">
+                        <div class="efeito-item efeito-positivo">
+                            <i class="fas fa-plus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-positivo">+1 dado do mesmo tipo de dano com classes: Bárbaro, Xamã, Feiticeiro, Guerreiro OU Druida</span>
+                        </div>
+                        <div class="efeito-item efeito-negativo">
+                            <i class="fas fa-minus-circle icone-efeito"></i>
+                            <span class="texto-efeito texto-negativo">Esta habilidade perde efeito quando usa multiclasse</span>
+                        </div>
+                        <div class="efeito-item efeito-custo">
+                            <i class="fas fa-bolt icone-efeito"></i>
+                            <span class="texto-efeito texto-custo">Custo: 2 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+        
+        <!-- Nota de Fim -->
+        <div style="text-align: center; margin: 50px 0 30px 0; padding: 20px; border-top: 1px solid #5a0000;">
+            <p style="color: #aaaaaa; font-style: italic;">
+                <i class="fas fa-info-circle"></i> Lembre-se: Os humanos são versáteis e adaptáveis. Suas escolhas de atributos e habilidades definem que tipo de humano você será no mundo de Colapso RPG.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar efeitos interativos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efeito de hover nas cartas de habilidade
+            const habilidadeCards = document.querySelectorAll('.habilidade-card');
+            
+            habilidadeCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const numero = this.querySelector('.numero-habilidade');
+                    if (numero) {
+                        numero.style.transform = 'scale(1.2) rotate(10deg)';
+                        numero.style.transition = 'transform 0.3s ease';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const numero = this.querySelector('.numero-habilidade');
+                    if (numero) {
+                        numero.style.transform = 'scale(1) rotate(0deg)';
+                    }
+                });
+            });
+            
+            // Efeito nas cartas de informação
+            const infoCards = document.querySelectorAll('.info-card');
+            
+            infoCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.info-card-titulo i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.2)';
+                        icon.style.transition = 'transform 0.3s ease';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.info-card-titulo i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                    }
+                });
+            });
+            
+            // Efeito nos itens de deuses
+            const deusItems = document.querySelectorAll('.deus-item');
+            
+            deusItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(255, 0, 0, 0.3)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // Efeito na imagem do humano
+            const imagemHumano = document.querySelector('.imagem-raca');
+            if (imagemHumano) {
+                imagemHumano.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.1) contrast(1.1)';
+                });
+                
+                imagemHumano.addEventListener('mouseleave', function() {
+                    this.style.filter = 'brightness(1) contrast(1)';
+                });
+                
+                // Tratamento de erro para imagem não encontrada
+                imagemHumano.addEventListener('error', function() {
+                    console.warn('Imagem do humano não encontrada em: /assets/image/humano.jpeg');
+                    this.src = 'https://via.placeholder.com/400x500/8b0000/ffffff?text=Humano+Colapso+RPG';
+                    this.alt = 'Imagem de placeholder - Humano';
+                });
+            }
+            
+            // Adicionar rolagem suave para âncoras
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
